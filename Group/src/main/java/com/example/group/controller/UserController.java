@@ -6,11 +6,13 @@ import com.example.group.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -22,10 +24,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Secured("ROLE_ADMIN")
+    //  @Secured("ROLE_ADMIN")
     @GetMapping("/getAll")
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @GetMapping("/user")
+    public String getUsers() {
+        return "Role user";
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String getAdmin() {
+        return "Role admin";
+    }
+    @GetMapping("/all")
+    public String getAll() {
+        return "Public";
     }
 
     @PostMapping("/add")
@@ -61,8 +78,6 @@ public class UserController {
         user.setUsername(userDetails.getUsername());
         user.setPassword(userDetails.getPassword());
         user.setEmail(userDetails.getEmail());
-        user.setQuestion(userDetails.getQuestion());
-        user.setAnswer(userDetails.getAnswer());
         user.setRole(userDetails.getRole());
 
         User updatedUser = userService.saveUser(user);

@@ -38,8 +38,9 @@ public class Project {
     private Date updateTime;*/
 
 	@JsonBackReference
-    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-			 CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(
+//    		cascade= {CascadeType.ALL}
+    )
     @JoinColumn(name="user_id")
     private User user;
 

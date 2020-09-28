@@ -11,7 +11,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
+@Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "username"
         }),
@@ -24,9 +24,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank
-    @Size(max = 40)
-    private String name;
+
 
     @NotBlank
     @Size(max = 15)
@@ -42,13 +40,6 @@ public class User {
     @Size(max = 100)
     private String password;
 
-    @Column
-    @Size(max = 200)
-    private String question;
-
-    @Column
-    @Size(max = 200)
-    private String answer;
 
     @Column
     @Size(max = 100)
@@ -61,7 +52,7 @@ public class User {
     private List<Project> projects;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
+    @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
@@ -70,15 +61,12 @@ public class User {
 
     }
 
-    public User(@NotBlank @Size(max = 40) String name, @NotBlank @Size(max = 15) String username,
-                @NotBlank @Size(max = 40) @Email String email, @NotBlank @Size(max = 100) String password,
-                @Size(max = 200) String question, @Size(max = 200) String answer, @Size(max = 100) String role) {
-        this.name = name;
+    public User( @NotBlank @Size(max = 15) String username,
+                 @NotBlank @Size(max = 40) @Email String email, @NotBlank @Size(max = 100) String password, @Size(max = 100) String role) {
+
         this.username = username;
         this.email = email;
         this.password = password;
-        this.question = question;
-        this.answer = answer;
         this.role = role;
     }
 
@@ -98,13 +86,6 @@ public class User {
         this.username = username;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getEmail() {
         return email;
@@ -122,21 +103,7 @@ public class User {
         this.password = password;
     }
 
-    public String getQuestion() {
-        return question;
-    }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
 
     public String getRole() {
         return role;

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class UserPrincipal implements UserDetails {
     private int id;
 
-    private String name;
+
 
     private String username;
 
@@ -24,11 +24,6 @@ public class UserPrincipal implements UserDetails {
     @JsonIgnore
     private String password;
 
-    @JsonIgnore
-    private String question;
-
-    @JsonIgnore
-    private String answer;
 
 
     private String role;
@@ -36,14 +31,12 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(int id, String name, String username, String email, String password, String question, String answer, String role, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(int id, String username, String email, String password,  String role, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.name = name;
+
         this.username = username;
         this.email = email;
         this.password = password;
-        this.question = question;
-        this.answer = answer;
         this.role = role;
         this.authorities = authorities;
     }
@@ -55,12 +48,9 @@ public class UserPrincipal implements UserDetails {
 
         return new UserPrincipal(
                 user.getId(),
-                user.getName(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getQuestion(),
-                user.getAnswer(),
                 user.getRole(),
                 authorities
         );
@@ -68,10 +58,6 @@ public class UserPrincipal implements UserDetails {
 
     public int getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getEmail() {
@@ -88,13 +74,6 @@ public class UserPrincipal implements UserDetails {
         return password;
     }
 
-    public String getQuestion() {
-        return question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
 
     public String getRole() {
         return role;
