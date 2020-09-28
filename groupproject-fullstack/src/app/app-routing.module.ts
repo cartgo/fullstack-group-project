@@ -9,6 +9,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './auth/profile/profile.component';
 
 import { ProjectComponent } from './project/project.component';
+import { ResourceComponent } from '../app/resource/resource.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  {path:'project',component:ProjectComponent}
+  {path:'project',component:ProjectComponent},
+  { path: 'resource', component: ResourceComponent }
 
 ];
 
