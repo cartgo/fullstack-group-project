@@ -1,0 +1,33 @@
+<div class="container">
+  <p>Resource table</p>
+  <p>{{ listResource }}</p>
+  <table class="resource_table">
+    <thead>
+      <tr>
+        <th class="">resource_code</th>
+        <th class="">resource_name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        id="addRowsBelow"
+        *ngFor="
+          let resource of listResource;
+          let i = index;
+          let o = odd;
+          let e = even
+        "
+        [ngClass]="{ odd: o, even: e }"
+        id="{{ resource.resourceCode }}"
+      >
+        <td><input type="text" [value]="resource.resourceCode" /></td>
+        <td><input type="text" [value]="resource.resourceName" /></td>
+        <!-- <td>{{ resource.resourceName }}</td> -->
+      </tr>
+      <div>
+        <button (click)="addRow()">add row</button>
+      </div>
+    </tbody>
+  </table>
+</div>
+<!-- <router-outlet></router-outlet> -->
