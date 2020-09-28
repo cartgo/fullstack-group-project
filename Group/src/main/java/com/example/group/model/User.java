@@ -62,7 +62,9 @@ public class User {
     }
 
     public User( @NotBlank @Size(max = 15) String username,
+
                  @NotBlank @Size(max = 40) @Email String email, @NotBlank @Size(max = 100) String password, @Size(max = 100) String role) {
+
 
         this.username = username;
         this.email = email;

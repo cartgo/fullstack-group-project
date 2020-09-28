@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //  @Secured("ROLE_ADMIN")
+
     @GetMapping("/getAll")
     public List<User> getAllUsers() {
         return userRepository.findAll();
