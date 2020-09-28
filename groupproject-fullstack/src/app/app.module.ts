@@ -12,11 +12,6 @@ import { ProjectComponent } from './project/project.component';
 import { AngularDualListBoxModule } from 'angular-dual-listbox';
 import { FormsModule } from '@angular/forms';
 import { RouterModule , Routes} from "@angular/router";
-
-
-import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
@@ -25,7 +20,9 @@ import { authInterceptorProviders } from './auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatTableModule} from '@angular/material/table';
-
+ 
+// import {PickListModule} from 'primeng/picklist';
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,33 +31,25 @@ import {MatTableModule} from '@angular/material/table';
 
     NavBarComponent,
     SideBarComponent,
-    ProjectComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule
-,    AngularDualListBoxModule ,
-
-   // PickListModule,
-    RouterModule.forRoot([
-      { path: './app.component', component: AppComponent },
-      ])
-
+    ProjectComponent,
     ProfileComponent,
     HomeComponent,
     BoardAdminComponent,
     BoardUserComponent
   ],
-  imports: [
+ imports: [
     BrowserModule,
-    AppRoutingModule,
+    // AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
+    HttpClientModule
+,    AngularDualListBoxModule ,
+BrowserAnimationsModule,
     MatSliderModule,
-    MatTableModule
-
+    MatTableModule,
+    // PickListModule,
+    RouterModule.forRoot([
+      { path: './app.component', component: AppComponent },
+      ])
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
