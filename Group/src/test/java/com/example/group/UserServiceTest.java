@@ -27,7 +27,7 @@ class UserServiceTest {
     @Test
     void findById(){
         final int id = 3;
-        final User user = new User("pink", "pink","pink@gmail.com","pink","home city","new york","cost manager");
+        final User user = new User( "pink","pink@gmail.com","pink","cost manager");
         given(userRepository.findById(id)).willReturn(user);
         final User expected  =userService.findById(id);
         assertThat(expected).isNotNull();
@@ -35,7 +35,7 @@ class UserServiceTest {
 
     @Test
     void updateUser() {
-        final User user = new User("pink", "pink","pink@gmail.com","pink","home city","new york","cost manager");
+        final User user = new User( "pink","pink@gmail.com","pink","cost manager");
         given(userRepository.save(user)).willReturn(user);
         final User expected = userService.updateUser(user);
         assertThat(expected).isNotNull();
@@ -45,8 +45,8 @@ class UserServiceTest {
     @Test
     void findAll() {
         List<User> datas = new ArrayList();
-        datas.add(new User("pink", "pink","pink@gmail.com","pink","home city","new york","cost manager"));
-        datas.add(new User("blue", "blue","blue@gmail.com","blue","home city","boston","manager"));
+        datas.add(new User( "pink","pink@gmail.com","pink","cost manager"));
+        datas.add(new User( "blue","blue@gmail.com","blue","manager"));
         given(userRepository.findAll()).willReturn(datas);
         List<User> expected = userService.findAll();
         assertEquals(expected, datas);
@@ -55,7 +55,7 @@ class UserServiceTest {
     @Test
     void findByUsername(){
         final String username = "pink";
-        final User user = new User("pink", "pink","pink@gmail.com","pink","home city","new york","cost manager");
+        final User user = new User( "pink","pink@gmail.com","pink","cost manager");
         given(userRepository.findByUsername(username)).willReturn(user);
         final User expected  =userService.findByUsername(username);
         assertThat(expected).isNotNull();
@@ -63,7 +63,7 @@ class UserServiceTest {
 
     @Test
     void saveUser() {
-        final User user = new User("pink", "pink","pink@gmail.com","pink","home city","new york","cost manager");
+        final User user = new User( "pink","pink@gmail.com","pink","cost manager");
         given(userRepository.save(user)).willAnswer(invocation -> invocation.getArgument(0));
         User savedUser = userService.saveUser(user);
         assertThat(savedUser).isNotNull();
