@@ -20,6 +20,7 @@ import { authInterceptorProviders } from './auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatTableModule} from '@angular/material/table';
+import { ResourceComponent } from './resource/resource.component';
  
 // import {PickListModule} from 'primeng/picklist';
  
@@ -35,7 +36,8 @@ import {MatTableModule} from '@angular/material/table';
     ProfileComponent,
     HomeComponent,
     BoardAdminComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    ResourceComponent
   ],
  imports: [
     BrowserModule,
