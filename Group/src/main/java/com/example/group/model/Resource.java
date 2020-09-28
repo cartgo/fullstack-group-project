@@ -38,9 +38,11 @@ public class Resource {
 
 	@JsonBackReference
 	@OneToMany(fetch=FetchType.LAZY,
-			mappedBy="resource",
-			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH})
+			mappedBy="resource"
+//			,
+//			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+//					CascadeType.DETACH, CascadeType.REFRESH}
+					)
 	private List<ProjectResource> projectResource;
 
     public Resource(){}
