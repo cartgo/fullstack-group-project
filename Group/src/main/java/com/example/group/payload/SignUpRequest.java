@@ -3,9 +3,7 @@ package com.example.group.payload;
 import javax.validation.constraints.*;
 
 public class SignUpRequest {
-    @NotBlank
-    @Size(min = 4, max = 40)
-    private String name;
+
 
     @NotBlank
     @Size(min = 3, max = 15)
@@ -20,25 +18,12 @@ public class SignUpRequest {
     @Size(min = 6, max = 20)
     private String password;
 
-    @NotBlank
-    @Size(max = 200)
-    private String question;
 
-    @NotBlank
-    @Size(max = 200)
-    private String answer;
 
     @NotBlank
     @Size(max = 100)
     private String role;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getUsername() {
         return username;
@@ -64,21 +49,6 @@ public class SignUpRequest {
         this.password = password;
     }
 
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
 
     public String getRole() {
         return role;
