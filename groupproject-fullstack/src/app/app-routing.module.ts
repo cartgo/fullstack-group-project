@@ -7,7 +7,9 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './auth/profile/profile.component';
+
 import { ProjectComponent } from './project/project.component';
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -18,12 +20,14 @@ const routes: Routes = [
   { path: 'admin', component: BoardAdminComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {path:'project',component:ProjectComponent}
+
 ];
 
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),CommonModule
+
   ],
   exports: [RouterModule]
 })
