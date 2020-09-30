@@ -1,5 +1,6 @@
 package com.example.group.controller;
 
+import com.example.group.dao.ProjectResourceRepository;
 import com.example.group.model.Project;
 import com.example.group.model.ProjectResource;
 import com.example.group.model.Resource;
@@ -31,6 +32,8 @@ public class ProjectController {
 
     @Autowired
     private ResourceService resourceService;
+    @Autowired
+    private ProjectResourceRepository prservice;
 
     @GetMapping("/getAll")
     public List<Project> getAllProjects() {
@@ -42,26 +45,6 @@ public class ProjectController {
         return projectService.findByProjectCode(projectCode);
         //.orElseThrow(() -> new ResourceNotFoundException("resource", "id", code));
     }
-
-    @GetMapping("/getProjectResource")
-    public List<Resource> getProjectResource(int userId, int projectCode) {
-//        List<Project> projects = projectService.findByUserId(userId);
-//        Project pp = null;
-//        for(Project p: projects){
-//            if (p.getProjectCode() == projectCode){
-//                pp = p;
-//            }
-//        }
-//        return pp.getProjectResource();
-        List<Resource> list = new ArrayList();
-        for(ProjectResource pr:projectService.findByProjectCode(projectCode).getProjectResource()){
-            list.add(pr.getResource());
-        }
-        return list;
-//        projectService.findByProjectCode(projectCode).getProjectResource();
-
-    }
-
 
 
 
@@ -99,6 +82,20 @@ public class ProjectController {
         return projectService.updateProject(proj);
     }
 
+
+
+    @Transactional
+    @DeleteMapping("/deleteProjectByCode")
+    public ResponseEntity<?> deleteProjectByCode(int projectCode) {
+
+        projectService.deleteByProjectCode(projectCode);
+
+        return ResponseEntity.ok().build();
+    }
+
+
+
+
     @PutMapping("/addResource")
     public Project addResource(@RequestParam("userId") int userId,
                                @RequestParam("projectCode") int projectCode,
@@ -119,42 +116,29 @@ public class ProjectController {
         return projectService.updateProject(project);
     }
 
-
-
     @Transactional
     @DeleteMapping("/deleteResource")//ResponseEntity<?>
-    public List<ProjectResource> deleteResource(@RequestParam("userId") int userId,
+    public ResponseEntity<?> deleteResource (
                                             @RequestParam("projectCode") int projectCode,
-                                            @RequestParam("resourceCode") int resourceCode) {
-
-        List<ProjectResource> list= projectService.findByProjectCode(projectCode).getProjectResource();
-//        for(int i =0;i < list.size();i++){
-//            if (list.get(i).getResource().getResourceCode()==resourceCode&&
-//                    list.get(i).getProject().getProjectCode()==projectCode){
-//                list.remove(list.get(i));
-//                projectService.findByProjectCode(projectCode).setProjectResource(list);
-//                projectService.saveProject(projectService.findByProjectCode(projectCode));
-
-//                return projectService.findByProjectCode(projectCode).getProjectResource();
-//
-//            }
-//        }
-        list.remove(list.get(0));
-        projectService.findByProjectCode(projectCode).setProjectResource(list);
-        resourceService.findByResourceCode(resourceCode).setProjectResource(list);
-        resourceService.saveResource(resourceService.findByResourceCode(resourceCode));
-        projectService.saveProject(projectService.findByProjectCode(projectCode));
-        return projectService.findByProjectCode(projectCode).getProjectResource();
-
-    }
-
-
-    @Transactional
-    @DeleteMapping("/deleteProjectByCode")
-    public ResponseEntity<?> deleteProjectByCode(int projectCode) {
-
-        projectService.deleteByProjectCode(projectCode);
-
+                                            @RequestParam("resourceCode") int resourceCode){
+        Resource resource = resourceService.findByResourceCode(resourceCode);
+        Project project = projectService.findByProjectCode(projectCode);
+        prservice.deleteProjectResourceByProjectAndResource(project,resource);
         return ResponseEntity.ok().build();
+
     }
+
+    
+        @GetMapping("/getProjectResource")
+    public List<Resource> getProjectResource(int userId, int projectCode) {
+
+        List<Resource> list = new ArrayList();
+        for(ProjectResource pr:projectService.findByProjectCode(projectCode).getProjectResource()){
+            list.add(pr.getResource());
+        }
+        return list;
+    }
+
+
+
 }
