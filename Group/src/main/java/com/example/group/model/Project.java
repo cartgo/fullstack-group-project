@@ -2,6 +2,7 @@ package com.example.group.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -44,13 +45,13 @@ public class Project {
     @JoinColumn(name="user_id")
     private User user;
 
-	@JsonBackReference
+	@JsonBackReference //@JsonManagedReferences <parent>
 	@OneToMany(mappedBy="project",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.DETACH, CascadeType.REFRESH})
 	private List<ProjectResource> projectResource;
 
-	@JsonBackReference
+	@JsonManagedReference
 	@OneToOne(mappedBy="costCode",cascade=CascadeType.ALL)
 	private ProjectScope projectScope;
 

@@ -1,6 +1,6 @@
-<div class="container">
+<!-- <div class="container">
   <p>Resource table</p>
-  <p>{{ listResource }}</p>
+
   <table class="resource_table">
     <thead>
       <tr>
@@ -20,14 +20,70 @@
         [ngClass]="{ odd: o, even: e }"
         id="{{ resource.resourceCode }}"
       >
-        <td><input type="text" [value]="resource.resourceCode" /></td>
-        <td><input type="text" [value]="resource.resourceName" /></td>
-        <!-- <td>{{ resource.resourceName }}</td> -->
+        <td>{{ resource.resourceCode }}</td>
+        <td>{{ resource.resourceName }}</td>
+        
       </tr>
+      <table>
+        <tr id="addRows"></tr>
+      </table>
+      <app-addresource></app-addresource>
       <div>
         <button (click)="addRow()">add row</button>
       </div>
     </tbody>
   </table>
+  <div>
+    <button (click)="submit()">Submit</button>
+    <button>Discard</button>
+  </div>
+</div> -->
+
+<div class="tableHeader" layout="row" layout-xs="column">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Keyword" #input />
+  <span class="material-icons"> search </span>
+
+  Resource Catalog<span class="material-icons"> add_box </span>
 </div>
-<!-- <router-outlet></router-outlet> -->
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+
+  <ng-container matColumnDef="Resource_Code">
+    <th mat-header-cell *matHeaderCellDef>Resource_Code</th>
+    <td mat-cell *matCellDef="let resource">
+      <span class="material-icons"> arrow_right </span
+      >{{ resource.resourceCode }}
+    </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Resource_Name">
+    <th mat-header-cell *matHeaderCellDef>Resource_Name</th>
+    <td mat-cell *matCellDef="let resource">{{ resource.resourceName }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<div class="example-button-row">
+  <!-- <button mat-raised-button>Basic</button> -->
+  <button mat-raised-button color="primary">Submit</button>
+  <button mat-raised-button color="accent">Discard</button>
+</div>
+<mat-form-field></mat-form-field>
+
+<!-- <h4>Basic mat-select</h4>
+<mat-form-field>
+  <mat-icon>add_box</mat-icon>
+  <mat-select class="alarm-dropdown" trigger="alarmTrigger" #alarmSelect>
+    <mat-option *ngFor="let food of addMethodsList" [value]="food">
+      {{ food }}
+    </mat-option>
+  </mat-select>
+</mat-form-field> -->
+<router-outlet></router-outlet>

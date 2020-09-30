@@ -1,5 +1,6 @@
 package com.example.group.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -20,7 +21,10 @@ public class ProjectScope {
     @Column(name="name")
     private String name;
 
+	// project<parent>
+	// project scope<child>
 
+	@JsonBackReference
 	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,
 			CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "cost_code")

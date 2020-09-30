@@ -4,14 +4,16 @@ package com.example.group.controller;
 import com.example.group.model.Resource;
 import com.example.group.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-
+@CrossOrigin
 @RestController
-@RequestMapping("/resource")
+@RequestMapping("/resource" )
 public class ResourceController {
 
 
@@ -23,8 +25,8 @@ public class ResourceController {
         return resourceService.findAll();
     }
 
-    @PostMapping("/add")
-    public Resource createResource(Resource resource) {
+    @PostMapping(value = "/add")
+    public Resource createResource( @Valid @RequestBody Resource resource) {
         return resourceService.saveResource(resource);
     }
 

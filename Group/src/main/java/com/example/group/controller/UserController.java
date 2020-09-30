@@ -40,6 +40,7 @@ public class UserController {
     public String getAdmin() {
         return "Role admin";
     }
+
     @GetMapping("/all")
     public String getAll() {
         return "Public";

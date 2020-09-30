@@ -1,0 +1,10 @@
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+table {
+  width: 100%;
+}
+.tableHeader {
+  background-color: orange;
+}

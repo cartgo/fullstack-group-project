@@ -36,7 +36,7 @@ public class Resource {
     private Date updateTime;*/
     
 
-	@JsonBackReference
+	@JsonBackReference()
 	@OneToMany(fetch=FetchType.LAZY,
 			mappedBy="resource"
 //			,

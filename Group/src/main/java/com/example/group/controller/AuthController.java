@@ -100,13 +100,14 @@ public class AuthController {
                 signUpRequest.getEmail(), signUpRequest.getPassword(),
                 signUpRequest.getRole());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+
+        Role userRole = roleRepository.findByName(RoleName.ROLE_USER) // hard code, by default everyone is a user
                 .orElseThrow(() -> new AppException("User Role not set."));
-        user.setRoles(Collections.singleton(userRole));
+        user.setRoles(Collections.singleton(userRole)); //
         User result = userRepository.save(user);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/users/{username}")
-                .buildAndExpand(result.getUsername()).toUri();
+                .buildAndExpand(result.getUsername()).toUri(); // why we create uri after the user is saved in the backend
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
 }

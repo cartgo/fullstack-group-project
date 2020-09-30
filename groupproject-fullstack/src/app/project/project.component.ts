@@ -1,47 +1,45 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { DualListComponent } from 'angular-dual-listbox';
 
-import { Subscription } from "rxjs";
+import { Subscription } from 'rxjs';
 
-import{Project} from "./project.model"
+import { Project } from './project.model';
 import { ProjectService } from './project.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-project',
-  templateUrl: 
-  './project.component.html',
-  styleUrls: ['./project.component.css']
+  templateUrl: './project.component.html',
+  styleUrls: ['./project.component.css'],
 })
-export class ProjectComponent  implements OnInit {
-
-  constructor(public projectservice: ProjectService, public http:HttpClient
-    // public projectservice: ProjectService,
-    // public route: ActivatedRoute,
-    // private authService: AuthService
-  ) {
+export class ProjectComponent implements OnInit {
+  constructor(
+    public projectservice: ProjectService,
+    public http: HttpClient
+  ) // public projectservice: ProjectService,
+  // public route: ActivatedRoute,
+  // private authService: AuthService
+  {
     // private projectservice
-    console.log(123)
+    console.log(123);
   }
-
 
   private authStatusSub: Subscription;
   isLoading = false;
   // projects: Project[]
-  // projects = this.http.get<Project[]>( "http://localhost:8083" + "/test");
-  
+  // projects = this.http.get<Project[]>( "http://localhost:8080" + "/test");
 
-	ngOnInit() {
+  ngOnInit() {
     // this.authStatusSub = this.authService
     // .getAuthStatusListener()
     // .subscribe(authStatus => {
     //   this.isLoading = false;
-    // })      
+    // })
     this.projectservice.getResource();
     this.projectservice.getData();
-    // this.http.get<Project[]>("http://localhost:8083" + "/test").subscribe(data => this.projects = data);
+    // this.http.get<Project[]>("http://localhost:8080" + "/test").subscribe(data => this.projects = data);
     // this.projectservice.test();
     // .subscribe(data => this.projects = data);
     console.log(this.projectservice.projects);
@@ -51,172 +49,160 @@ export class ProjectComponent  implements OnInit {
     // }
   }
 
-
-
-
-	tab = 1;
-	keepSorted = true;
-	key: string;
-	display: any;
-	filter = true;
-	source: Array<any>;
-	confirmed: Array<any>;
-	userAdd = '';
-	disabled = false;
-  resourceCode:number;
+  tab = 1;
+  keepSorted = true;
+  key: string;
+  display: any;
+  filter = true;
+  source: Array<any>;
+  confirmed: Array<any>;
+  userAdd = '';
+  disabled = false;
+  resourceCode: number;
   resourceName: string;
-	sourceLeft = true;
-	format: any = DualListComponent.DEFAULT_FORMAT;
+  sourceLeft = true;
+  format: any = DualListComponent.DEFAULT_FORMAT;
 
-	// private sourceTube: Array<string>;
-	private sourceStations: Array<any>;
-	// private sourceChessmen: Array<any>;
+  // private sourceTube: Array<string>;
+  private sourceStations: Array<any>;
+  // private sourceChessmen: Array<any>;
 
-	// private confirmedTube: Array<string>;
-	private confirmedStations: Array<any>;
-	// private confirmedChessmen: Array<any>;
+  // private confirmedTube: Array<string>;
+  private confirmedStations: Array<any>;
+  // private confirmedChessmen: Array<any>;
 
-	arrayType = [
-		{ name: 'Rio Grande', detail: '(object array)', value: 'station' },
-		{ name: 'Chessmen', detail: '(object array)', value: 'chess' },
-		{ name: 'Underground', detail: '(string array)', value: 'tube' }
-	];
+  arrayType = [
+    { name: 'Rio Grande', detail: '(object array)', value: 'station' },
+    { name: 'Chessmen', detail: '(object array)', value: 'chess' },
+    { name: 'Underground', detail: '(string array)', value: 'tube' },
+  ];
 
   // type = this.arrayType[0].value;
   type = 'station';
 
-	private stations: Array<any> = [
-    {  
-      "resourceCode": 1001,
-      "resourceName": "rs1"
-  },
-  {
-    "resourceCode": 1002,
-    "resourceName": "rs2"
-},
-  {
-      "resourceCode": 1003,
-      "resourceName": "rs3"
-  },
-  {
-      "resourceCode": 1004,
-      "resourceName": "rs4"
+  private stations: Array<any> = [
+    {
+      resourceCode: 1001,
+      resourceName: 'rs1',
+    },
+    {
+      resourceCode: 1002,
+      resourceName: 'rs2',
+    },
+    {
+      resourceCode: 1003,
+      resourceName: 'rs3',
+    },
+    {
+      resourceCode: 1004,
+      resourceName: 'rs4',
+    },
+
+    //   {key: 1,
+    //     "projectCode": 1,
+    //     "projectName": "a"
+    // },
+    // {key: 2,
+    //     "projectCode": 2,
+    //     "projectName": "b"
+    // },
+    // {key: 3,
+    //     "projectCode": 3,
+    //     "projectName": "c"
+    // }
+  ];
+
+  private resourceLabel(item: any) {
+    return item.resourceCode + ',  ' + item.resourceName;
   }
 
-
-//   {key: 1,
-//     "projectCode": 1,
-//     "projectName": "a"
-// },
-// {key: 2,
-//     "projectCode": 2,
-//     "projectName": "b"
-// },
-// {key: 3,
-//     "projectCode": 3,
-//     "projectName": "c"
-// }
-
-
-
-	];
- 
- 
-	private resourceLabel(item: any) {
-		return item.resourceCode + ',  ' + item.resourceName;
-	}
-
-	// private useStations() {
-	// 	this.key = 'key';
-	// 	this.display = this.resourceLabel;
-	// 	this.keepSorted = true;
-	// 	this.source = this.sourceStations;
+  // private useStations() {
+  // 	this.key = 'key';
+  // 	this.display = this.resourceLabel;
+  // 	this.keepSorted = true;
+  // 	this.source = this.sourceStations;
   //   this.confirmed = this.confirmedStations;
- 	// }
+  // }
 
- 
+  // swapSource() {
+  // 	switch (this.type) {
+  // 	case this.arrayType[0].value:
+  // 		this.useStations();
+  // 		break;
 
-	// swapSource() {
-	// 	switch (this.type) {
-	// 	case this.arrayType[0].value:
-	// 		this.useStations();
-	// 		break;
- 
-	// 	}
-	// }
+  // 	}
+  // }
 
-	doReset() {
-		this.sourceStations = JSON.parse(JSON.stringify(this.stations));
+  doReset() {
+    this.sourceStations = JSON.parse(JSON.stringify(this.stations));
 
-		this.confirmedStations = new Array<any>();
-    this.confirmedStations.push( this.stations[4] );
+    this.confirmedStations = new Array<any>();
+    this.confirmedStations.push(this.stations[4]);
     this.key = 'resourceCode';
-		this.display = this.resourceLabel;
-		this.keepSorted = true;
-		this.source = this.sourceStations;
+    this.display = this.resourceLabel;
+    this.keepSorted = true;
+    this.source = this.sourceStations;
     this.confirmed = this.confirmedStations;
 
+    // switch (this.type) {
+    // case this.arrayType[0].value:
+    // 	this.useStations();
+    // 	break;
 
+    // }
+  }
 
-		// switch (this.type) {
-		// case this.arrayType[0].value:
-		// 	this.useStations();
-		// 	break;
+  doDelete() {
+    if (this.source.length > 0) {
+      this.source.splice(0, 1);
+    }
+  }
 
-		// }
-	}
+  // doCreate() {
+  // 	if (typeof this.source[0] === 'object') {
+  // 		const o = {};
+  // 		o[this.key] = this.source.length + 1;
+  // 		o[this.display] = this.userAdd;
+  // 		this.source.push( o );
+  // 	} else {
+  // 		this.source.push(this.userAdd);
+  // 	}
+  // 	this.userAdd = '';
+  // }
 
-	doDelete() {
-		if (this.source.length > 0) {
-			this.source.splice(0, 1);
-		}
-	}
+  // doAdd() {
+  // 	for (let i = 0, len = this.source.length; i < len; i += 1) {
+  // 		const o = this.source[i];
+  // 		const found = this.confirmed.find( (e: any) => e === o );
+  // 		if (!found) {
+  // 			this.confirmed.push(o);
+  // 			break;
+  // 		}
+  // 	}
+  // }
 
-	// doCreate() {
-	// 	if (typeof this.source[0] === 'object') {
-	// 		const o = {};
-	// 		o[this.key] = this.source.length + 1;
-	// 		o[this.display] = this.userAdd;
-	// 		this.source.push( o );
-	// 	} else {
-	// 		this.source.push(this.userAdd);
-	// 	}
-	// 	this.userAdd = '';
-	// }
+  // doRemove() {
+  // 	if (this.confirmed.length > 0) {
+  // 		this.confirmed.splice(0, 1);
+  // 	}
+  // }
 
-	// doAdd() {
-	// 	for (let i = 0, len = this.source.length; i < len; i += 1) {
-	// 		const o = this.source[i];
-	// 		const found = this.confirmed.find( (e: any) => e === o );
-	// 		if (!found) {
-	// 			this.confirmed.push(o);
-	// 			break;
-	// 		}
-	// 	}
-	// }
+  doFilter() {
+    this.filter = !this.filter;
+  }
 
-	// doRemove() {
-	// 	if (this.confirmed.length > 0) {
-	// 		this.confirmed.splice(0, 1);
-	// 	}
-	// }
+  filterBtn() {
+    return this.filter ? 'Hide Filter' : 'Show Filter';
+  }
 
-	doFilter() {
-		this.filter = !this.filter;
-	}
+  doDisable() {
+    this.disabled = !this.disabled;
+  }
 
-	filterBtn() {
-		return (this.filter ? 'Hide Filter' : 'Show Filter');
-	}
+  disableBtn() {
+    return this.disabled ? 'Enable' : 'Disabled';
+  }
 
-	doDisable() {
-		this.disabled = !this.disabled;
-	}
-
-	disableBtn() {
-		return (this.disabled ? 'Enable' : 'Disabled');
-	}
- 
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
     // this.projects.unsubscribe();
@@ -225,34 +211,27 @@ export class ProjectComponent  implements OnInit {
   // this.mysservice.getData();  //?
   // console.log(this.mysservice.posts)
 
-  getData(){
+  getData() {
     this.projectservice.getData();
-    console.log(this.projectservice.projects)
-
+    console.log(this.projectservice.projects);
   }
-  test(){
+  test() {
     this.projectservice.test();
-    console.log(this.projectservice.projects)
-
+    console.log(this.projectservice.projects);
   }
 
- 
+  addResource() {
+    this.projectservice.addResource();
+    // this.projectservice.project.
+    console.log(this.projectservice.resources);
+  }
 
+  getResource() {
+    this.projectservice.getResource();
+  }
 
-addResource(){
-  this.projectservice.addResource();
-  // this.projectservice.project.
-  console.log(this.projectservice.resources);
-}
-
-getResource(){
-  this.projectservice.getResource();
-}
-
-deleteResource(){
-  this.projectservice.deleteResource();
-  console.log(this.projectservice.resources);
-
-}
-
+  deleteResource() {
+    this.projectservice.deleteResource();
+    console.log(this.projectservice.resources);
+  }
 }
