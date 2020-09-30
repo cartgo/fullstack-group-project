@@ -1,0 +1,27 @@
+.login{  
+    width: 450px;  
+    overflow: hidden;  
+    margin: auto;  
+    margin: 20 0 0 450px;  
+    padding: 80px;  
+    background:white;  
+    border-radius: 15px ;  
+      
+}  
+ 
+label{  
+color: black;  
+font-size: 16px;
+font-weight: 500;  
+}  
+
+
+
+
+  h1{
+      color: orange;
+      text-align: center;
+      font-style: italic;
+      font-weight: bolder;
+      font-size: xx-large;
+  }

@@ -1,3 +1,4 @@
+<!--<div class="example-container">
 
 <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
@@ -34,10 +35,44 @@
       </ul>
     </nav>
   
-    <div class="container">
-      <router-outlet></router-outlet>
+    
+      <mat-sidenav-container >
+        <mat-sidenav #sidenav [mode]="mode.value">
+          <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+        
+            <ul>
+              <a href="/resource" class="nav-link" routerLink="resource">Resource</a>
+              <a href="/project" class="nav-link" routerLink="project">Project</a>
+              
+            </ul>
+         
+        </mat-sidenav>
+      
+        <mat-sidenav-content>
+          <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+          <div class="container">
+            <router-outlet></router-outlet>
+          </div> 
+         
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+      
     </div>
-  </div>
 
-  hello
-  <app-project></app-project>
+    
+  </div>-->
+
+
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav role="navigation">
+        <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+        <main>
+          <router-outlet></router-outlet>
+        </main>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  
+

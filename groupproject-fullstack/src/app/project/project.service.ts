@@ -25,7 +25,7 @@ export class ProjectService {
 userId: number = 1;
 //////////////////////【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【//////////////////////
 test(){
-    let api = "http://localhost:8083" + "/test";
+    let api = "http://localhost:8080" + "/test";
     return this.http.get<Project[]>(api);
 }
 /////////【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【【///////
@@ -39,7 +39,7 @@ test(){
     // return this.http.get<Project[]>(api).subscribe(data => this.projects = data);
 
     localStorage.setItem("userId", "1");////////test
-    const userId =localStorage.getItem("userId");////////////////////test
+    // const userId =localStorage.getItem("userId");////////////////////test
 
   }
  
@@ -50,17 +50,17 @@ test(){
 // }
 
 addResource(){
-    let api = "http://localhost:8083/project/addResource?resourceCode="+"2"+ "&projectCode=33"+"&userId=1";
+    let api = "http://localhost:8080/project/addResource?resourceCode="+"2"+ "&projectCode=33"+"&userId=1";
     return this.http.put<Resource>(api,{}).subscribe(data => this.resources.push(data))
 }
 
 getResource(){
-    let api = "http://localhost:8083/project/getProjectResource?projectCode=33&userId=1";
+    let api = "http://localhost:8080/project/getProjectResource?projectCode=33&userId=1";
     return this.http.get<Resource[]>(api).subscribe(data => this.resources = data);
 }
 
 deleteResource(){
-    let api = "http://localhost:8083/project/getProjectResource?projectCode=33&userId=1";
+    let api = "http://localhost:8080/project/getProjectResource?projectCode=33&userId=1";
     return this.http.delete<Resource[]>(api).subscribe(data => 
         this.resources= data.filter(ele => {return ele.resourceCode !== 4}) 
          );

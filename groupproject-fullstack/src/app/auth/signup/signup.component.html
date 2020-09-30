@@ -1,5 +1,6 @@
-<div class="col-md-12">
-    <div class="card card-container">
+<div class="signup">
+  <h1>SignUp</h1><br>
+    <div>
       
       <form
         *ngIf="!isSuccessful"
@@ -90,7 +91,7 @@
             </div>
           </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block">Sign Up</button>
+          <button class="btn btn-block" style="color:white; background-color:orangered">Sign Up</button>
         </div>
   
         <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
