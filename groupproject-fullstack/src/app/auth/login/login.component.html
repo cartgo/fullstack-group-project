@@ -1,5 +1,7 @@
-<div class="col-md-12">
-    <div class="card card-container">
+
+<div class="login">
+  <h1>Login</h1>
+    <div>
      
       <form
         *ngIf="!isLoggedIn"
@@ -49,10 +51,26 @@
           </div>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block">
+          <button style="color:white; background-color:orangered" class="btn btn-block">
             Login
           </button>
         </div>
+        <div class="form-group">
+          <input type="checkbox" id="check">    
+          <span> Remember me</span>
+        </div><br>
+
+        
+          <div class="row">
+            <div class="col">
+              <button routerLink="/register" style="color:white; background-color:orangered" class="btn">Sign up</button>
+            </div>
+            <div class="col">
+              <a href="#" style="color:black" class="btn">Forgot password?</a>
+            </div>
+          </div>
+
+
         <div class="form-group">
           <div
             class="alert alert-danger"
@@ -64,8 +82,8 @@
         </div>
       </form>
   
-      <div class="alert alert-success" *ngIf="isLoggedIn">
-        Logged in as {{ roles }}.
+      <div class="alert alert-success" *ngIf="isLoggedIn" >
+        Logged in as {{ roles }} id {{ id }}.
       </div>
     </div>
   </div>
