@@ -7,3 +7,4 @@ export class Resource {
     this.resourceName = resourceName;
   }
 }
+//test
