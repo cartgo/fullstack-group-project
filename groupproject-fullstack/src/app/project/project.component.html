@@ -1,19 +1,10 @@
-<!-- <table>
-    <tr>
-      <th>resourceCode</th>
-      <th>resourceName</th>
- 
-    </tr>
-    <tr *ngFor="let post of source">
-      <td>{{post.resourceCode}}</td>
-      <td>{{post.resourceName}}</td>
- 
-    </tr>
-  </table> -->
-  <table>
+
+current user:{{this.projectservice.username}}
+ <br>userid: {{this.projectservice.uId}}
+  <!-- <table>
     <tr>
       <th>projectCode</th>   
-      <th>projectName</th>
+      <th>projectName  </th>
     </tr>
     <tr *ngFor="let post of projectservice.projects">
       <td>{{post.projectCode}}</td>
@@ -23,16 +14,23 @@
 <table>
     <tr>
       <th>resourceCode</th>   
-      <th>resourceName in project 1</th>
+      <th>resourceName </th>
     </tr>
     <tr *ngFor="let post of projectservice.resources">
       <td>{{post.resourceCode}}</td>
       <td>{{post.resourceName}}</td>
     </tr>
-</table>
+</table><br> -->
+<p>current project: No.{{this.projectservice.selectedProjectCode}} </p>
+ 
+ 
+<!-- <button (click)="this.projectservice.deleteResource('s','b')" >
+	Demo delete test
+</button> -->
+
 <div class="container-fluid">
 	<p></p>
-	<dual-list [sort]="keepSorted" [source]="source" [key]="key" [display]="display" [filter]="filter"
+	<dual-list [sort]="keepSorted" [source]="projectservice.allresources" [key]="key" [display]="display" [filter]="filter"
 		[(destination)]="confirmed" height="265px" [format]="format" [disabled]="disabled">asdf</dual-list>
 	<!-- <ul class="nav nav-tabs" style="margin-top:50px;">
 		<li [class.active]="tab===1"><a (click)="tab=1">Arrays</a><li>
@@ -91,8 +89,7 @@
             <!-- <button class="btn btn-default" (click)="doDisable()">{{disableBtn()}}</button> -->
             <!-- <button class="btn btn-primary" (click)="doReset()">Reset</button> -->
             <button (click) = "addResource()">save change</button>
-            <button (click) = "deleteResource()">d change</button>
-
+ 
         </form>
 		<!-- <div class="tab-pane" [class.active]="tab===3"> -->
 			<!-- <div class="row" style="margin-top:20px;"> -->
@@ -138,9 +135,26 @@
 		<!-- </div> -->
 	</div>
 </div>
-
+<!-- 
 <button (click)="getData()">
     get
-</button>
+</button> -->
 
+ 
+ 
 
+	<!-- <form class="example-form">
+		<mat-form-field class="example-full-width">
+		  <input type="text"
+				 placeholder="Pick one"
+				 aria-label="Number"
+				 matInput
+				 [formControl]="myControl"
+				 [matAutocomplete]="auto">
+		  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+			<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+			  {{option}}
+			</mat-option>
+		  </mat-autocomplete>
+		</mat-form-field>
+	  </form> -->

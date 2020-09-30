@@ -1,14 +1,17 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-
 import { DualListComponent } from 'angular-dual-listbox';
-
 import { Subscription } from "rxjs";
-
+import {FormControl} from '@angular/forms';
+import {startWith, map} from 'rxjs/operators';
 import{Project} from "./project.model"
 import { ProjectService } from './project.service';
 import { HttpClient } from '@angular/common/http';
+import { ResourceService } from '../service/resource.service';
+import { Resource } from './resource.model';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
+// import { ResourceComponent } from '../resource/resource.component';
 @Component({
   selector: 'app-project',
   templateUrl: 
@@ -29,30 +32,20 @@ export class ProjectComponent  implements OnInit {
 
   private authStatusSub: Subscription;
   isLoading = false;
-  // projects: Project[]
-  // projects = this.http.get<Project[]>( "http://localhost:8083" + "/test");
-  
-
+ 
 	ngOnInit() {
-    // this.authStatusSub = this.authService
-    // .getAuthStatusListener()
-    // .subscribe(authStatus => {
-    //   this.isLoading = false;
-    // })      
+		this.projectservice.getAllResource(),     
     this.projectservice.getResource();
     this.projectservice.getData();
-    // this.http.get<Project[]>("http://localhost:8083" + "/test").subscribe(data => this.projects = data);
-    // this.projectservice.test();
-    // .subscribe(data => this.projects = data);
-    console.log(this.projectservice.projects);
-    this.doReset();
-    // for(let i of this.projects){
-    //   i.key = 1
-    // }
+	console.log(this.projectservice.projects);
+	this.doReset(); 
+	// this.confirmed=this.projectservice.resources ;
   }
 
-
-
+ 
+  dataList = this.projectservice.projects;
+  foods: Project[] = this.projectservice.projects;
+  
 
 	tab = 1;
 	keepSorted = true;
@@ -60,7 +53,8 @@ export class ProjectComponent  implements OnInit {
 	display: any;
 	filter = true;
 	source: Array<any>;
-	confirmed: Array<any>;
+	confirmed: Resource[];
+	// confirmed: any;
 	userAdd = '';
 	disabled = false;
   resourceCode:number;
@@ -68,60 +62,49 @@ export class ProjectComponent  implements OnInit {
 	sourceLeft = true;
 	format: any = DualListComponent.DEFAULT_FORMAT;
 
-	// private sourceTube: Array<string>;
-	private sourceStations: Array<any>;
-	// private sourceChessmen: Array<any>;
-
-	// private confirmedTube: Array<string>;
-	private confirmedStations: Array<any>;
-	// private confirmedChessmen: Array<any>;
-
-	arrayType = [
-		{ name: 'Rio Grande', detail: '(object array)', value: 'station' },
-		{ name: 'Chessmen', detail: '(object array)', value: 'chess' },
-		{ name: 'Underground', detail: '(string array)', value: 'tube' }
-	];
-
-  // type = this.arrayType[0].value;
+ 	private sourceStations: Array<any>;
+ 
+	 private confirmedStations: Resource[];
+	//  Array<any>;
+ 
   type = 'station';
 
-	private stations: Array<any> = [
-    {  
-      "resourceCode": 1001,
-      "resourceName": "rs1"
-  },
-  {
-    "resourceCode": 1002,
-    "resourceName": "rs2"
-},
-  {
-      "resourceCode": 1003,
-      "resourceName": "rs3"
-  },
-  {
-      "resourceCode": 1004,
-      "resourceName": "rs4"
-  }
 
-
-//   {key: 1,
-//     "projectCode": 1,
-//     "projectName": "a"
+	private stations: Array<any>=this.projectservice.allresources;
+// 	[
+//     {  
+//       "resourceCode": 1001,
+//       "resourceName": "rs1"
+//   },
+//   {
+//     "resourceCode": 1002,
+//     "resourceName": "rs2"
 // },
-// {key: 2,
-//     "projectCode": 2,
-//     "projectName": "b"
-// },
-// {key: 3,
-//     "projectCode": 3,
-//     "projectName": "c"
-// }
+//   {
+//       "resourceCode": 1003,
+//       "resourceName": "rs3"
+//   },
+//   {
+//       "resourceCode": 1004,
+//       "resourceName": "rs4"
+//   }
 
 
-
-	];
+// //   {key: 1,
+// //     "projectCode": 1,
+// //     "projectName": "a"
+// // },
+// // {key: 2,
+// //     "projectCode": 2,
+// //     "projectName": "b"
+// // },
+// // {key: 3,
+// //     "projectCode": 3,
+// //     "projectName": "c"
+// // }
+// 	];
  
- 
+  
 	private resourceLabel(item: any) {
 		return item.resourceCode + ',  ' + item.resourceName;
 	}
@@ -149,21 +132,14 @@ export class ProjectComponent  implements OnInit {
 		this.sourceStations = JSON.parse(JSON.stringify(this.stations));
 
 		this.confirmedStations = new Array<any>();
-    this.confirmedStations.push( this.stations[4] );
+	this.confirmedStations.push( this.stations[4] );
+	// this.confirmedStations.push( this.projectservice.resources[2]);
     this.key = 'resourceCode';
 		this.display = this.resourceLabel;
 		this.keepSorted = true;
 		this.source = this.sourceStations;
-    this.confirmed = this.confirmedStations;
+	this.confirmed =  this.confirmedStations;
 
-
-
-		// switch (this.type) {
-		// case this.arrayType[0].value:
-		// 	this.useStations();
-		// 	break;
-
-		// }
 	}
 
 	doDelete() {
@@ -219,40 +195,38 @@ export class ProjectComponent  implements OnInit {
  
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
-    // this.projects.unsubscribe();
-  }
+   }
 
-  // this.mysservice.getData();  //?
-  // console.log(this.mysservice.posts)
+ 
 
   getData(){
     this.projectservice.getData();
     console.log(this.projectservice.projects)
 
   }
-  test(){
-    this.projectservice.test();
-    console.log(this.projectservice.projects)
-
-  }
-
  
 
 
 addResource(){
-  this.projectservice.addResource();
-  // this.projectservice.project.
-  console.log(this.projectservice.resources);
-}
+	
+	this.projectservice.addResource(this.confirmed);
+	this.confirmed = this.projectservice.resources;
+	// this.projectservice.addResource();
+	// this.projectservice.project.
+	console.log(this.projectservice.resources);
+  }
+
+
 
 getResource(){
   this.projectservice.getResource();
 }
 
-deleteResource(){
-  this.projectservice.deleteResource();
-  console.log(this.projectservice.resources);
+// deleteResource(){
+//   this.projectservice.deleteResource('s','b');
+//   console.log(this.projectservice.resources);
+
+// }
 
 }
 
-}
