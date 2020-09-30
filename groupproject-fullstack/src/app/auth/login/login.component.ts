@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 
@@ -14,13 +15,16 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
-
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  id: number;
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService
+   // private router: Router
+    ) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
+      this.id = this.tokenStorage.getUser().id;
     }
   }
 
@@ -33,6 +37,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
+        //this.router.navigate(['/resource']);
         this.reloadPage();
       },
       err => {
@@ -44,6 +49,7 @@ export class LoginComponent implements OnInit {
 
   reloadPage(): void {
     window.location.reload();
+    //this.router.navigate(['/resource']);
   }
 
 }
