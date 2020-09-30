@@ -1,21 +1,21 @@
-import { Component } from '@angular/core';
-import { TokenStorageService } from './service/token-storage.service';
-import {FormControl} from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class AppComponent {
-  title = 'groupproject-fullstack';
+export class HeaderComponent implements OnInit {
+
+  @Output() public sidenavToggle = new EventEmitter();
   private roles: string[];
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
   role: string;
-  mode = new FormControl('over');
   constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
@@ -35,5 +35,9 @@ export class AppComponent {
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
+  }
+ 
+  public onToggleSidenav = () => {
+    this.sidenavToggle.emit();
   }
 }
