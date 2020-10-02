@@ -10,6 +10,7 @@ import { ProfileComponent } from './auth/profile/profile.component';
 
 import { ProjectComponent } from './project/project.component';
 import { ResourceComponent } from '../app/resource/resource.component';
+import { FormulaComponent } from './formula/formula.component';
 
 
 const routes: Routes = [
@@ -20,8 +21,9 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  {path:'project',component:ProjectComponent},
-  { path: 'resource', component: ResourceComponent }
+  { path:'project',component: ProjectComponent},
+  { path:'resource', component: ResourceComponent },
+  { path:'formula', component: FormulaComponent }
 
 ];
 

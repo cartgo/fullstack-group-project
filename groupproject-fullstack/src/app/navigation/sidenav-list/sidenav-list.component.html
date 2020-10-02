@@ -1,10 +1,16 @@
 <mat-nav-list>
 
+    <a mat-list-item routerLink="#" *ngIf="isLoggedIn" (click)="!onSidenavClose()">
+        <span class="nav-caption"></span>   
+    </a>
     <a mat-list-item routerLink="/resource" *ngIf="isLoggedIn" (click)="onSidenavClose()">
-        <mat-icon>assignment_ind</mat-icon> <span class="nav-caption">Resource</span>   
+        <span class="nav-caption listitem">Resource</span>   
     </a>
     <a mat-list-item routerLink="/project" *ngIf="isLoggedIn" (click)="onSidenavClose()">
-        <mat-icon>account_balance</mat-icon><span class="nav-caption">Project</span>
+        <span class="nav-caption listitem">Project</span>
+    </a>
+    <a mat-list-item routerLink="/formula" *ngIf="isLoggedIn" (click)="onSidenavClose()">
+        <span class="nav-caption listitem">Formula</span>
     </a>
     
 </mat-nav-list>

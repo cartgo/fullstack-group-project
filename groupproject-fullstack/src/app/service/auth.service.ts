@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { timestamp } from 'rxjs/operators';
 
 const AUTH_API = 'http://localhost:8080/api/auth/';
 
@@ -27,7 +28,8 @@ export class AuthService {
       username: user.username,
       email: user.email,
       password: user.password,
-      role: user.role
+      role: user.role,
+      create_time: new Date()
     }, httpOptions);
   }
 }

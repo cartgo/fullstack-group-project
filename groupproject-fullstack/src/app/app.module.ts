@@ -22,7 +22,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
- 
+
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { FormulaComponent } from './formula/formula.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +38,8 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     BoardUserComponent,
     ResourceComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    FormulaComponent
   ],
  imports: [
     BrowserModule,
@@ -46,6 +50,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     BrowserAnimationsModule,
     MaterialModule,
     // PickListModule,
+    MDBBootstrapModule.forRoot(),
     RouterModule.forRoot([
       { path: './app.component', component: AppComponent },
       ])
