@@ -16,8 +16,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
   id: number;
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService
-   // private router: Router
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -48,8 +47,10 @@ export class LoginComponent implements OnInit {
   }
 
   reloadPage(): void {
-    window.location.reload();
-    //this.router.navigate(['/resource']);
+   // this.router.navigate(['/resource']);
+   // window.location.reload();
+   window.location.replace('/resource');
+    
   }
 
 }

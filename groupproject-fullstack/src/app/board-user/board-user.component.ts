@@ -10,7 +10,7 @@ export class BoardUserComponent implements OnInit {
 
   content: string;
   data: Array<any>;
-  displayedColumns: string[] = ['id', 'username', 'email', 'role'];
+  displayedColumns: string[] = ['id', 'username', 'email', 'role','create_time'];
 
   constructor(private userService: UserService) {this.data = new Array<any>(); }
 
