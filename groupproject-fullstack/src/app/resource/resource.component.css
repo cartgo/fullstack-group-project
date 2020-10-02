@@ -6,6 +6,24 @@ table {
   width: 100%;
 }
 .tableHeader {
-  background-color: orange;
+  background-color: darkgray;
 }
 /* test */
+.filler {
+  flex: 11 auto;
+  margin-right: 300px;
+}
+
+.gap {
+  margin-right: 20px;
+}
+
+.moregap {
+  margin-right: 150px;
+}
+#search {
+  background-color: orange;
+}
+#add_box {
+  background-color: orange;
+}
