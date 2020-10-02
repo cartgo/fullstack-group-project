@@ -1,0 +1,16 @@
+<div>
+ 
+   <div class="searchbar">
+  <div class="bar">
+      <input type="text" #searchbar [(ngModel)]="searchInput" (keyup)="fetchSeries($event)" placeholder="Enter the name of your series" />
+   </div>
+<ul>
+  <li *ngFor="let p of searchResult"  (click)="selectProject(p)" >
+     <p> {{ p.projectName }}</p>
+  </li>
+</ul>
+</div>
+
+ 
+
+<router-outlet></router-outlet>

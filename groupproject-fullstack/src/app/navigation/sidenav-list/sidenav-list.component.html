@@ -6,11 +6,13 @@
     <a mat-list-item routerLink="/resource" *ngIf="isLoggedIn" (click)="onSidenavClose()">
         <span class="nav-caption listitem">Resource</span>   
     </a>
-    <a mat-list-item routerLink="/project" *ngIf="isLoggedIn" (click)="onSidenavClose()">
+
+    <a mat-list-item routerLink="/search/project" *ngIf="isLoggedIn" (click)="onSidenavClose()">
         <span class="nav-caption listitem">Project</span>
     </a>
     <a mat-list-item routerLink="/formula" *ngIf="isLoggedIn" (click)="onSidenavClose()">
         <span class="nav-caption listitem">Formula</span>
+
     </a>
     
 </mat-nav-list>
