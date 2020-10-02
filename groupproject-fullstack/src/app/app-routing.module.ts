@@ -10,6 +10,7 @@ import { ProfileComponent } from './auth/profile/profile.component';
 
 import { ProjectComponent } from './project/project.component';
 import { ResourceComponent } from '../app/resource/resource.component';
+import { SearchboxComponent } from './searchbox/searchbox.component';
 
 
 const routes: Routes = [
@@ -20,8 +21,11 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  {path:'project',component:ProjectComponent},
-  { path: 'resource', component: ResourceComponent }
+ 
+  { path: 'resource', component: ResourceComponent },
+  { path: 'search', component: SearchboxComponent ,children:[
+    {path:'project',component:ProjectComponent,runGuardsAndResolvers: 'paramsChange'}
+    ]}
 
 ];
 

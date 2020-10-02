@@ -9,26 +9,36 @@ import { environment } from "../../environments/environment";
 import { Resource } from './resource.model';
 import { AuthService } from '../service/auth.service';
 import { UserService } from '../service/user.service';
+import {ProjectComponent} from './project.component';
+import { Observable } from 'rxjs';
+import { ResourceService } from '../service/resource.service';
+
 const BACKEND_URL = environment.apiUrl + "/project/";
 
 @Injectable({ providedIn: "root" })
 export class ProjectService {
    projects: Project[] = [];
+  // var projects;
+  // projects;
    project:Project;
    resources: Resource[]=[];
    allresources: Resource[]=[];
    users:Array<any>;
    username:string = this.token.getUser().username;
    uId:string = this.token.getUser().id.toString(); 
-    selectedProjectCode:string = "3";
+    selectedProjectCode:string;
 
   constructor(public http:HttpClient, private router: Router, private token: TokenStorageService
-    ,public userservice:UserService ) { }
-    
+    ,public userservice:UserService ,public resourceservice:ResourceService ) { }
+     
+
+
   getData(){
     let api = "http://localhost:8080/project/"+"getByUserId?userId="+this.uId ;
-    return this.http.get<Project[]>(api).subscribe(data => this.projects = data);
+    return this.http.get<Project[]>(api);
+    // .subscribe(data => console.log(data));//data => this.projects = data
   }
+
 
   addResource(rr:Resource[]){
     for(let r of rr){
@@ -41,22 +51,36 @@ export class ProjectService {
 
     getResource(){
         let api = "http://localhost:8080/project/getProjectResource?projectCode="+this.selectedProjectCode+"&userId="+this.uId;
-        return this.http.get<Resource[]>(api).subscribe(data => this.resources = data);
+        return this.http.get<Resource[]>(api);
+        // .subscribe(data => this.resources = data);
+    }
+
+    getResource2(): Observable<any> {
+      let api = "http://localhost:8080/project/getProjectResource?projectCode="+this.selectedProjectCode+"&userId="+this.uId;
+
+      return this.http.get(api);
     }
 
 
     getAllResource(){
         let api = "http://localhost:8080/resource/getAll";
-        return this.http.get<Resource[]>(api).subscribe(data => this.allresources = data);
+        return this.http.get<Resource[]>(api);
+        // .subscribe(data => this.allresources = data)
+    }
+
+    getAllResource2():Observable<any>{
+      let api = "http://localhost:8080/resource/getAll";
+      return this.http.get(api);
+      // 
     }
 
 
+
     deleteResource( resourceCode:string, projectCode: string){
-        let api = "http://localhost:8080/project/deleteResource?resourceCode="+resourceCode+"&projectCode="+resourceCode; 
+        let api = "http://localhost:8080/project/deleteResource?resourceCode="+resourceCode+"&projectCode="+this.selectedProjectCode; 
         // let api = "http://localhost:8080/project/deleteResource?resourceCode=223&projectCode=3";
         return this.http.delete(api).subscribe()
-            // this.resources
-            // = data.filter(ele => {return ele.resourceCode !== 4}) );
+    
     }
 
 
