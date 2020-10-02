@@ -10,9 +10,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
-@CrossOrigin
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -28,6 +30,14 @@ public class UserController {
     @GetMapping("/getAll")
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+
+    @GetMapping("/getCreateTime")
+    public Date getCreateTime(int id) {
+        User user = userService.findById(id);
+        Date create_time=user.getCreate_time();
+        return create_time;
     }
 
     @GetMapping("/user")

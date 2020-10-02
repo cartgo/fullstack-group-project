@@ -34,7 +34,7 @@ export class ProjectComponent  implements OnInit {
   isLoading = false;
  
 	ngOnInit() {
-		this.projectservice.getAllResource(),     
+	this.projectservice.getAllResource();     
     this.projectservice.getResource();
     this.projectservice.getData();
 	console.log(this.projectservice.projects);
@@ -193,9 +193,9 @@ export class ProjectComponent  implements OnInit {
 		return (this.disabled ? 'Enable' : 'Disabled');
 	}
  
-  ngOnDestroy() {
+  /*ngOnDestroy() {
     this.authStatusSub.unsubscribe();
-   }
+   }*/
 
  
 

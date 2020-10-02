@@ -1,10 +1,18 @@
 package com.example.group.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,12 +27,12 @@ import java.util.Set;
                 "email"
         })
 })
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"create_time", "update_time"},allowGetters = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-
 
     @NotBlank
     @Size(max = 15)
@@ -45,6 +53,14 @@ public class User {
     @Size(max = 100)
     private String role;
 
+
+    @Column(name ="create_time")
+    @Temporal(TemporalType.DATE)
+    //@CreatedDate
+    @CreationTimestamp
+    private Date create_time;
+
+
     @OneToMany(fetch=FetchType.LAZY,
             mappedBy="user",
             cascade= {CascadeType.PERSIST, CascadeType.MERGE,
@@ -61,10 +77,8 @@ public class User {
 
     }
 
-    public User( @NotBlank @Size(max = 15) String username,
-
-                 @NotBlank @Size(max = 40) @Email String email, @NotBlank @Size(max = 100) String password, @Size(max = 100) String role) {
-
+    public User( @NotBlank @Size(max = 15) String username, @NotBlank @Size(max = 40) @Email String email,
+                 @NotBlank @Size(max = 100) String password, @Size(max = 100) String role) {
 
         this.username = username;
         this.email = email;
@@ -88,7 +102,6 @@ public class User {
         this.username = username;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -105,7 +118,13 @@ public class User {
         this.password = password;
     }
 
+    public Date getCreate_time() {
+        return create_time;
+    }
 
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
+    }
 
     public String getRole() {
         return role;
@@ -130,7 +149,6 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
 
     @Override
     public String toString() {
