@@ -1,17 +1,92 @@
+<div class="mat-toolbar1">
 <mat-toolbar>
+    <div class="rescolor row">
     <div fxHide.gt-xs>
-        <button mat-icon-button (click)="onToggleSidenav()">
-            <mat-icon>menu</mat-icon>
+        <button mat-icon-button>
+            <mat-icon style="color: white;">apps</mat-icon><!--dashboard-->
         </button>
     </div>
-    
+    <div class="gap">
         <span class = "gap"> <a routerLink="/login">Resource Management</a></span>
-        <span><a *ngIf="isLoggedIn" routerLink="/user">User</a></span>
+    </div>
+    </div>
+        <!--<span><a *ngIf="isLoggedIn" routerLink="/user">User</a></span>-->
         <span class = "filler"></span>
-        <span><a href *ngIf="isLoggedIn" (click)="logout()">LogOut</a></span>
-   
-    
-    <!--<div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+
+        <div>    
+            <div class="col-md-12 mx-auto d-flex justify-content-center align-items-center">
+              <div class="btn-group mx-4" mdbDropdown>
+
+                <mdb-icon fas icon="user-circle" classInside="dropdown-toggle" mdbDropdownToggle class="waves-effect"
+                          mdbWavesEffect></mdb-icon>
+
+                <div class="dropdown-menu dropdown-primary dropdown-width" *ngIf="isLoggedIn">
+                  <div class="dropdown-item dropdown-header" style="text-align: center; color:white; background-color: black;">
+                    <span style="font-size: x-large;">{{ role }}</span><br>
+                    Member Since<br>
+                    {{ create_time }}
+                    {{year}}
+                  </div>
+                 
+                  
+                  <div class="dropdown-item" style="text-align: center; background-color: grey;">
+                    <button routerLink="/profile" style="color:black; background-color:whitesmoke; text-transform: lowercase; font-size: medium; padding: 10px 15px;" class="btn dropdown-gap">profile</button>
+                    <span class = "dropdown-gap"></span>
+                    <button (click)="logout()" style="color:black; background-color:whitesmoke; text-transform: lowercase; font-size: medium; padding: 10px 15px;" class="btn">sign out</button>
+                  </div> 
+                </div>
+                </div>
+              </div>
+            </div>
+
+        <span class = "gap"> <a>{{ role }}</a></span>
+
+        <div fxHide.gt-xs class="gap">
+            <button mat-icon-button>
+                <mat-icon>help_outline</mat-icon>
+            </button>
+        </div> 
+</mat-toolbar>
+</div>
+ 
+<div class="mat-toolbar2">
+<mat-toolbar>
+    <div fxHide.gt-xs class="menu row"  >
+        <button  mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon size="lg" style="color: black;">label</mat-icon><!--menu-->
+        </button>
+    </div> 
+</mat-toolbar>
+</div>
+
+<!--<div class="mat-toolbar3 ">
+    <mat-toolbar>
+        <div class="btn-group dropdownposition" mdbDropdown *ngIf="isLoggedIn">
+            <button mdbDropdownToggle type="button" mdbBtn color="whitesmoke" style="border: 0cm;" class="dropdown-toggle waves-light button1"
+              mdbWavesEffect>
+              Project 1
+            </button>
+            <div class="dropdown-menu dropdown-primary">
+              
+              <a class="dropdown-item">Project 1</a>
+              <a class="dropdown-item">Project 2</a>
+              <a class="dropdown-item">Project 3</a>
+            </div>
+          </div>
+</mat-toolbar>
+</div>-->
+
+
+<!--<div class="mat-toolbar3">
+    <mat-toolbar>
+        <div class="md-form dropdownposition">
+            <mdb-select-2 placeholder="Choose your option" label="Example label">
+              <mdb-select-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</mdb-select-option>
+            </mdb-select-2>
+          </div>
+    </mat-toolbar>
+</div>
+    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
         <ul fxLayout fxLayoutGap="15px" class="navigation-items">
             <li>
                 <a routerLink="/resource">Resource</a>
@@ -20,6 +95,17 @@
                 <a routerLink="/project">Project</a>
             </li>
         </ul>
-    </div>-->
-  </mat-toolbar>
+    </div>
+
+        <div fxHide.gt-xs class="gap">
+            <button mat-icon-button *ngIf="isLoggedIn">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+        </div>
+
+    <span><a href  class="gap"  *ngIf="isLoggedIn" (click)="logout()">LogOut</a></span>
+    <div class="col-md-12 mx-auto d-flex justify-content-center align-items-center">
+    -->
+ 
+
   

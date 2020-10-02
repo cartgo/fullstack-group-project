@@ -22,6 +22,15 @@ export class UserService {
    // { responseType: 'text' }
   }
 
+  getCreateTime(id): Observable<any> {
+    return this.http.get(API_URL + 'getCreateTime?id='+id);
+   // { responseType: 'text' }
+  }
+
+ /* getData(){
+    let api = "http://localhost:8080/project/"+"getByUserId?userId="+this.uId ;
+    return this.http.get<Project[]>(api).subscribe(data => this.projects = data);
+  }*/
 
   getAdminBoard(): Observable<any> {
     return this.http.get(API_URL + 'admin', { responseType: 'text' });

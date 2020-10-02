@@ -11,4 +11,5 @@ import javax.transaction.Transactional;
 public interface ProjectResourceRepository  extends JpaRepository<ProjectResource,Integer> {
     @Transactional
     void deleteProjectResourceByProjectAndResource(Project project , Resource resource);
+    void deleteAllByProject(Project project);
 }
