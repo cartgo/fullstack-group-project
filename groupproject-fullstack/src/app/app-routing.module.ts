@@ -25,9 +25,10 @@ const routes: Routes = [
   { path: 'resource', component: ResourceComponent },
   { path: 'search', component: SearchboxComponent ,children:[
     {path:'project',component:ProjectComponent,runGuardsAndResolvers: 'paramsChange'},
-  { path:'formula', component: FormulaComponent }
+    { path:'formula', component: FormulaComponent }]}
+  
 
-];
+]
 
 
 @NgModule({
