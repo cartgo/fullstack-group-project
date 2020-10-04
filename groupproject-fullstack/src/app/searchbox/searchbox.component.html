@@ -1,8 +1,14 @@
-<div>
+<div id='searchbar2'>
  
    <div class="searchbar">
   <div class="bar">
-      <input type="text" #searchbar [(ngModel)]="searchInput" (keyup)="fetchSeries($event)" placeholder="Enter the name of your series" />
+      <input list="browsers" type="text" #searchbar id = 'searchbar' [(ngModel)]="searchInput"  (click) ="click()" (blur)="hideList()" (keyup)="fetchSeries($event)" placeholder="Enter the name of your series" />
+      
+      <datalist id="browsers" *ngFor="let p of showallresult" >
+
+         <option> {{ p.projectName }} </option>
+          
+      </datalist>
    </div>
 <ul>
   <li *ngFor="let p of searchResult"  (click)="selectProject(p)" >

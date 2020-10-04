@@ -12,7 +12,6 @@ import { UserService } from '../service/user.service';
 import {ProjectComponent} from './project.component';
 import { Observable } from 'rxjs';
 import { ResourceService } from '../service/resource.service';
-
 const BACKEND_URL = environment.apiUrl + "/project/";
 
 @Injectable({ providedIn: "root" })
@@ -26,12 +25,26 @@ export class ProjectService {
    users:Array<any>;
    username:string = this.token.getUser().username;
    uId:string = this.token.getUser().id.toString(); 
-    selectedProjectCode:string;
+
+  selectedProjectCode = localStorage.getItem("currentproject");
 
   constructor(public http:HttpClient, private router: Router, private token: TokenStorageService
     ,public userservice:UserService ,public resourceservice:ResourceService ) { }
-     
 
+
+  p: Project;
+
+  selectp(p){
+    
+    this.p = p;
+    let v = p.projectCode;
+    // alert("clicked")
+    localStorage.setItem("currentproject", v)
+    console.log('now project change to'+this.selectedProjectCode)
+
+    console.log(v);
+
+  }
 
   getData(){
     let api = "http://localhost:8080/project/"+"getByUserId?userId="+this.uId ;
@@ -78,7 +91,6 @@ export class ProjectService {
 
     deleteResource( resourceCode:string, projectCode: string){
         let api = "http://localhost:8080/project/deleteResource?resourceCode="+resourceCode+"&projectCode="+this.selectedProjectCode; 
-        // let api = "http://localhost:8080/project/deleteResource?resourceCode=223&projectCode=3";
         return this.http.delete(api).subscribe()
     
     }
