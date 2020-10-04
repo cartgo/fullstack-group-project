@@ -14,7 +14,9 @@ import { MatTableDataSource } from '@angular/material/table';
  // import {MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import { ActivatedRoute } from '@angular/router';
+
  // import {MatPaginator } from '@angular/material';
+ providers: [ProjectService]
 
 // import { ResourceComponent } from '../resource/resource.component';
 @Component({
@@ -25,7 +27,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProjectComponent  implements OnInit {
 
-  constructor(public projectservice: ProjectService, public http:HttpClient,public resourceservice:ResourceService,
+  constructor(public projectservice: ProjectService, public http:HttpClient,public resourceservice:ResourceService ,
     // public projectservice: ProjectService,
     public route: ActivatedRoute
     // private authService: AuthService
@@ -36,11 +38,14 @@ export class ProjectComponent  implements OnInit {
   }
    
  
-   allresourcedata: Resource[]; 
-   resourcedata2:Resource[]; 
-   resourcedata: Resource[];  
-   projectResource; 
-   projectdata 
+ 
+   allresourcedata: Resource[];//订阅所有资源 old
+   resourcedata2:Resource[];//订阅所有资源 yichun
+
+
+   resourcedata: Resource[]; //订阅项目的资源 old
+   projectResource;/////////订阅项目的资源 new
+   projectdata//所有项目 旧
    listResource:[]=[];
    discardList:[]=[];
    checkedData =[];
@@ -62,7 +67,9 @@ export class ProjectComponent  implements OnInit {
 
 		this.projectservice.getResource2().subscribe(projectr=> {
 			console.log(projectr),
-			this.projectResource = projectr,
+			this.projectResource = projectr;
+			this.checkedData = Object.assign(this.projectResource);
+
 			this.checkedDataSource = new MatTableDataSource<any>(Object.assign(this.projectResource));
   console.log('this checkdata before oninit:' + console.log(this.checkedDataSource))
 			
@@ -320,8 +327,8 @@ removeSelectedRows() {
 	  console.log('this checkdata:' + (this.checkedDataSource))
 
 	let index: number = this.checkedData.findIndex(d => d === item);
-
-	this.uncheckedData.push(item);
+	// this.uncheckedData.push(this.checkedData[index]);
+	// this.uncheckedData.push(item);
 	this.checkedData.splice(index,1);
 
   });
@@ -364,8 +371,14 @@ submit(){
 
 	for (let i of this.getsubmit()){
 				this.http.put<Resource>("http://localhost:8080/project/addResource?resourceCode="+i+ "&projectCode="+this.projectservice.selectedProjectCode+
-				"&userId="+this.projectservice.uId,{}).subscribe(data => this.projectservice.resources.push(data))
-			}
+				"&userId="+this.projectservice.uId,{}).subscribe();
+					// data => {this.projectservice.resources.push(data);
+					// console.log("added"+JSON.stringify(data))})
+				this.projectservice.getResource2().subscribe(projectr=> {
+						console.log(projectr)})
+
+				}
+				
 
 
  	// if(this.getsubmit().length >0 ){

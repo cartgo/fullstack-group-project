@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import{Project} from "../project/project.model"
 import { HttpClient } from '@angular/common/http';
 import{ProjectComponent} from '../project/project.component';
+
 @Component({
   selector: 'app-searchbox',
   templateUrl: './searchbox.component.html',
@@ -21,7 +22,7 @@ export class SearchboxComponent implements OnInit {
 
   }
   public seriesList;
-
+  public showallresult: Project[] = [];
   public searchResult: Project[] = [];
   
   flag:boolean;
@@ -33,39 +34,43 @@ export class SearchboxComponent implements OnInit {
       console.log(JSON.stringify(this.seriesList))   
         });
     this.flag = true;
+    this.click();
+    
+
   }
   fetchSeries(event: any) {
     if (event.target.value === '') {
       return this.searchResult = [];
     }
-   
-
     this.searchResult = this.seriesList.filter((series) => {
-      // console.log(series.projectName);
-      return series.projectName.toLowerCase().startsWith(event.target.value.toLowerCase());
+       return series.projectName.toLowerCase().startsWith(event.target.value.toLowerCase());
     });
-    // console.log("searchresult"+this.searchResult)
-  }
+   }
+  
+   toggleboolean = false;
+
+   click(){
+    if (this.toggleboolean===false){
+      this.toggleboolean = true;}else{this.toggleboolean = true};
+
+     if(this.toggleboolean){
+      this.searchResult = this.seriesList.filter((series) => {
+         return series.projectName.toLowerCase().startsWith('p');
+      });}else{this.hideList()}
+
+
+   }
+   hideList(){
+     this.searchResult = [];
+   }
 
   selectProject(p){
-   this.p = p;
-   let v = p.projectCode;
-   this.flag = false;
-   alert("clicked")
-   
-   this.router.navigateByUrl("/resource") 
-   this.projectservice.selectedProjectCode = v;
-   this.router.navigateByUrl("/search/project") 
-    
-   console.log(v);
-  }
-  p:Project;
-
-  doIn(): void {
-    this.flag = false;
-    alert("clicked")
-    this.router.navigateByUrl("/search/project") 
+  this.projectservice.selectp(p)
+   window.location.reload();
     }
+  
+ 
+
 
 }
 

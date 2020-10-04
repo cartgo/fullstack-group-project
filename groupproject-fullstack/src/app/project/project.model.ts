@@ -1,7 +1,7 @@
 export class Project {
-  projectCode: number;
+  projectCode: string;
   projectName: string ; 
-  constructor(projectCode: number, projectName: string) {
+  constructor(projectCode: string, projectName: string) {
     this.projectCode = projectCode;
     this.projectName = projectName;
   } 
