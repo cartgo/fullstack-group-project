@@ -55,22 +55,24 @@ export class SearchboxComponent implements OnInit {
 
      if(this.toggleboolean){
       this.searchResult = this.seriesList.filter((series) => {
-         return series.projectName.toLowerCase().startsWith('p');
-      });}else{this.hideList()}
-
+         return series.projectName.toLowerCase();
+      });}
+      else{this.hideList()}
 
    }
    hideList(){
-     this.searchResult = [];
+     if(this.toselect ===false){
+     this.searchResult = [];}
    }
 
+   toselect: boolean
+
   selectProject(p){
+    this.toselect = true;
+
   this.projectservice.selectp(p)
    window.location.reload();
     }
-  
- 
-
 
 }
 
