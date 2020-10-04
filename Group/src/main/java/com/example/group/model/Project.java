@@ -50,9 +50,9 @@ public class Project {
 					CascadeType.DETACH, CascadeType.REFRESH})
 	private List<ProjectResource> projectResource;
 
-	@JsonBackReference
-	@OneToOne(mappedBy="costCode",cascade=CascadeType.ALL)
-	private ProjectScope projectScope;
+//	@JsonBackReference
+//	@OneToOne(mappedBy="costCode",cascade=CascadeType.ALL)
+//	private ProjectScope projectScope;
 
 	public Project(){ }
 
@@ -101,12 +101,12 @@ public class Project {
 		this.projectResource = projectResource;
 	}
 
-	public ProjectScope getProjectScope() {
-		return projectScope;
-	}
-
-	public void setProjectScope(ProjectScope projectScope) {
-		this.projectScope = projectScope;
-	}
+//	public ProjectScope getProjectScope() {
+//		return projectScope;
+//	}
+//
+//	public void setProjectScope(ProjectScope projectScope) {
+//		this.projectScope = projectScope;
+//	}
 
 }

@@ -1,10 +1,7 @@
 package com.example.group.controller;
 
 import com.example.group.dao.ProjectResourceRepository;
-import com.example.group.model.Project;
-import com.example.group.model.ProjectResource;
-import com.example.group.model.Resource;
-import com.example.group.model.User;
+import com.example.group.model.*;
 import com.example.group.service.ProjectService;
 import com.example.group.service.ResourceService;
 import com.example.group.service.UserService;
@@ -185,6 +182,18 @@ public class ProjectController {
         return list;
     }
 
+    @GetMapping("/getProjectScope")
+    public List<ProjectScope> projectScopes(
+            @RequestParam("projectCode") int projectCode
+                                             ){
+        Project project=projectService.findByProjectCode(projectCode);
+        List<ProjectResource> prs = project.getProjectResource();
+        List<ProjectScope> projectScopeList = new ArrayList();
+        for(ProjectResource pr:prs){
+            projectScopeList.add(pr.getProjectScope());
+        }
+        return projectScopeList;
+    }
 
 
 }

@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class ProjectScope {
 	
     @Id
-	@Column(name="item_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String itemId;
     
 
@@ -21,10 +21,15 @@ public class ProjectScope {
     private String name;
 
 
+
 	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,
 			CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name = "cost_code")
-    private Project costCode;
+	@JoinColumns(
+			{
+			@JoinColumn(name = "cost_code", insertable = false, updatable = false),
+			@JoinColumn(name = "project_code", insertable = false, updatable = false)
+			})
+	private ProjectResource costCode;
     
     @Column
     private boolean editable;
@@ -41,7 +46,8 @@ public class ProjectScope {
 
     public ProjectScope(){}
 
-	public ProjectScope(String itemId, Project costCode, String name, boolean editable) {
+
+	public ProjectScope(String itemId, ProjectResource costCode, String name, boolean editable) {
 		this.itemId = itemId;
 		this.costCode = costCode;
 		this.name = name;
@@ -64,11 +70,12 @@ public class ProjectScope {
 		this.name = name;
 	}
 
-	public Project getCostCode() {
+
+	public ProjectResource getCostCode() {
 		return costCode;
 	}
 
-	public void setCostCode(Project costCode) {
+	public void setCostCode(ProjectResource costCode) {
 		this.costCode = costCode;
 	}
 

@@ -12,4 +12,5 @@ public interface ProjectResourceRepository  extends JpaRepository<ProjectResourc
     @Transactional
     void deleteProjectResourceByProjectAndResource(Project project , Resource resource);
     void deleteAllByProject(Project project);
+
 }
