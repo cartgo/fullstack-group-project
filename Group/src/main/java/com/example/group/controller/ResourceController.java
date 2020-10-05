@@ -1,6 +1,7 @@
 package com.example.group.controller;
 
 
+import com.example.group.dao.DatabaseUpdates;
 import com.example.group.model.Resource;
 import com.example.group.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin 
 @RequestMapping("/resource")
 public class ResourceController {
 
@@ -61,4 +61,24 @@ public class ResourceController {
     public void deleteByResource_code(int resource_code){
         resourceService.deleteByResourceCode(resource_code);
     }
+
+
+    @Autowired
+    private DatabaseUpdates databaseUpdates;
+    @PutMapping("/addcolumn")
+    private void addcolumn(
+            @RequestParam("columnName") String columnName,
+            @RequestParam("columnType") String columnType,
+            @RequestParam("afterColumnName") String afterColumnName
+
+    ) {
+        String tableName = "resource";
+//        String columnType = "VARCHAR(100)";
+//        String afterColumnName = "resource_name"; //this is after which column you want to add new column --mingyan
+
+        databaseUpdates.alterMyTableAddMyColumn(tableName, columnName,
+                columnType, afterColumnName);
+    }
+
+
 }
