@@ -95,16 +95,7 @@ export class ProjectService {
     
     }
 
-
-/////////【【【【【【【【【【NONONONONONONONONONONONONONONONONONONONONONONONONONO【【【【【【【【【【【【【【【【【【【【【【【【【【【///////
-addPost(resource: Project){  //// ///////////////////////test, should be Resource[]
-    let api =BACKEND_URL +"addResource";
-    return this.http.put(api+"?resourceCode="+resource.projectCode
-    +resource.projectName
-    +localStorage.getItem(this.uId),{})
-    .subscribe(data => console.log(data));  //?resourceCode=4&projectCode=33&userId=1
-  }
-
+ 
 
 
 /////////【【【【【【【【【【NONONONONONONONONONONONONONONONONONONONONONONONONONO【【【【【【【【【【【【【【【【【【【【【【【【【【【///////
@@ -114,7 +105,40 @@ addPost(resource: Project){  //// ///////////////////////test, should be Resourc
 // }
 /////////【【【【【【【【【【NONONONONONONONONONONONONONONONONONONONONONONONONONO【【【【【【【【【【【【【【【【【【【【【【【【【【【///////
 
+getformula(){
+  let api = "http://localhost:8080/projectScope/findByProjectCode?projectCode="+this.selectedProjectCode;
+  return this.http.get(api);
+}
+
+addformulacolumn(){
+  // columnName?: string="newwww"
+  // let columnName="newwww21"
+  // let lastcolumnname;
+  // if(localStorage.getItem("formulaLatColumnName")){
+  //   lastcolumnname = localStorage.getItem("formulaLatColumnName");
+  //   lastcolumnname ="test"
+  // }else{lastcolumnname = "newcolumn2"};
+
+  let api = "http://localhost:8080/projectScope/addcolumn?columnName=ddd&columnType=VARCHAR(100)&afterColumnName=test";
+  this.http.put(api,{}).subscribe();
+  // localStorage.setItem("formulaLastColumnName",columnName)
+  // console.log(localStorage.getItem("formulaLastColumnName"))
+}
+// addformulacolumntest(){
+//   let columnName="testnew"
+//   let lastcolumnname="aaa";
+//   this.http.put("http://localhost:8080/projectScope/addcolumn?columnName=test&columnType=VARCHAR(100)&afterColumnName=aaa",{}).subscribe();
+
+// }
+
+
+updateFormula(itemId,costCode){
+  let api = "http://localhost:8080/projectScope/updateCostCode?itemId="+itemId+"&costCode="+costCode;
+  return this.http.put(api,{});
+  //http://localhost:8080/projectScope/updateCostCode?itemId=1&costCode=2333
+}
+
 
 }
- 
+
 
