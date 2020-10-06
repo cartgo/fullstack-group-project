@@ -182,18 +182,19 @@ public class ProjectController {
         return list;
     }
 
-    @GetMapping("/getProjectScope")
-    public List<ProjectScope> projectScopes(
-            @RequestParam("projectCode") int projectCode
-                                             ){
-        Project project=projectService.findByProjectCode(projectCode);
-        List<ProjectResource> prs = project.getProjectResource();
-        List<ProjectScope> projectScopeList = new ArrayList();
-        for(ProjectResource pr:prs){
-            projectScopeList.add(pr.getProjectScope());
-        }
-        return projectScopeList;
-    }
+//    @GetMapping("/getProjectScope")
+//    public List<ProjectScope> projectScopes(
+//            @RequestParam("projectCode") int projectCode
+//                                             ){
+//        Project project=projectService.findByProjectCode(projectCode);
+//        List<ProjectResource> prs = project.getProjectResource();
+//        List<ProjectScope> projectScopeList = new ArrayList();
+////        projectScopeList = [];
+//        for(ProjectResource pr:prs){
+//            projectScopeList.add(pr.getProjectScope());
+//        }
+//        return projectScopeList;
+//    }
 
 
 }

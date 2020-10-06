@@ -18,9 +18,9 @@ public class ProjectResource {
     @JoinColumn(name = "project_code")
     private Project project;
 
-    @JsonBackReference
-    @OneToOne(mappedBy="costCode",cascade=CascadeType.ALL)
-    private ProjectScope projectScope;
+//    @JsonBackReference
+//    @OneToOne(mappedBy="projectResource",cascade=CascadeType.ALL)
+//    private ProjectScope projectScope;
 
     public ProjectResource(){}
 
@@ -50,13 +50,13 @@ public class ProjectResource {
     public void setResource(Resource resource) {
         this.resource = resource;
     }
-    public ProjectScope getProjectScope() {
-        return projectScope;
-    }
-
-    public void setProjectScope(ProjectScope projectScope) {
-        this.projectScope = projectScope;
-    }
+//    public ProjectScope getProjectScope() {
+//        return projectScope;
+//    }
+//
+//    public void setProjectScope(ProjectScope projectScope) {
+//        this.projectScope = projectScope;
+//    }
 
 
 }

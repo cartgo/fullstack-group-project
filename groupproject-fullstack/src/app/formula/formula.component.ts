@@ -93,5 +93,28 @@ keydown(event, element){
     this.updateFormula(this.updatedformula);
 
   }
+
+
+
+
+
+  // addColumn(newC: Array<string>) {
+  //   for(let name of newC){
+  //     var coulmnName = name;
+  //     console.log(coulmnName);
+      
+  //   for (var val of this.formulas) {
+  //     val['columnName'] = '';
+  //   }
+  //   this.displayedColumns.push(coulmnName);
+  //   this.checkformulasource = new MatTableDataSource<any>(Object.assign(this.formulas));
+  //   }
+  // }
+
+  // test(){
+  //   this.addColumn(['aaa','bbb'])
+  // }
+
+
  
 }
