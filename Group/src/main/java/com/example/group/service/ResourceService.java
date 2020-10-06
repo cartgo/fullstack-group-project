@@ -12,4 +12,7 @@ public interface ResourceService {
     Resource updateResource(Resource resource);
     List<Resource> findAll();
     void deleteByResourceCode(int resourceCode);
+    void deleteAll();
+    void updateResource(String tableName, String columnName,
+                        String columnType, String afterColumnName);
 }
