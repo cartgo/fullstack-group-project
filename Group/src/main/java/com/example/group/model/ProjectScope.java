@@ -9,16 +9,23 @@ import javax.persistence.*;
 @Table(name = "project_scope")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"create_time", "update_time"},
-        allowGetters = true)
+		allowGetters = true)
 public class ProjectScope {
+
 	
-    @Id
+   @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemId;
     
 
-    @Column(name="name")
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int itemId;
+
+
+	@Column(name="name")
+	private String name;
+
 
 
 	@Column(name = "cost_code")
@@ -37,6 +44,8 @@ public class ProjectScope {
 //	private ProjectResource projectResource;
 
 
+
+
   
    /* @Column(nullable = false, updatable = false, name="create_time")
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,9 +57,11 @@ public class ProjectScope {
     @LastModifiedDate
     private Date updateTime;*/
 
-    public ProjectScope(){}
+
+  public ProjectScope(){}
 	public ProjectScope( String name, int costCode, int projectCode ) {
 //		this.itemId = itemId;
+
 		this.name = name;
 		this.projectCode = projectCode;
 		this.costCode = costCode;

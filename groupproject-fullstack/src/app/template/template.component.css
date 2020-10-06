@@ -1,0 +1,27 @@
+.gap {
+  margin-right: 20px;
+}
+
+.button {
+  background-color: orangered;
+  height:40px;
+  width:40px;
+  
+}
+
+.container{  
+  width: 75%;  
+  overflow: hidden;  
+  margin: auto;  
+  margin: 20 0 0 450px;  
+  padding: 80px;   
+  top: 150px;      
+} 
+
+
+.container p{
+  height: 40px;
+  top: 500px;
+  right:500px;
+}
+

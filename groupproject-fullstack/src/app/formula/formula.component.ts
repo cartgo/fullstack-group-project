@@ -16,6 +16,7 @@ import { Formula } from './formula.model';
 })
 export class FormulaComponent implements OnInit {
 
+
   constructor(public projectservice: ProjectService, 
     public http:HttpClient,
     public resourceservice:ResourceService,
@@ -55,10 +56,12 @@ export class FormulaComponent implements OnInit {
   }
   if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode));}
 
+
   console.log(this.updatedformula);
   this.selectedElement = null;
 
 }
+
 
 keydown(event, element){
   if(event.keyCode == 13){

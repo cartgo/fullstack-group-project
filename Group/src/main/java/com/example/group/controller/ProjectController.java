@@ -22,6 +22,7 @@ import java.util.Set;
 @RequestMapping("/project")
 public class ProjectController {
 
+
     @Autowired
     private ProjectService projectService;
 
@@ -59,7 +60,7 @@ public class ProjectController {
         return projectService.findByProjectName(projectName);
     }
 
-//    @GetMapping("/getByUserId")
+    //    @GetMapping("/getByUserId")
 //    public List<Project> getByUserId(@RequestParam("userId") int userId)
 //    {
 //        return projectService.findByUserId(userId);
@@ -131,8 +132,8 @@ public class ProjectController {
     @Transactional
     @DeleteMapping("/deleteResource")//ResponseEntity<?>
     public ResponseEntity<?> deleteResource (
-                                            @RequestParam("projectCode") int projectCode,
-                                            @RequestParam("resourceCode") int resourceCode){
+            @RequestParam("projectCode") int projectCode,
+            @RequestParam("resourceCode") int resourceCode){
         Resource resource = resourceService.findByResourceCode(resourceCode);
         Project project = projectService.findByProjectCode(projectCode);
         prservice.deleteProjectResourceByProjectAndResource(project,resource);
@@ -144,7 +145,7 @@ public class ProjectController {
     @DeleteMapping("/deleteAllProjectResource")//ResponseEntity<?>
     public ResponseEntity<?> deleteAllProjectResource (
             @RequestParam("projectCode") int projectCode
-             ){
+    ){
 //        Resource resource = resourceService.findByResourceCode(resourceCode);
         Project project = projectService.findByProjectCode(projectCode);
         prservice.deleteAllByProject(project);
@@ -154,9 +155,9 @@ public class ProjectController {
 
     @PutMapping("/setResource")
     public Project setResource(
-                               @RequestParam("projectCode") int projectCode,
-                               @RequestParam("resourceCodeList") List<String> resourceCodeList) {
-          //find all projects of this user
+            @RequestParam("projectCode") int projectCode,
+            @RequestParam("resourceCodeList") List<String> resourceCodeList) {
+        //find all projects of this user
         Project project = projectService.findByProjectCode(projectCode);
         List<ProjectResource> listpr = new ArrayList<>();
         for(String i: resourceCodeList){
@@ -172,7 +173,7 @@ public class ProjectController {
     }
 
 
-        @GetMapping("/getProjectResource")
+    @GetMapping("/getProjectResource")
     public List<Resource> getProjectResource(int userId, int projectCode) {
 
         List<Resource> list = new ArrayList();
@@ -181,6 +182,7 @@ public class ProjectController {
         }
         return list;
     }
+
 
 //    @GetMapping("/getProjectScope")
 //    public List<ProjectScope> projectScopes(
@@ -195,6 +197,8 @@ public class ProjectController {
 //        }
 //        return projectScopeList;
 //    }
+
+
 
 
 }
