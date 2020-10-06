@@ -12,6 +12,9 @@
     </div>
         <!--<span><a *ngIf="isLoggedIn" routerLink="/user">User</a></span>-->
         <span class = "filler"></span>
+        <!--<span *ngIf="isLoggedIn"><p>Project {{this.currentProject}}</p></span>-->
+        <span *ngIf="isLoggedIn"><h1>Project {{this.projectservice.selectedProjectCode}}</h1></span>
+        <span class = "filler"></span>
 
         <div>    
             <div class="col-md-12 mx-auto d-flex justify-content-center align-items-center">
@@ -24,8 +27,7 @@
                   <div class="dropdown-item dropdown-header" style="text-align: center; color:white; background-color: black;">
                     <span style="font-size: x-large;">{{ role }}</span><br>
                     Member Since<br>
-                    {{ create_time }}
-                    {{year}}
+                    {{finalMonth}} - {{ yearString }}
                   </div>
                  
                   

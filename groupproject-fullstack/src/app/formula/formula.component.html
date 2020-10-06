@@ -1,1 +1,38 @@
 <p>formula works!</p>
+<p>current project: No.{{this.projectservice.selectedProjectCode}} </p>
+
+<div >
+    <div class="fixedDiv">
+		<table class="fixedtable">
+            <tr>
+				<td>
+					<div class="example-container mat-elevation-z8">
+						<mat-table #table [dataSource]="checkedDataSource">
+
+							<ng-container matColumnDef="resourceName">
+								<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.resourceName}} </mat-cell>
+							</ng-container>
+
+							<ng-container matColumnDef="resourceCode">
+								<mat-header-cell *matHeaderCellDef> Cost Code </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.resourceCode}} </mat-cell>
+							</ng-container>
+
+
+
+							<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+							<mat-row *matRowDef="let row; columns: displayedColumns;"
+								(click)="checkedSelection.toggle(row)">
+							</mat-row>
+						</mat-table>
+
+					</div>
+			</tr>
+
+		</table>
+
+    </div>
+</div>
+
+<a href="/template" style="color:blue; font-size: medium; font-weight: bold;" class="btn">Edit Quantity Survey Template</a>

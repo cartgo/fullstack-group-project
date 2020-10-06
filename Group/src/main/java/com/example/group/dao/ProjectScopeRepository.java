@@ -5,10 +5,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProjectScopeRepository extends  JpaRepository<ProjectScope,String> {
-    ProjectScope findByItemId(String itemId);
+    ProjectScope findByItemId(int itemId);
     ProjectScope save(ProjectScope projectScope);
     /*@Transactional
     void deleteByItemId(String itemId);*/
+
+
 
 }
 

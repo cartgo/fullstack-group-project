@@ -16,33 +16,32 @@ import java.util.List;
 })
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"create_time", "update_time"},
-        allowGetters = true)
+		allowGetters = true)
 public class Project {
-	
-    @Id
-	@Column(name ="project_code")
-    private int projectCode;
 
-    @NotBlank
-    @Column(nullable = false, name="project_name",unique = true)
-    private String projectName;
+	@Id
+	@Column(name ="project_code")
+	private int projectCode;
+
+	@NotBlank
+	@Column(nullable = false, name="project_name",unique = true)
+	private String projectName;
 
     /*@Column(nullable = false, updatable = false, name="create_time")
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createTime;
-
     @Column(nullable = false, name="update_time")
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updateTime;*/
 
 	@JsonBackReference
-    @ManyToOne(
+	@ManyToOne(
 //    		cascade= {CascadeType.ALL}
-    )
-    @JoinColumn(name="user_id")
-    private User user;
+	)
+	@JoinColumn(name="user_id")
+	private User user;
 
 	@JsonBackReference
 	@OneToMany(mappedBy="project",
@@ -50,9 +49,9 @@ public class Project {
 					CascadeType.DETACH, CascadeType.REFRESH})
 	private List<ProjectResource> projectResource;
 
-	@JsonBackReference
-	@OneToOne(mappedBy="costCode",cascade=CascadeType.ALL)
-	private ProjectScope projectScope;
+//	@JsonBackReference
+//	@OneToOne(mappedBy="costCode",cascade=CascadeType.ALL)
+//	private ProjectScope projectScope;
 
 	public Project(){ }
 
@@ -80,7 +79,6 @@ public class Project {
 	/*public Date getCreateTime() {
 		return createTime;
 	}
-
 	public Date getUpdateTime() {
 		return updateTime;
 	}*/
@@ -101,12 +99,12 @@ public class Project {
 		this.projectResource = projectResource;
 	}
 
-	public ProjectScope getProjectScope() {
-		return projectScope;
-	}
-
-	public void setProjectScope(ProjectScope projectScope) {
-		this.projectScope = projectScope;
-	}
+//	public ProjectScope getProjectScope() {
+//		return projectScope;
+//	}
+//
+//	public void setProjectScope(ProjectScope projectScope) {
+//		this.projectScope = projectScope;
+//	}
 
 }

@@ -1,5 +1,7 @@
 package com.example.group.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,6 +18,9 @@ public class ProjectResource {
     @JoinColumn(name = "project_code")
     private Project project;
 
+    @JsonBackReference
+    @OneToOne(mappedBy="costCode",cascade=CascadeType.ALL)
+    private ProjectScope projectScope;
 
     public ProjectResource(){}
 
@@ -45,6 +50,14 @@ public class ProjectResource {
     public void setResource(Resource resource) {
         this.resource = resource;
     }
+    public ProjectScope getProjectScope() {
+        return projectScope;
+    }
+
+    public void setProjectScope(ProjectScope projectScope) {
+        this.projectScope = projectScope;
+    }
+
 
 }
 
@@ -61,8 +74,4 @@ class connPk implements Serializable {
         return resource;
     }
 }
-
-
-
-
 

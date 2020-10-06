@@ -22,14 +22,13 @@
       >
         <td>{{ resource.resourceCode }}</td>
         <td>{{ resource.resourceName }}</td>
-        
       </tr>
       <table>
         <tr id="addRows"></tr>
       </table>
-      <app-addresource></app-addresource>
+
       <div>
-        <button (click)="addRow()">add row</button>
+        <button (click)="addNewResource()">add row</button>
       </div>
     </tbody>
   </table>
@@ -37,47 +36,204 @@
     <button (click)="submit()">Submit</button>
     <button>Discard</button>
   </div>
-</div> -->
-
-<div class="tableHeader" layout="row" layout-xs="column">
-  <input matInput (keyup)="applyFilter($event)" placeholder="Keyword" #input />
-  <span class="material-icons"> search </span>
-
-  Resource Catalog<span class="material-icons"> add_box </span>
 </div>
+<!-- !!!!!??? &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
+<!-- <table class="resource_table">
+  <thead>
+    <tr>
+      <th class="">resource_code</th>
+      <th class="">resource_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let resource of newList; let i = index; let o = odd; let e = even"
+      [ngClass]="{ odd: o, even: e }"
+      id="{{ resource.resourceCode }}"
+    >
+      <td>
+        <input value="{{ resource.resourceCode }}" />
+      </td>
+      <td>
+        <input value="{{ resource.resourceName }}" />
+      </td>
+    </tr>
+    <table>
+      <tr id="addRows"></tr>
+    </table>
 
-  <!-- Position Column -->
+    <div>
+      <button (click)="addNewResource()">add row</button>
+    </div>
+  </tbody>
+</table> -->
+<div class="container">
+  <div class="tableHeader" layout="row" layout-xs="column">
+    <input matInput (keyup)="applyFilter($event)" placeholder="Keyword" />
 
-  <ng-container matColumnDef="Resource_Code">
-    <th mat-header-cell *matHeaderCellDef>Resource_Code</th>
-    <td mat-cell *matCellDef="let resource">
-      <span class="material-icons"> arrow_right </span
-      >{{ resource.resourceCode }}
-    </td>
-  </ng-container>
+    <span class="material-icons" id="search"> search </span>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="Resource_Name">
-    <th mat-header-cell *matHeaderCellDef>Resource_Name</th>
-    <td mat-cell *matCellDef="let resource">{{ resource.resourceName }}</td>
-  </ng-container>
+    <span class="filler"> </span>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+    <span>Resource Catalog</span>
+    <span class="filler"> </span>
+    <span class="gap"> </span>
+    <span class="moregap"> </span>
+    <span class="material-icons" id="add_box"> add_box </span>
+  </div>
 
-<div class="example-button-row">
-  <!-- <button mat-raised-button>Basic</button> -->
-  <button mat-raised-button color="primary">Submit</button>
-  <button mat-raised-button color="accent">Discard</button>
-</div>
-<!--<mat-form-field></mat-form-field>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container
+      matColumnDef="{{ column }}"
+      *ngFor="let column of displayedColumns"
+    >
+      <th mat-header-cell *matHeaderCellDef>
+        {{ column | slice: 0:end | uppercase }}
+      </th>
+      <td mat-cell *matCellDef="let resource">
+        <span class="material-icons"> arrow_right </span>
 
- <h4>Basic mat-select</h4>
+        <span *ngIf="editable; else elseNotDone">{{ resource[column] }}</span>
+
+        <ng-template #elseNotDone>
+          <input
+            *ngIf="column === 'resourceCode'; else resourceName"
+            value="{{ resource[column] }}"
+            (keydown.enter)="typeInResourceCode($event)"
+          />
+        </ng-template>
+
+        <ng-template #resourceName>
+          <input
+            value="{{ resource[column] }}"
+            (keydown.enter)="typeInResourceName($event)"
+          />
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="resourceCode">
+      <th mat-header-cell *matHeaderCellDef>Resource_Code</th>
+      <td mat-cell *matCellDef="let resource">
+        <span class="material-icons"> arrow_right </span>
+        <span *ngIf="editable; else elseNotDone">{{
+          resource.resourceCode
+        }}</span>
+
+        <ng-template #elseNotDone>
+          <input
+            value="{{ resource.resourceCode }}"
+            (keydown.enter)="typeInResourceCode($event)"
+          />
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="resourceName">
+      <th mat-header-cell *matHeaderCellDef>Resource_Name</th>
+      <td mat-cell *matCellDef="let resource">
+        <span *ngIf="editable; else elseNotDone">{{
+          resource.resourceName
+        }}</span>
+
+        <ng-template #elseNotDone>
+          <input
+            value="{{ resource.resourceName }}"
+            (keydown.enter)="typeInResourceName($event)"
+          />
+        </ng-template></td
+    ></ng-container> -->
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+
+  <div class="example-button-row">
+    <button mat-raised-button color="primary" (click)="addNewResource1()">
+      Add Row
+    </button>
+    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    <button mat-raised-button color="accent" (click)="discard()">
+      Discard
+    </button>
+    <button mat-raised-button color="accent" (click)="addColumn()">
+      Add Column
+    </button>
+    <button mat-raised-button color="primary" (click)="deleteColumn()">
+      Delete Column
+    </button>
+    <input type="file" (change)="onFileChange($event)" multiple="false" />
+    <!-- <table>
+    <tbody>
+      <tr *ngFor="let row of data">
+        <td *ngFor="let val of row">
+          {{ val }}
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+    <!-- 
+  </div>
+
+  <!-- File Upload -->
+    <!-- <div>
+    <div style="text-align: center; display: inline-block; overflow: hidden">
+      <span class="fileinput-button">
+        <span
+          nz-button
+          nzType="primary"
+          style="display: inline-block; line-height: 30px"
+          >点击上传excel文件</span
+        >
+        
+        <input type="file" (change)="readExcel($event)" />
+      </span>
+    </div>
+
+    <div class="myitem-one-list">
+      <st
+        #st
+        [data]="data"
+        [columns]="columns"
+        [page]="page"
+        virtualScroll
+        [scroll]="{ x: '500px', y: '240px' }"
+      ></st>
+    </div>
+  </div> -->
+
+    <!--File Upload -->
+    <!-- <input type="file" (change)="onFileChange($event)" multiple="false" /> -->
+    <!-- <table>
+    <tbody>
+      <tr *ngFor="let row of data">
+        <td *ngFor="let val of row">
+          {{ val }}
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+    <!-- 
+  <input type="file" (change)="onFileChange($event)" multiple="false" />
+  <table>
+    <tbody>
+      <tr *ngFor="let row of data">
+        <td *ngFor="let val of row">
+          {{ val }}
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+  </div>
+
+  <span>{{ resource_code }}</span>
+  <span>{{ resource_name }}</span>
+  <span>{{ newAddResourceList }}</span>
+
+  <!-- <mat-form-field></mat-form-field> -->
+
+  <!-- <h4>Basic mat-select</h4>
 <mat-form-field>
   <mat-icon>add_box</mat-icon>
   <mat-select class="alarm-dropdown" trigger="alarmTrigger" #alarmSelect>
@@ -86,6 +242,7 @@
     </mat-option>
   </mat-select>
 </mat-form-field> -->
-<!-- <input> -->
-<!-- test -->
-<router-outlet></router-outlet>
+  <!-- <input> -->
+  <!-- test -->
+  <router-outlet></router-outlet>
+</div>

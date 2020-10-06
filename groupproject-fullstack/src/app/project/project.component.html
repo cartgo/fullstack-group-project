@@ -1,160 +1,143 @@
-
-current user:{{this.projectservice.username}}
- <br>userid: {{this.projectservice.uId}}
-  <!-- <table>
-    <tr>
-      <th>projectCode</th>   
-      <th>projectName  </th>
-    </tr>
-    <tr *ngFor="let post of projectservice.projects">
-      <td>{{post.projectCode}}</td>
-      <td>{{post.projectName}}</td>
-    </tr>
-</table>
-<table>
-    <tr>
-      <th>resourceCode</th>   
-      <th>resourceName </th>
-    </tr>
-    <tr *ngFor="let post of projectservice.resources">
-      <td>{{post.resourceCode}}</td>
-      <td>{{post.resourceName}}</td>
-    </tr>
-</table><br> -->
-<p>current project: No.{{this.projectservice.selectedProjectCode}} </p>
- 
- 
-<!-- <button (click)="this.projectservice.deleteResource('s','b')" >
-	Demo delete test
-</button> -->
-
+<!-- current user:{{this.projectservice.username}}
+<br>userid: {{this.projectservice.uId}}
 <div class="container-fluid">
 	<p></p>
-	<dual-list [sort]="keepSorted" [source]="projectservice.allresources" [key]="key" [display]="display" [filter]="filter"
-		[(destination)]="confirmed" height="265px" [format]="format" [disabled]="disabled">asdf</dual-list>
-	<!-- <ul class="nav nav-tabs" style="margin-top:50px;">
-		<li [class.active]="tab===1"><a (click)="tab=1">Arrays</a><li>
-		<li [class.active]="tab===2"><a (click)="tab=2">Format</a></li>
-		<li [class.active]="tab===3"><a (click)="tab=3">Programmatic changes</a></li>
-	</ul> -->
+	<dual-list [sort]="keepSorted" [source]="allresourcedata" [key]="key" [display]="display" [filter]="filter"
+		[(destination)]="projectResource" height="265px" [format]="format" [disabled]="disabled">asdf</dual-list>
 	<div class="tab-content">
-		<!-- <div class="tab-pane" [class.active]="tab===1">
-			<div class="row">
-				<div class="col-sm-6" style="margin-top:32px;"><h4>Source</h4><pre><small>{{source|json}}</small></pre></div>
-				<div class="col-sm-6" style="margin-top:32px;"><h4>Confirmed</h4><pre><small>{{confirmed|json}}</small></pre></div>
-			</div>
-        </div> -->
-        <div class="col-sm-6" style="margin-top:32px;"><h4>Confirmed</h4><pre><small>{{confirmed|json}}</small></pre></div>
 		<div class="tab-pane" [class.active]="tab===2">
 			<form class="form">
-				<!-- <div class="form-group">
-					<label style="display:block;">Direction</label>
-					<div class="btn-group">
-						<button type="button" class="btn" [ngClass]="{ 'btn-primary' : sourceLeft, 'btn-default' : !sourceLeft }"
-							(click)="swapDirection()">left-to-right</button>
-						<button type="button" class="btn" [ngClass]="{ 'btn-primary' : !sourceLeft, 'btn-default' : sourceLeft }"
-							(click)="swapDirection()">right-to-left</button>
-					</div>
-				</div> -->
 				<div class="form-group">
 					<label>Enable drag-and-drop</label>
 					<div class="checkbox">
 						<label><input type="checkbox" [(ngModel)]="format.draggable" name="drag">draggable</label>
 					</div>
 				</div>
-				<!-- <div class="form-group">
-					<label>Locale</label>
-					<input class="form-control" [(ngModel)]="format.locale" name="locale">
-				</div>
-				<div class="form-group">
-					<label>Add button</label>
-					<input class="form-control" [(ngModel)]="format.add" name="addBtn">
-				</div>
-				<div class="form-group">
-					<label>Remove button</label>
-					<input class="form-control" [(ngModel)]="format.remove" name="rmBtn">
-				</div>
-				<div class="form-group">
-					<label>All button</label>
-					<input class="form-control" [(ngModel)]="format.all" name="allBtn">
-				</div>
-				<div class="form-group">
-					<label>None button</label>
-					<input class="form-control" [(ngModel)]="format.none" name="noneBtn">
-				</div> -->
 			</form>
         </div>
         <form class="form-inline well">
-            <!-- <button class="btn btn-default" (click)="doFilter()">{{filterBtn()}}</button> -->
-            <!-- <button class="btn btn-default" (click)="doDisable()">{{disableBtn()}}</button> -->
-            <!-- <button class="btn btn-primary" (click)="doReset()">Reset</button> -->
             <button (click) = "addResource()">save change</button>
- 
         </form>
-		<!-- <div class="tab-pane" [class.active]="tab===3"> -->
-			<!-- <div class="row" style="margin-top:20px;"> -->
-				<!-- <div class="col-sm-6"> -->
-					<!-- <label>Modify parent's source</label> -->
-					<!-- <form class="form-inline well">
-						<input class="form-control col-sm-1" style="margin-right:4px;" [(ngModel)]="userAdd" name="userAdd">
-						<button class="btn btn-success" (click)="doCreate()" [disabled]="!userAdd.length">Create</button>
-						<button class="btn btn-danger" (click)="doDelete()">Delete</button>
-					</form> -->
-				<!-- </div> -->
-				<!-- <div class="col-sm-6">
-					<label>Modify parent's confirmed</label>
-					<form class="form-inline well">
-					<button class="btn btn-default" (click)="doAdd()">Add</button>
-					<button class="btn btn-default" (click)="doRemove()">Remove</button>
-					</form>
-				</div>
-			</div> -->
-			<!-- <div class="row">
-				<div class="col-sm-12">
-					<label>Array source</label>
-					<form class="form well">
-						<div class="radio" *ngFor="let item of arrayType">
-							<label>
-								<input type="radio" name="sourceType" [value]="item.value" [(ngModel)]="type" (change)="swapSource()">
-								{{item.name}} &mdash; {{item.detail}}
-							</label>
-						</div>
-					</form>
-				</div>
-			</div> -->
-			<!-- <div class="row">
-				<div class="col-sm-12">
-					<label>General</label><br/>
-					<form class="form-inline well">
-						<button class="btn btn-default" (click)="doFilter()">{{filterBtn()}}</button>
-						<button class="btn btn-default" (click)="doDisable()">{{disableBtn()}}</button>
-						<button class="btn btn-primary" (click)="doReset()">Reset</button>
-					</form>
-				</div>
-			</div> -->
-		<!-- </div> -->
 	</div>
 </div>
-<!-- 
-<button (click)="getData()">
-    get
-</button> -->
+  -->
+<!-- Heading.....  -->
+<p>current project: No.{{this.projectservice.selectedProjectCode}} </p>
 
- 
- 
+<div >
 
-	<!-- <form class="example-form">
-		<mat-form-field class="example-full-width">
-		  <input type="text"
-				 placeholder="Pick one"
-				 aria-label="Number"
-				 matInput
-				 [formControl]="myControl"
-				 [matAutocomplete]="auto">
-		  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-			<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-			  {{option}}
-			</mat-option>
-		  </mat-autocomplete>
-		</mat-form-field>
-	  </form> -->
+	<div class="fixedDiv">
+		<table class="fixedtable">
+			<tr>
+				<td>
+					<div class=" mat-elevation-z8">
+						<mat-table #table [dataSource]="dataSource">
+
+							<!-- Checkbox Column -->
+							<ng-container matColumnDef="select">
+								<mat-header-cell *matHeaderCellDef>
+									<mat-checkbox (change)="$event ? masterToggle() : null"
+										[checked]="selection.hasValue() && isAllSelected()"
+										[indeterminate]="selection.hasValue() && !isAllSelected()">
+									</mat-checkbox>
+								</mat-header-cell>
+								<mat-cell *matCellDef="let row">
+									<mat-checkbox (click)="$event.stopPropagation()"
+										(change)="$event ? selection.toggle(row) : null"
+										[checked]="selection.isSelected(row)">
+									</mat-checkbox>
+								</mat-cell>
+							</ng-container>
+
+							<!-- Name Column -->
+							<ng-container matColumnDef="resourceCode">
+								<mat-header-cell *matHeaderCellDef> resourceCode </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.resourceCode}} </mat-cell>
+							</ng-container>
+
+							<!-- Weight Column -->
+							<ng-container matColumnDef="resourceName">
+								<mat-header-cell *matHeaderCellDef> resourceName </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.resourceName}} </mat-cell>
+							</ng-container>
+
+
+
+							<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+							<mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+							</mat-row>
+						</mat-table>
+
+						<!-- <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+        </mat-paginator> -->
+
+					</div>
+				</td>
+
+				<td>
+					<div class="example-container mat-elevation-z8">
+						<mat-table #table [dataSource]="checkedDataSource">
+
+							<!-- Checkbox Column -->
+							<ng-container matColumnDef="select">
+								<mat-header-cell *matHeaderCellDef>
+									<mat-checkbox (change)="$event ? masterCheckedToggle() : null"
+										[checked]="checkedSelection.hasValue() && isAllCheckedSelected()"
+										[indeterminate]="checkedSelection.hasValue() && !isAllCheckedSelected()">
+									</mat-checkbox>
+								</mat-header-cell>
+								<mat-cell *matCellDef="let row">
+									<mat-checkbox (click)="$event.stopPropagation()"
+										(change)="$event ? checkedSelection.toggle(row) : null"
+										[checked]="checkedSelection.isSelected(row)">
+									</mat-checkbox>
+								</mat-cell>
+							</ng-container>
+
+							<!-- Name Column -->
+							<ng-container matColumnDef="resourceCode">
+								<mat-header-cell *matHeaderCellDef> resourceCode </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.resourceCode}} </mat-cell>
+							</ng-container>
+
+							<!-- Weight Column -->
+							<ng-container matColumnDef="resourceName">
+								<mat-header-cell *matHeaderCellDef> resourceName </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.resourceName}} </mat-cell>
+							</ng-container>
+
+
+
+							<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+							<mat-row *matRowDef="let row; columns: displayedColumns;"
+								(click)="checkedSelection.toggle(row)">
+							</mat-row>
+						</mat-table>
+						<!-- 
+        <mat-paginator #checkedpaginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+        </mat-paginator> -->
+
+					</div>
+			</tr>
+
+		</table>
+
+	</div>
+	
+
+	<div class="buttonBox">
+
+		<button mat-raised-button color="primary" (click)="transferSelectedRows()">
+			Move To Second Table
+		</button>
+
+		<button mat-raised-button color="primary" (click)="removeSelectedRows()">
+			Move To First Table
+		</button>
+
+		<button mat-raised-button color="primary" (click)="submit()">
+			submit
+		</button>
+
+	</div>
+</div>

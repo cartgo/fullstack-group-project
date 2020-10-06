@@ -9,26 +9,31 @@ import javax.persistence.*;
 @Table(name = "project_scope")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"create_time", "update_time"},
-        allowGetters = true)
+		allowGetters = true)
 public class ProjectScope {
-	
-    @Id
-	@Column(name="item_id")
-    private String itemId;
-    
 
-    @Column(name="name")
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int itemId;
+
+
+	@Column(name="name")
+	private String name;
+
 
 
 	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,
 			CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name = "cost_code")
-    private Project costCode;
-    
-    @Column
-    private boolean editable;
-  
+	@JoinColumns(
+			{
+					@JoinColumn(name = "cost_code", insertable = false, updatable = false),
+					@JoinColumn(name = "project_code", insertable = false, updatable = false)
+			})
+	private ProjectResource costCode;
+
+	@Column
+	private boolean editable;
+
    /* @Column(nullable = false, updatable = false, name="create_time")
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
@@ -39,20 +44,21 @@ public class ProjectScope {
     @LastModifiedDate
     private Date updateTime;*/
 
-    public ProjectScope(){}
+	public ProjectScope(){}
 
-	public ProjectScope(String itemId, Project costCode, String name, boolean editable) {
+
+	public ProjectScope(int itemId, ProjectResource costCode, String name, boolean editable) {
 		this.itemId = itemId;
 		this.costCode = costCode;
 		this.name = name;
 		this.editable = editable;
 	}
 
-	public String getItemId() {
+	public int getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(String itemId) {
+	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
 
@@ -64,11 +70,12 @@ public class ProjectScope {
 		this.name = name;
 	}
 
-	public Project getCostCode() {
+
+	public ProjectResource getCostCode() {
 		return costCode;
 	}
 
-	public void setCostCode(Project costCode) {
+	public void setCostCode(ProjectResource costCode) {
 		this.costCode = costCode;
 	}
 
