@@ -64,6 +64,12 @@ mat-header-cell, mat-header-row, .mat-header-cell-def {
 	z-index: 1;
 	background-color: inherit;
 }
+
+.tableHeader {
+	background-color: darkgray;
+  }
+
+
 mat-row {
 	min-height: 25px;
 	font-family: Verdana, sans-serif;

@@ -86,6 +86,7 @@ public class ProjectScopeController {
             //@RequestParam("afterColumnName") String afterColumnName
 
     ) {
+
         // some logic that checks it the update needs to happen is here
         String tableName = "project_scope";
 //        String columnName = "my_column";
@@ -93,7 +94,8 @@ public class ProjectScopeController {
 //        String afterColumnName = "after_column";//this is after which column you want to add new column --mingyan
 
         databaseUpdates.alterMyTableAddMyColumn(tableName, columnName,
-                columnType);
+                 columnType);
     }
 
+ 
 }

@@ -12,6 +12,12 @@ import javax.persistence.*;
 		allowGetters = true)
 public class ProjectScope {
 
+	
+   @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int itemId;
+    
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int itemId;
@@ -22,18 +28,20 @@ public class ProjectScope {
 
 
 
+
 	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,
 			CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumns(
 			{
-					@JoinColumn(name = "cost_code", insertable = false, updatable = false),
-					@JoinColumn(name = "project_code", insertable = false, updatable = false)
+
+			@JoinColumn(name = "cost_code", insertable = false, updatable = false),
+			@JoinColumn(name = "project_code", insertable = false, updatable = false)
 			})
 	private ProjectResource costCode;
-
-	@Column
-	private boolean editable;
-
+    
+    @Column
+    private boolean editable;
+  
    /* @Column(nullable = false, updatable = false, name="create_time")
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
@@ -45,6 +53,7 @@ public class ProjectScope {
     private Date updateTime;*/
 
 	public ProjectScope(){}
+
 
 
 	public ProjectScope(int itemId, ProjectResource costCode, String name, boolean editable) {

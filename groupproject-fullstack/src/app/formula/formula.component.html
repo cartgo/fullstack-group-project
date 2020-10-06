@@ -1,4 +1,3 @@
-<p>formula works!</p>
 <p>current project: No.{{this.projectservice.selectedProjectCode}} </p>
 
 <div >
@@ -6,13 +5,37 @@
 		<table class="fixedtable">
             <tr>
 				<td>
-					<div class="example-container mat-elevation-z8">
-						<mat-table #table [dataSource]="checkedDataSource">
+					<div class="example-container mat-elevation-z8"  style="text-align:center;">
+						<div class="tableHeader" layout="row" layout-xs="column">												
+							<span class="filler"> </span>
+						
+							<span><font color="#FFFAFA" >QUANTITY SURVEY</font></span>
+							<span class="filler"> </span>
+							<span class="gap"> </span>
+							<span class="moregap"> </span>
+						  </div>
+
+						  
+
+						<mat-table #table [dataSource]="checkformulasource">
 
 							<ng-container matColumnDef="resourceName">
 								<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-								<mat-cell *matCellDef="let element"> {{element.resourceName}} </mat-cell>
+								<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
 							</ng-container>
+							<ng-container matColumnDef="costCode">
+								<mat-header-cell *matHeaderCellDef> CostCode </mat-header-cell>
+								<mat-cell *matCellDef="let element">
+									<span *ngIf="selectedElement !== element" (click)="selectedElement = element">
+										{{element.costCode}}  
+									</span>
+									<mat-form-field *ngIf="selectedElement === element">
+										<input matInput [value]="element.costCode" 
+										placeholder="cost code" 
+										(focusout)="focusout($event.target.value, element)"
+										(keydown)="keydown($event, element,input)"
+										>
+									</mat-form-field>
 
 							<ng-container matColumnDef="resourceCode">
 								<mat-header-cell *matHeaderCellDef> Cost Code </mat-header-cell>
@@ -20,12 +43,16 @@
 							</ng-container>
 
 
-
+								</mat-cell>
+							</ng-container>
 							<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 							<mat-row *matRowDef="let row; columns: displayedColumns;"
-								(click)="checkedSelection.toggle(row)">
+								>
 							</mat-row>
 						</mat-table>
+
+
+						
 
 					</div>
 			</tr>
@@ -36,3 +63,11 @@
 </div>
 
 <a href="/template" style="color:blue; font-size: medium; font-weight: bold;" class="btn">Edit Quantity Survey Template</a>
+<button  style="background-color:orangered"   (click) = "onsubmit()">
+	<font color="#FFFAFA" > √ Submit</font>
+</button>
+
+
+<button (click) = "this.projectservice.addformulacolumn()">
+	add column DEMO
+</button>
