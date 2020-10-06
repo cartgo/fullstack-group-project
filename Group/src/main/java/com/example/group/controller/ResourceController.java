@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @CrossOrigin 
 @RequestMapping("/resource")
@@ -18,7 +19,7 @@ public class ResourceController {
 
     @Autowired
     private ResourceService resourceService;
-
+    
     @GetMapping("/getAll")
     public List<Resource> getAllResources() {
         return resourceService.findAll();
@@ -89,13 +90,16 @@ public class ResourceController {
 //    private DatabaseUpdates databaseUpdates;
     @PostMapping("/addcolumn")
     private void addcolumn(
+ 
 
     ) {
         String tableName = "resource";
 //        String columnType = "VARCHAR(100)";
 //        String afterColumnName = "resource_name"; //this is after which column you want to add new column --mingyan
 
+ 
         resourceService.updateResource("resource", "newColumn",
                 "varchar(100)", "resource_name");
+ 
     }
 }

@@ -1,4 +1,4 @@
- import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup,} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {startWith, map} from 'rxjs/operators';
@@ -30,7 +30,7 @@ export class SearchboxComponent implements OnInit {
   ngOnInit() {
     // this.getPost().subscribe
     this.projectservice.getData().subscribe(projectdata => {
-      this.seriesList = projectdata,
+      this.seriesList = projectdata;
       console.log(JSON.stringify(this.seriesList))   
         });
     this.flag = true;
@@ -75,4 +75,3 @@ export class SearchboxComponent implements OnInit {
     }
 
 }
-

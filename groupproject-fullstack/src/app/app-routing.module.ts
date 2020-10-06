@@ -11,6 +11,7 @@ import { ProjectComponent } from './project/project.component';
 import { ResourceComponent } from '../app/resource/resource.component';
 import { SearchboxComponent } from './searchbox/searchbox.component';
 import { FormulaComponent } from './formula/formula.component';
+import { TemplateComponent } from './template/template.component';
 
 
 
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'admin', component: BoardAdminComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'resource', component: ResourceComponent },
+  { path: 'template', component: TemplateComponent },
   { path: 'search', component: SearchboxComponent ,children:[
 
     {path:'project',component:ProjectComponent,runGuardsAndResolvers: 'paramsChange'},

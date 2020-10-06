@@ -146,6 +146,7 @@ export class ResourceComponent implements OnInit {
   fileName: string = 'SheetJS.xlsx';
 
   onFileChange(evt: any) {
+ 
     var replace = confirm('Do you want to replace all your resource?');
     console.log(replace);
     if (replace) {
@@ -186,6 +187,7 @@ export class ResourceComponent implements OnInit {
     } else {
       window.location.reload();
     }
+
   }
 
   deleteColumn() {
@@ -198,6 +200,7 @@ export class ResourceComponent implements OnInit {
     console.log(this.displayedColumns);
     this.columnsToDisplay = this.displayedColumns.slice();
 
+ 
     //   displayedColumns: string[] = ['resourceCode', 'resourceName'];
     // columnsToDisplay: string[] = this.displayedColumns.slice();
   }

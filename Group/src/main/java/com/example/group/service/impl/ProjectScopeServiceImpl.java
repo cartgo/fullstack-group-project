@@ -15,7 +15,7 @@ public class ProjectScopeServiceImpl implements ProjectScopeService {
     private ProjectScopeRepository projectScopeRepository;
 
     @Override
-    public ProjectScope findByItemId(String itemId) {
+    public ProjectScope findByItemId(int itemId) {
         return projectScopeRepository.findByItemId(itemId);
     }
 

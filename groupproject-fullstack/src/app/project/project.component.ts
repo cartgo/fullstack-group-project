@@ -39,13 +39,14 @@ export class ProjectComponent  implements OnInit {
    
  
  
-   allresourcedata: Resource[];//订阅所有资源 old
-   resourcedata2:Resource[];//订阅所有资源 yichun
+
+   allresourcedata: Resource[]; 
+   resourcedata2:Resource[]; 
 
 
-   resourcedata: Resource[]; //订阅项目的资源 old
-   projectResource;/////////订阅项目的资源 new
-   projectdata//所有项目 旧
+   resourcedata: Resource[];  
+   projectResource; 
+   projectdata 
    listResource:[]=[];
    discardList:[]=[];
    checkedData =[];
@@ -403,12 +404,3 @@ submit(){
 
 
 }
-
-
-
-
-
-
-
-
-

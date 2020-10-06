@@ -8,9 +8,10 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { ProjectComponent } from './project/project.component';
 //import {PickListModule} from 'primeng/picklist';
 import { AngularDualListBoxModule } from 'angular-dual-listbox';
-import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
-import { ProfileComponent } from './auth/profile/profile.component';
+ 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule , Routes} from "@angular/router";
+ import { ProfileComponent } from './auth/profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardUserComponent } from './board-user/board-user.component';
@@ -25,6 +26,7 @@ import { SearchboxComponent } from './searchbox/searchbox.component';
 // import { ReactiveFormsModule } from '@angular/forms';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormulaComponent } from './formula/formula.component';
+import { TemplateComponent } from './template/template.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,9 @@ import { FormulaComponent } from './formula/formula.component';
     SidenavListComponent,
     SearchboxComponent,
     FormulaComponent,
+ 
+    TemplateComponent
+ 
   ],
   imports: [
     BrowserModule,
@@ -51,6 +56,7 @@ import { FormulaComponent } from './formula/formula.component';
     BrowserAnimationsModule,
     MaterialModule,
     // PickListModule,
+    ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot(
       [{ path: './app.component', component: AppComponent }],

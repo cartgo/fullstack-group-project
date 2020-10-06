@@ -12,10 +12,11 @@ public class DatabaseUpdates{
 
     @Transactional
     public void alterMyTableAddMyColumn(String tableName, String columnName,
-                                        String columnType, String afterColumnName) {
+
+                                        String columnType) {
 
         String query = "ALTER TABLE `" + tableName + "` ADD COLUMN `" + columnName + "` " +
-                columnType + " AFTER `" + afterColumnName + "`";
+                columnType;
 
         entityManager.createNativeQuery(query).executeUpdate();
     }
