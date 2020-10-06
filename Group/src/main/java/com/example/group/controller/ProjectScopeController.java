@@ -35,21 +35,23 @@ public class ProjectScopeController {
 
     @PostMapping("/add")
     public ProjectScope addProjectScope(
-            @RequestParam("project") int projectCode,
-            @RequestParam("name") String name,
+            @RequestParam("projectCode") int projectCode,
+//            @RequestParam("name") String name,
             @RequestParam("costCode") int costCode,
             @RequestParam("editable") boolean editable) {
 
         ProjectScope ps = new ProjectScope();
+//        ProjectService.get
 //        ps.setItemId(itemId);
-        ps.setName(name);
+//        ps.setName(name);
         ps.setEditable(editable);
         Project proj = projectService.findByProjectCode(projectCode);
         List<ProjectResource> prlist  = proj.getProjectResource();
         ProjectResource newpr= new ProjectResource();
         for(ProjectResource pr:prlist){
             if (pr.getResource().getResourceCode() == costCode){
-                newpr = pr; break;
+                newpr = pr; ps.setName(pr.getResource().getResourceName());break;
+
             }
         }
 
