@@ -28,19 +28,24 @@ public class ProjectScope {
 
 
 
+	@Column(name = "cost_code")
+	private int costCode;
 
-	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,
-			CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumns(
-			{
+	@Column(name = "project")
+	private int projectCode;
 
-			@JoinColumn(name = "cost_code", insertable = false, updatable = false),
-			@JoinColumn(name = "project_code", insertable = false, updatable = false)
-			})
-	private ProjectResource costCode;
-    
-    @Column
-    private boolean editable;
+//	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,
+//			CascadeType.PERSIST,CascadeType.REFRESH})
+//	@JoinColumns(
+//			{
+//			@JoinColumn(name = "cost_code", insertable = false, updatable = false,referencedColumnName="resource_code"),
+//			@JoinColumn(name = "project_code", insertable = false, updatable = false,referencedColumnName="project_code")
+//			})
+//	private ProjectResource projectResource;
+
+
+
+
   
    /* @Column(nullable = false, updatable = false, name="create_time")
     @Temporal(TemporalType.TIMESTAMP)
@@ -52,16 +57,21 @@ public class ProjectScope {
     @LastModifiedDate
     private Date updateTime;*/
 
-	public ProjectScope(){}
 
+  public ProjectScope(){}
+	public ProjectScope( String name, int costCode, int projectCode ) {
+//		this.itemId = itemId;
 
-
-	public ProjectScope(int itemId, ProjectResource costCode, String name, boolean editable) {
-		this.itemId = itemId;
-		this.costCode = costCode;
 		this.name = name;
-		this.editable = editable;
+		this.projectCode = projectCode;
+		this.costCode = costCode;
 	}
+
+//	public ProjectScope( ProjectResource projectResource ) {
+////		this.itemId = itemId;
+//		this.projectResource = projectResource;
+//
+//	}
 
 	public int getItemId() {
 		return itemId;
@@ -80,20 +90,29 @@ public class ProjectScope {
 	}
 
 
-	public ProjectResource getCostCode() {
+//	public ProjectResource getProjectResource() {
+//		return projectResource;
+//	}
+//
+//	public void setProjectResource(ProjectResource projectResource) {
+//		this.projectResource = projectResource;
+//	}
+
+
+	public int getCostCode() {
 		return costCode;
 	}
 
-	public void setCostCode(ProjectResource costCode) {
+	public void setCostCode(int costCode) {
 		this.costCode = costCode;
 	}
 
-	public boolean isEditable() {
-		return editable;
+	public int getProjectCode() {
+		return projectCode;
 	}
 
-	public void setEditable(boolean editable) {
-		this.editable = editable;
+	public void setProjectCode(int projectCode) {
+		this.projectCode = projectCode;
 	}
 
 	/*public Date getCreateTime() {
