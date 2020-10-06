@@ -39,6 +39,7 @@ export class ProjectComponent  implements OnInit {
    
  
  
+
    allresourcedata: Resource[]; 
    resourcedata2:Resource[]; 
 
@@ -403,12 +404,3 @@ submit(){
 
 
 }
-
-
-
-
-
-
-
-
-

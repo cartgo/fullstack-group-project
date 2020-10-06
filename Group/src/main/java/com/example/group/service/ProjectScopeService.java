@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProjectScopeService {
 
-    ProjectScope findByItemId(String itemId);
+    ProjectScope findByItemId(int itemId);
     ProjectScope saveProjectScope(ProjectScope projectScope);
     List<ProjectScope> findAll();
     //void deleteByItemId(String itemId);

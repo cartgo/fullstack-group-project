@@ -9,16 +9,23 @@ import javax.persistence.*;
 @Table(name = "project_scope")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"create_time", "update_time"},
-        allowGetters = true)
+		allowGetters = true)
 public class ProjectScope {
+
 	
-    @Id
+   @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemId;
     
 
-    @Column(name="name")
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int itemId;
+
+
+	@Column(name="name")
+	private String name;
+
 
 
 
@@ -26,6 +33,7 @@ public class ProjectScope {
 			CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumns(
 			{
+
 			@JoinColumn(name = "cost_code", insertable = false, updatable = false),
 			@JoinColumn(name = "project_code", insertable = false, updatable = false)
 			})
@@ -44,7 +52,8 @@ public class ProjectScope {
     @LastModifiedDate
     private Date updateTime;*/
 
-    public ProjectScope(){}
+	public ProjectScope(){}
+
 
 
 	public ProjectScope(int itemId, ProjectResource costCode, String name, boolean editable) {

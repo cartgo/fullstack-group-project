@@ -27,7 +27,7 @@ public class ProjectScopeController {
     }
 
     @GetMapping("/getByItemId")
-    public ProjectScope findByItemId(String itemId) {
+    public ProjectScope findByItemId(int itemId) {
         return projectScopeService.findByItemId(itemId);
     }
 
@@ -59,8 +59,9 @@ public class ProjectScopeController {
         return projectScopeService.saveProjectScope(ps);
     }
 
+
     @PutMapping("/updateName")
-    public ProjectScope updateName(@RequestParam("itemId") String itemId
+    public ProjectScope updateName(@RequestParam("itemId") int itemId
             , @RequestParam("name") String name) {
 
         ProjectScope ps = projectScopeService.findByItemId(itemId);
@@ -81,10 +82,11 @@ public class ProjectScopeController {
     @PutMapping("/addcolumn")
     private void addcolumn(
             @RequestParam("columnName") String columnName,
-            @RequestParam("columnType") String columnType,
-            @RequestParam("afterColumnName") String afterColumnName
+            @RequestParam("columnType") String columnType
+            //@RequestParam("afterColumnName") String afterColumnName
 
-            ) {
+    ) {
+
         // some logic that checks it the update needs to happen is here
         String tableName = "project_scope";
 //        String columnName = "my_column";
@@ -92,9 +94,8 @@ public class ProjectScopeController {
 //        String afterColumnName = "after_column";//this is after which column you want to add new column --mingyan
 
         databaseUpdates.alterMyTableAddMyColumn(tableName, columnName,
-                columnType, afterColumnName);
+                 columnType);
     }
 
-
-
+ 
 }

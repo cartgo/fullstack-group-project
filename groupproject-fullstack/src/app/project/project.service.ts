@@ -23,10 +23,16 @@ export class ProjectService {
    resources: Resource[]=[];
    allresources: Resource[]=[];
    users:Array<any>;
-   username:string = this.token.getUser().username;
-   uId:string = this.token.getUser().id.toString(); 
-
+   //username:string = this.token.getUser().username;
+   //uId:string = this.token.getUser().id.toString(); 
+   username:string
+   uId:string
   selectedProjectCode = localStorage.getItem("currentproject");
+  //selectedProjectCode=3;
+//    username:string = this.token.getUser().username;
+//    uId:string = this.token.getUser().id.toString(); 
+
+//   selectedProjectCode = localStorage.getItem("currentproject");
 
   constructor(public http:HttpClient, private router: Router, private token: TokenStorageService
     ,public userservice:UserService ,public resourceservice:ResourceService ) { }
@@ -47,6 +53,7 @@ export class ProjectService {
   }
 
   getData(){
+    this.uId= this.token.getUser().id.toString(); 
     let api = "http://localhost:8080/project/"+"getByUserId?userId="+this.uId ;
     return this.http.get<Project[]>(api);
     // .subscribe(data => console.log(data));//data => this.projects = data
@@ -54,8 +61,8 @@ export class ProjectService {
 
 
   addResource(rr:Resource[]){
+    this.uId= this.token.getUser().id.toString(); 
     for(let r of rr){
-    
         let api = "http://localhost:8080/project/addResource?resourceCode="+r.resourceCode+ "&projectCode="+this.selectedProjectCode+"&userId="+this.uId;
         this.http.put<Resource>(api,{}).subscribe(data => this.resources.push(data))
         }
@@ -63,12 +70,14 @@ export class ProjectService {
 
 
     getResource(){
+      this.uId= this.token.getUser().id.toString(); 
         let api = "http://localhost:8080/project/getProjectResource?projectCode="+this.selectedProjectCode+"&userId="+this.uId;
         return this.http.get<Resource[]>(api);
         // .subscribe(data => this.resources = data);
     }
 
     getResource2(): Observable<any> {
+      this.uId= this.token.getUser().id.toString(); 
       let api = "http://localhost:8080/project/getProjectResource?projectCode="+this.selectedProjectCode+"&userId="+this.uId;
 
       return this.http.get(api);
@@ -95,6 +104,7 @@ export class ProjectService {
     
     }
 
+
  
 
 
@@ -109,6 +119,7 @@ getformula(){
   let api = "http://localhost:8080/projectScope/findByProjectCode?projectCode="+this.selectedProjectCode;
   return this.http.get(api);
 }
+
 
 addformulacolumn(){
   // columnName?: string="newwww"

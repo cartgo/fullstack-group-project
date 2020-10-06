@@ -37,6 +37,11 @@
 										>
 									</mat-form-field>
 
+							<ng-container matColumnDef="resourceCode">
+								<mat-header-cell *matHeaderCellDef> Cost Code </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.resourceCode}} </mat-cell>
+							</ng-container>
+
 
 								</mat-cell>
 							</ng-container>
@@ -56,6 +61,8 @@
 
     </div>
 </div>
+
+<a href="/template" style="color:blue; font-size: medium; font-weight: bold;" class="btn">Edit Quantity Survey Template</a>
 <button  style="background-color:orangered"   (click) = "onsubmit()">
 	<font color="#FFFAFA" > √ Submit</font>
 </button>
