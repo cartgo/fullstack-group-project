@@ -13,15 +13,10 @@ import javax.persistence.*;
 public class ProjectScope {
 
 	
-   @Id
+    @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemId;
     
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int itemId;
-
 
 	@Column(name="name")
 	private String name;
