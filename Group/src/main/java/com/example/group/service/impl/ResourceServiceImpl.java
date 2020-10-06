@@ -1,5 +1,6 @@
 package com.example.group.service.impl;
 
+import com.example.group.dao.DatabaseUpdates;
 import com.example.group.dao.ResourceRepository;
 import com.example.group.model.Resource;
 import com.example.group.service.ResourceService;
@@ -12,6 +13,12 @@ import java.util.List;
 public class ResourceServiceImpl implements ResourceService {
     @Autowired
     private ResourceRepository resourceRepository;
+
+    @Override
+    public void deleteAll() {
+        resourceRepository.deleteAll();
+    }
+
 
     @Override
     public Resource findByResourceName(String resourceName){
@@ -42,5 +49,12 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public List<Resource> findAll() {
         return resourceRepository.findAll();
+    }
+
+    @Autowired
+    private DatabaseUpdates databaseUpdates;
+    public void updateResource(String tableName, String columnName,
+                        String columnType, String afterColumnName) {
+        databaseUpdates.alterMyTableAddMyColumn(tableName,columnName,columnType, afterColumnName );
     }
 }

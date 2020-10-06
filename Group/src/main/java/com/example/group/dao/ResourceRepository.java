@@ -15,4 +15,7 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
    @Transactional
     void deleteByResourceCode(int resourceCode);
 //   List<Resource> findByProjectResource
+
+    @Transactional
+    void deleteAll();
 }

@@ -55,7 +55,7 @@ public class UserController {
         return "Public";
     }
 
-    @PostMapping("/add")
+
     public User createUser(User user) {
         return userService.saveUser(user);
     }

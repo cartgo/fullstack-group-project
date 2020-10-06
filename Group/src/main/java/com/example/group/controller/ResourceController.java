@@ -64,21 +64,42 @@ public class ResourceController {
     }
 
 
-    @Autowired
-    private DatabaseUpdates databaseUpdates;
-    @PutMapping("/addcolumn")
+    @Transactional
+    @DeleteMapping("/deleteAll")
+    public void deleteAll() {
+        resourceService.deleteAll();
+    }
+//    @Autowired
+//    private DatabaseUpdates databaseUpdates;
+//    @PutMapping("/addcolumn")
+//    private void addcolumn(
+//            @RequestParam("columnName") String columnName,
+//            @RequestParam("columnType") String columnType,
+//            @RequestParam("afterColumnName") String afterColumnName
+//
+//    ) {
+//        String tableName = "resource";
+////        String columnType = "VARCHAR(100)";
+////        String afterColumnName = "resource_name"; //this is after which column you want to add new column --mingyan
+//
+//        databaseUpdates.alterMyTableAddMyColumn(tableName, columnName,
+//                columnType, afterColumnName);
+//    }
+
+//    @Autowired
+//    private DatabaseUpdates databaseUpdates;
+    @PostMapping("/addcolumn")
     private void addcolumn(
-            @RequestParam("columnName") String columnName,
-            @RequestParam("columnType") String columnType
+ 
 
     ) {
         String tableName = "resource";
 //        String columnType = "VARCHAR(100)";
 //        String afterColumnName = "resource_name"; //this is after which column you want to add new column --mingyan
 
-        databaseUpdates.alterMyTableAddMyColumn(tableName, columnName,
-                columnType);
+ 
+        resourceService.updateResource("resource", "newColumn",
+                "varchar(100)", "resource_name");
+ 
     }
-
-
 }

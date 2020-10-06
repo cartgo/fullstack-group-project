@@ -34,4 +34,8 @@ export class ResourceService {
       )
       .subscribe((data) => console.log(data));
   }
+
+  deleteAllResource(): Observable<any> {
+    return this.http.get(API_URL + 'deleteAll');
+  }
 }
