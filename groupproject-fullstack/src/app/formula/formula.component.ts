@@ -31,7 +31,7 @@ export class FormulaComponent implements OnInit {
   formulas;
   checkformulasource;
   updatedformula = new Array;
-  displayedColumns = [  'name','costCode'];
+  displayedColumns = ['name','costCode'];
   ngOnInit(): void {
     this.projectservice.getformula().subscribe(data=>{
               console.log(data);
