@@ -16,7 +16,7 @@
 						  </div>
 						<mat-table #table [dataSource]="checkformulasource">
 
-							 <ng-container matColumnDef="resourceName">
+							 <!-- <ng-container matColumnDef="resourceName">
 								<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
 								<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
 							</ng-container>
@@ -34,16 +34,40 @@
 										>
 									</mat-form-field>
 								</mat-cell>
-							</ng-container>
-
-							<!-- <ng-container  matColumnDef="{{ column }}" *ngFor="let column of displayedColumns[2:]"  >
-								<th mat-header-cell *matHeaderCellDef>
-									{{ column  }}
-								</th>
-								<td mat-cell *matCellDef="let element">
-									<span >{{ element[column] }}</span>
-								</td>
 							</ng-container> -->
+
+				 
+							<!-- <ng-container matColumnDef="name">
+								<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+								<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+							</ng-container> -->
+
+							<ng-container matColumnDef="{{ column }}" *ngFor="let column of displayedColumns" >
+								<mat-header-cell *matHeaderCellDef> {{ column }} </mat-header-cell>
+								<mat-cell *matCellDef="let element">
+									<div *ngIf="column!='costCode' ">
+										<span  >
+											{{element[column]}}  
+										</span>
+									</div>
+
+									<div *ngIf="column=='costCode' " >
+
+										<span *ngIf="selectedElement !== element" (click)="selectedElement = element">
+											{{element[column]}}  
+										</span>
+										<mat-form-field *ngIf="selectedElement === element">
+											<input matInput [value]="element[column]" 
+											placeholder= "{{ column }}"
+											(focusout)="focusout($event.target.value, element)"
+											(keydown)="keydown($event, element,input)"
+											>
+										</mat-form-field>
+										
+									</div>
+
+								</mat-cell>			
+							</ng-container>
 							<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 							<mat-row *matRowDef="let row; columns: displayedColumns;"
 								>

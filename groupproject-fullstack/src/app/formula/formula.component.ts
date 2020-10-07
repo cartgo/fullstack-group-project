@@ -31,8 +31,7 @@ export class FormulaComponent implements OnInit {
   formulas;
   checkformulasource;
   updatedformula = new Array;
-  displayedColumns = [  'resourceName','costCode'];
-
+  displayedColumns = [  'name','costCode'];
   ngOnInit(): void {
     this.projectservice.getformula().subscribe(data=>{
               console.log(data);
@@ -40,7 +39,7 @@ export class FormulaComponent implements OnInit {
               this.checkformulasource = new MatTableDataSource<any>(Object.assign(this.formulas));
               console.log("formulas:"+JSON.stringify(data))
               })
-    console.log(123)
+    console.log(456)
    }
 
 
