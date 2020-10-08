@@ -12,6 +12,7 @@ import { UserService } from '../service/user.service';
 import {ProjectComponent} from './project.component';
 import { Observable } from 'rxjs';
 import { ResourceService } from '../service/resource.service';
+import { Formula } from '../formula/formula.model';
 const BACKEND_URL = environment.apiUrl + "/project/";
 
 @Injectable({ providedIn: "root" })
@@ -105,15 +106,6 @@ export class ProjectService {
     }
 
 
- 
-
-
-/////////【【【【【【【【【【NONONONONONONONONONONONONONONONONONONONONONONONONONO【【【【【【【【【【【【【【【【【【【【【【【【【【【///////
-// createData(){
-//     let api = "http://localhost:8080/project/add?projectCode=" + 666+"&projectName="+"prj666"+"&userId=1";
-//     return this.http.post<Project[]>(api,{}).subscribe(data => this.projects = data); //return this.http.post(api,data)
-// }
-/////////【【【【【【【【【【NONONONONONONONONONONONONONONONONONONONONONONONONONO【【【【【【【【【【【【【【【【【【【【【【【【【【【///////
 
 getformula(){
   let api = "http://localhost:8080/projectScope/findByProjectCode?projectCode="+this.selectedProjectCode;
@@ -121,32 +113,17 @@ getformula(){
 }
 
 
-addformulacolumn(){
-  // columnName?: string="newwww"
-  // let columnName="newwww21"
-  // let lastcolumnname;
-  // if(localStorage.getItem("formulaLatColumnName")){
-  //   lastcolumnname = localStorage.getItem("formulaLatColumnName");
-  //   lastcolumnname ="test"
-  // }else{lastcolumnname = "newcolumn2"};
+ 
 
-  let api = "http://localhost:8080/projectScope/addcolumn?columnName=ddd&columnType=VARCHAR(100)&afterColumnName=test";
-  this.http.put(api,{}).subscribe();
-  // localStorage.setItem("formulaLastColumnName",columnName)
-  // console.log(localStorage.getItem("formulaLastColumnName"))
-}
-// addformulacolumntest(){
-//   let columnName="testnew"
-//   let lastcolumnname="aaa";
-//   this.http.put("http://localhost:8080/projectScope/addcolumn?columnName=test&columnType=VARCHAR(100)&afterColumnName=aaa",{}).subscribe();
-
-// }
-
-
-updateFormula(itemId,costCode){
-  let api = "http://localhost:8080/projectScope/updateCostCode?itemId="+itemId+"&costCode="+costCode;
-  return this.http.put(api,{});
+updateFormula(formula:Formula){
+  let api = "http://localhost:8080/projectScope/update"
+  return this.http.put(api,formula);
   //http://localhost:8080/projectScope/updateCostCode?itemId=1&costCode=2333
+}
+
+addformulacolumn(type, name, projectCode){
+  let api = "http://localhost:8080/projectScope/addco?type="+type+"&name="+name+"b&projectCode="+this.selectedProjectCode
+  this.http.put(api,{}).subscribe();
 }
 
 

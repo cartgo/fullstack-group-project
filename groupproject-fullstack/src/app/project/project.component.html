@@ -1,28 +1,4 @@
-<!-- current user:{{this.projectservice.username}}
-<br>userid: {{this.projectservice.uId}}
-<div class="container-fluid">
-	<p></p>
-	<dual-list [sort]="keepSorted" [source]="allresourcedata" [key]="key" [display]="display" [filter]="filter"
-		[(destination)]="projectResource" height="265px" [format]="format" [disabled]="disabled">asdf</dual-list>
-	<div class="tab-content">
-		<div class="tab-pane" [class.active]="tab===2">
-			<form class="form">
-				<div class="form-group">
-					<label>Enable drag-and-drop</label>
-					<div class="checkbox">
-						<label><input type="checkbox" [(ngModel)]="format.draggable" name="drag">draggable</label>
-					</div>
-				</div>
-			</form>
-        </div>
-        <form class="form-inline well">
-            <button (click) = "addResource()">save change</button>
-        </form>
-	</div>
-</div>
-  -->
-<!-- Heading.....  -->
-<p>current project: No.{{this.projectservice.selectedProjectCode}} </p>
+
 
 <div >
 
@@ -68,8 +44,8 @@
 							</mat-row>
 						</mat-table>
 
-						<!-- <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
-        </mat-paginator> -->
+						<mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+        </mat-paginator>
 
 					</div>
 				</td>
@@ -113,9 +89,9 @@
 								(click)="checkedSelection.toggle(row)">
 							</mat-row>
 						</mat-table>
-						<!-- 
+						
         <mat-paginator #checkedpaginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
-        </mat-paginator> -->
+        </mat-paginator>
 
 					</div>
 			</tr>
