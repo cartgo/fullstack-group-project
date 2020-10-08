@@ -1,69 +1,81 @@
-
 <table class="container">
-    <div class="container">
-        <td>
-            <mat-checkbox (change)="name($event)">name</mat-checkbox><br>
-            <mat-checkbox (change)="cost_code($event)">cost_code</mat-checkbox><br>
-            <mat-checkbox (change)="editable($event)">editable</mat-checkbox><br>
-            <mat-checkbox (change)="item_id($event)">item_id</mat-checkbox><br>
-        </td>
-
-        <span class="gap"></span>
-        <td>
-  <form [formGroup]="colForm" (ngSubmit)="onSubmit()">
-
-    <!--Value: {{ colForm.value.columns | json }}-->
-
-    <div formArrayName="columns">
-
-        <div *ngFor="let column of columnForms.controls; let i=index" [formGroupName]="i">
-
-
-            <mat-form-field class="full">
-                <a>Field</a><br><br>
-                <input matInput type="text" formControlName="columnName">
-            </mat-form-field>
-            <span class = "gap"></span>
-            <mat-form-field class="full">
-                <a>Type</a><br><br>
-                <!--<input matInput formControlName="type">
-                <mat-label>Select an option</mat-label>-->
-                <mat-select formControlName="columnType">
-                    <mat-option value="int">Number</mat-option>
-                    <mat-option value="VARCHAR(50)">Text</mat-option>
-                    <mat-option value="VARCHAR(100)" #selectValue>Formula</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <span class = "gap"></span>
-           <mat-form-field class="full">
-                <a>Formula</a><br><br>
-                <input matInput formControlName="formula">
-            </mat-form-field>
-
-            <!--<button mat-raised-button color="warn" (click)="deleteColumn()">Delete</button>-->
-          
-            <button  mat-raised-button class="button"  (click)="deleteColumn()" style="background-color: orangered; color: white;">
-                <mat-icon>delete</mat-icon>
-            </button>
-          
+        
+    <!--<mat-checkbox (change)="name($event)">name</mat-checkbox><br>
+    <mat-checkbox (change)="cost_code($event)">cost_code</mat-checkbox><br>
+    <mat-checkbox (change)="editable($event)">editable</mat-checkbox><br>
+    <mat-checkbox (change)="item_id($event)">item_id</mat-checkbox><br>-->
+<ng-container>
+<th>Project Scope Fields</th><br>
+<td>
+    <div *ngFor="let data of getColumnData;">
+        <div *ngIf='data!="project"'>
+        <mat-checkbox (change)="dynamicCheck(data,$event)">{{data}}</mat-checkbox><br>
         </div>
-
     </div>
+</td><span class = "gap"></span>
+</ng-container>
+<ng-container>
+<th>Quantity Survey Fields</th><br>
+<td>
+<form [formGroup]="colForm" (ngSubmit)="onSubmit()">
 
-    
-    <a>Add Field</a> <span class = "gap"></span>
-    <button mat-raised-button (click)="addcolumn()" class="button" style="background-color: orangered; color: white;  shape-outside: margin-box;">
-        <mat-icon>add</mat-icon>
-    </button>
-    <br>
-    <button type="submit">Submit</button>
-</form>
-</td>
+<!--Value: {{ colForm.value.columns | json }}-->
+
+<div formArrayName="columns">
+
+<div *ngFor="let column of columnForms.controls; let i=index" [formGroupName]="i">
+
+
+    <mat-form-field class="full">
+        <a>Field</a><br><br>
+        <input matInput type="text" formControlName="columnName" required>
+        <mat-error *ngIf="column.controls.columnName.invalid">
+            Column name is required.        
+        </mat-error>
+    </mat-form-field>
+    <span class = "gap"></span>
+    <mat-form-field class="full">
+        <a>Type</a><br><br>
+        <!--<input matInput formControlName="type">
+        <mat-label>Select an option</mat-label>-->
+        <mat-select formControlName="columnType">
+            <mat-option value="Number">Number</mat-option>
+            <mat-option value="Text">Text</mat-option>
+            <mat-option value="Formula" #selectValue>Formula</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <span class = "gap"></span>
+   <mat-form-field class="full">
+        <a>Formula</a><br><br>
+        <input matInput formControlName="formula">
+    </mat-form-field>
+
+    <!--<button mat-raised-button color="warn" (click)="deleteColumn()">Delete</button>-->
+  
+    <a  mat-raised-button class="button"  (click)="deleteColumn()" style="background-color: orangered; color: white;">
+        <mat-icon>delete</mat-icon>
+    </a>
+  
+</div>
 
 </div>
+
+<br>
+<a>Add Field</a> <span class = "gap"></span>
+<a mat-raised-button (click)="addcolumn()" class="button" style="background-color: orangered; color: white;  shape-outside: margin-box;">
+<mat-icon>add</mat-icon>
+</a>
+<br>
+
+<button type="submit" (click)="onSubmit()"   routerLink="/search/formula"
+
+>Submit</button>
+
+<!-- routerLink="/search/formula" -->
+</form>
+</td>
+</ng-container>
 </table>
-<!-- *ngIf="selectedType === 'varchar' "-->
 
-
-
-
+<!-- *ngIf="selectedType === 'varchar' "
+routerLink="/search/formula/{{ uniqueArray }}"-->

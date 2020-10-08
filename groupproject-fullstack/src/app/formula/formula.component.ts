@@ -7,10 +7,11 @@ import { prototype } from 'events';
 import { Project } from '../project/project.model';
 import { ProjectService } from '../project/project.service';
 import { Resource } from '../project/resource.model';
+import { FormulaService } from '../service/formula.service';
 import { ResourceService } from '../service/resource.service';
 import { Extra } from './extra.model';
 import { Formula } from './formula.model';
-
+ 
 @Component({
   selector: 'app-formula',
   templateUrl: './formula.component.html',
@@ -23,11 +24,12 @@ export class FormulaComponent implements OnInit {
     public http:HttpClient,
     public resourceservice:ResourceService,
     public route: ActivatedRoute,
+    public formulaservice:FormulaService
     ) {
       console.log(123)
       }
 
-
+testarray = this.formulaservice.testMethod2();
   selectedElement;
   selectedColumn;
   formulas;
@@ -52,7 +54,10 @@ test = [];
               this.checkformulasource = new MatTableDataSource<any>(Object.assign(this.formulas));
               console.log("formulas:"+JSON.stringify(data))
 
-
+              this.testarray = this.formulaservice.testMethod2();
+              console.log(this.formulaservice.testMethod2()+"aaaaaaaaaaaaaaaa")
+              console.log(this.testarray+"bbbbbbbbbbbbbbbbbbbbbbbbb")
+              if(this.testarray.length >0 ){this.displayedColumns = this.testarray}
               })
     console.log(456)
    }
