@@ -14,8 +14,9 @@ import { MatTableDataSource } from '@angular/material/table';
  // import {MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import { ActivatedRoute } from '@angular/router';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
- // import {MatPaginator } from '@angular/material';
+ import {MatPaginator } from '@angular/material/paginator';
  providers: [ProjectService]
 
 // import { ResourceComponent } from '../resource/resource.component';
@@ -40,11 +41,11 @@ export class ProjectComponent  implements OnInit {
  
  
 
-   allresourcedata: Resource[]; 
-   resourcedata2:Resource[]; 
+//    allresourcedata: Resource[]; 
+//    resourcedata2:Resource[]; 
 
 
-   resourcedata: Resource[];  
+//    resourcedata: Resource[];  
    projectResource; 
    projectdata 
    listResource:[]=[];
@@ -70,18 +71,21 @@ export class ProjectComponent  implements OnInit {
 			console.log(projectr),
 			this.projectResource = projectr;
 			this.checkedData = Object.assign(this.projectResource);
-
 			this.checkedDataSource = new MatTableDataSource<any>(Object.assign(this.projectResource));
   console.log('this checkdata before oninit:' + console.log(this.checkedDataSource))
-			
+  this.checkedDataSource.paginator = this.checkedpaginator;
+
 			});
 
 			this.doReset();
 
 		this.projectservice.getAllResource().subscribe(allresourcedata => {console.log(allresourcedata)
-		, this.allresourcedata = allresourcedata}),     
+		// , this.allresourcedata = allresourcedata
+	}),     
 
-		this.projectservice.getResource().subscribe(resourcedata => {console.log(resourcedata),this.resourcedata = resourcedata}); 
+		this.projectservice.getResource().subscribe(resourcedata => {console.log(resourcedata)
+			// ,this.resourcedata = resourcedata
+		}); 
 		
 	this.projectservice.getData().subscribe(projectdata => {
 		this.projectdata = projectdata,
@@ -98,6 +102,7 @@ export class ProjectComponent  implements OnInit {
 				
 				this.dataSource = new MatTableDataSource<Resource>(this.listResource);
 				// console.log('haodi_data_listResource'+ this.listResource)
+				this.dataSource.paginator = this.paginator;
 
 				// console.log('haodi_data'+ JSON.stringify())
 				this.uncheckedData = this.data;})
@@ -270,12 +275,12 @@ selection = new SelectionModel<Resource>(true, []);
 selectedRows = [];
 selectedRowsChecked = [];
 
-// @ViewChild('paginator') paginator: MatPaginator;
-// @ViewChild('checkedpaginator') checkedpaginator: MatPaginator;
+@ViewChild('paginator') paginator: MatPaginator;
+@ViewChild('checkedpaginator') checkedpaginator: MatPaginator;
 
 ngAfterViewInit() {
-//   this.dataSource.paginator = this.paginator;
-//   this.checkedDataSource.paginator = this.checkedpaginator;
+  this.dataSource.paginator = this.paginator;
+  this.checkedDataSource.paginator = this.checkedpaginator;
 }
 
  
@@ -317,8 +322,8 @@ transferSelectedRows() {
   this.dataSource = new MatTableDataSource (this.uncheckedData);
 //   sth = Object.assign({});
   this.checkedDataSource = new MatTableDataSource<Resource> (Object.assign(this.checkedData,this.projectResource));
-//   this.dataSource.paginator = this.paginator;
-//   this.checkedDataSource.paginator = this.checkedpaginator;
+  this.dataSource.paginator = this.paginator;
+  this.checkedDataSource.paginator = this.checkedpaginator;
 }
 
 
@@ -338,8 +343,8 @@ removeSelectedRows() {
   this.checkedDataSource = new MatTableDataSource<Resource>(Object.assign(this.checkedData));
   console.log('this checkdata AFTER insert:' + (this.checkedDataSource))
 
-//   this.dataSource.paginator = this.paginator;
-//   this.checkedDataSource.paginator = this.checkedpaginator;
+  this.dataSource.paginator = this.paginator;
+  this.checkedDataSource.paginator = this.checkedpaginator;
 }
 
 /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -379,26 +384,7 @@ submit(){
 						console.log(projectr)})
 
 				}
-				
 
-
- 	// if(this.getsubmit().length >0 ){
-// 		this.projectservice.http.delete("http://localhost:8080/project/deleteAllProjectResource?projectCode="+
-// 		this.projectservice.selectedProjectCode).subscribe();
-//  for (let i of this.getsubmit()){
-// 		this.http.put<Resource>("http://localhost:8080/project/addResource?resourceCode="+i+ "&projectCode="+this.projectservice.selectedProjectCode+
-// 		"&userId="+this.projectservice.uId,{}).subscribe(data => this.projectservice.resources.push(data))
-// 	}
-	// }
-	// else{
-	// 	 this.projectservice.http.delete("http://localhost:8080/project/deleteAllProjectResource?projectCode="+
-	// this.projectservice.selectedProjectCode).subscribe();
-	// console.log("AFTER DELETE"+this.projectResource)}
- 
-	// for (let i of this.getsubmit()){
-	// 	this.http.put<Resource>("http://localhost:8080/project/addResource?resourceCode="+i+ "&projectCode="+this.projectservice.selectedProjectCode+
-	// 	"&userId="+this.projectservice.uId,{}).subscribe(data => this.projectservice.resources.push(data))
-	// }
 
 } 
 

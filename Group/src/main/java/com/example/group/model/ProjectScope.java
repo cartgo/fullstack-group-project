@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 @Table(name = "project_scope")
@@ -118,4 +119,23 @@ public class ProjectScope {
 		return updateTime;
 	}*/
 
+
+
+
+	@ElementCollection(targetClass=ExtraColumn.class)
+	@CollectionTable(name="extra_column" )
+	@MapKeyColumn(name = "field")
+	private Map<String, ExtraColumn> stringExtraColumnMap ;
+
+	public Map<String, ExtraColumn> getStringExtraColumnMap() {
+
+		return stringExtraColumnMap;
+
+	}
+
+	public void setStringExtraColumnMap(Map<String, ExtraColumn> stringExtraColumnMap) {
+
+		this.stringExtraColumnMap = stringExtraColumnMap;
+
+	}
 }
