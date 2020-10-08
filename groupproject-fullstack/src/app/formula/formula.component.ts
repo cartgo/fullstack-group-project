@@ -8,31 +8,34 @@ import { ProjectService } from '../project/project.service';
 import { Resource } from '../project/resource.model';
 import { ResourceService } from '../service/resource.service';
 import { Formula } from './formula.model';
-
+import { TemplateComponent } from '../template/template.component';
+import { FormulaService } from '../service/formula.service';
+​
 @Component({
   selector: 'app-formula',
   templateUrl: './formula.component.html',
   styleUrls: ['./formula.component.css']
 })
 export class FormulaComponent implements OnInit {
-
-
+​
+​
   constructor(public projectservice: ProjectService, 
     public http:HttpClient,
     public resourceservice:ResourceService,
     public route: ActivatedRoute,
+    public formulaService: FormulaService
+   // public tempComp : TemplateComponent
     ) {
       console.log(123)
       }
-
-
-
+​
+​   test= new Array();
+​ // colsToDisplay=this.tempComp.columnsToDisplay;
   selectedElement;
   formulas;
   checkformulasource;
   updatedformula = new Array;
-  displayedColumns = [  'resourceName','costCode'];
-
+  displayedColumns = [  'name','costCode'];
   ngOnInit(): void {
     this.projectservice.getformula().subscribe(data=>{
               console.log(data);
@@ -40,13 +43,15 @@ export class FormulaComponent implements OnInit {
               this.checkformulasource = new MatTableDataSource<any>(Object.assign(this.formulas));
               console.log("formulas:"+JSON.stringify(data))
               })
-    console.log(123)
+    console.log(456)
+    
+    this.test=this.formulaService.testMethod2();
    }
-
-
+​
+​
   focusout(x, element){
   element.costCode = x;
-
+​
   let has = false;
   for(let f  of this.updatedformula){
     if(f.itemId == element.itemId){
@@ -55,14 +60,14 @@ export class FormulaComponent implements OnInit {
     }
   }
   if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode));}
-
-
+​
+​
   console.log(this.updatedformula);
   this.selectedElement = null;
-
+​
 }
-
-
+​
+​
 keydown(event, element){
   if(event.keyCode == 13){
   element.costCode = event.target.value;
@@ -74,33 +79,33 @@ keydown(event, element){
     }
   }
   if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode));}
-
-
+​
+​
   // this.updatedformula.push(new Formula(element.name, element.costCode));
   console.log(this.updatedformula);
   this.selectedElement = null;
   }
   }
-
+​
   updateFormula(updatedformula:Formula[]){
     for(let i of updatedformula){
       this.projectservice.updateFormula(i.itemId,i.costCode).subscribe();
       // this.projectservice.
     }
-
+​
   }
-
-
-
+​
+​
+​
   onsubmit(){
     this.updateFormula(this.updatedformula);
-
+​
   }
-
-
-
-
-
+​
+​
+​
+​
+​
   // addColumn(newC: Array<string>) {
   //   for(let name of newC){
   //     var coulmnName = name;
@@ -113,11 +118,11 @@ keydown(event, element){
   //   this.checkformulasource = new MatTableDataSource<any>(Object.assign(this.formulas));
   //   }
   // }
-
+​
   // test(){
   //   this.addColumn(['aaa','bbb'])
   // }
-
-
+​
+​
  
 }
