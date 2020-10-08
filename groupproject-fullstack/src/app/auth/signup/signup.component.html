@@ -1,3 +1,4 @@
+
 <div class="signup">
   <h1>SignUp</h1><br>
     <div>
@@ -67,6 +68,25 @@
             </div>
           </div>
         </div>
+
+
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="confirmPassword"
+            [(ngModel)]="form.confirmPassword"
+            required
+            #confirmPassword="ngModel"
+          />
+          <div class="alert-danger" *ngIf="f.submitted && confirmPassword.invalid">
+            <div *ngIf="confirmPassword.errors.required">Confirm Password is required</div>
+          </div>
+        </div>
+
+        <div *ngIf="isMessage"><span style="font-size: x-small; color:red">{{errorMessage}}</span></div>
 
         <div class="form-group">
             <label for="role">Role</label>
