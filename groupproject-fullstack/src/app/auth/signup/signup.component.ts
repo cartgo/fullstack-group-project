@@ -12,13 +12,15 @@ export class SignupComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-
+  message;
+  isMessage=false;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
+    if(this.form.password===this.form.confirmPassword){
     this.authService.register(this.form).subscribe(
       data => {
         console.log(data);
@@ -32,5 +34,12 @@ export class SignupComponent implements OnInit {
       }
     );
   }
+  else{
+    this.isMessage=true;
+    //this.message = new alert("Passwords does not match, please enter same password");
+    //window.alert(this.message);
+    this.errorMessage="Passwords does not match, please enter same password"
+  }
 
+  }
 }
