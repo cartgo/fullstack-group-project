@@ -4,6 +4,7 @@ import { Validators, FormBuilder, FormGroup, FormControl, FormArray } from '@ang
 import { Template } from './template.model';
 import { FormulaService } from '../service/formula.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { ProjectService } from '../project/project.service';
 
 @Component({
   selector: 'app-template',
@@ -19,18 +20,31 @@ export class TemplateComponent implements OnInit {
   colForm: FormGroup;
   template: Template[];
   getColumnData: string[];
-
-  constructor(private fb: FormBuilder, private formulaService: FormulaService) { }
+  basicColumns=['name','costCode']  
+  columnnames;
+  constructor(private fb: FormBuilder, private formulaService: FormulaService, private projectservice:ProjectService) { }
 
   ngOnInit() {
+
+    this.projectservice.getformula().subscribe(data=>{
+      console.log(data);
+      // this.formulas = data;
+      // var testformula =Object.assign(data)[0].stringExtraColumnMap;
+      this.columnnames = this.basicColumns.concat(Object.keys(Object.assign(data)[0].stringExtraColumnMap))
+      this.getColumnData =this.columnnames
+      console.log(this.getColumnData);
+      this.getColumnData.push("itemId")
+      this.getColumnData.push("editable")
+    })
+  
     this.colForm = this.fb.group({
       columns: this.fb.array([this.getcolumn()])
     });
 
-    this.formulaService.getColumn().subscribe((data) => {
-      //console.log(data);
-      this.getColumnData = data;
-    });
+    // this.formulaService.getColumn().subscribe((data) => {
+    //   //console.log(data);
+    //   this.getColumnData = data;
+    // });
 
   }
 
@@ -64,6 +78,7 @@ export class TemplateComponent implements OnInit {
 
 
  onSubmit():void {
+
     for (var column of this.colForm.value.columns) {
       //let f=column.columnName;
       //let t=column.columnType;
@@ -73,13 +88,23 @@ export class TemplateComponent implements OnInit {
       {
       console.log(column.columnName,column.columnType,column.formula);
       this.displayArray.push(column.columnName);
-      this.formulaService.addColumn(column);
+
+
+
+      let fml;
+      fml = column.formula;
+      if(fml == null){fml = "none"}
+      this.formulaService.addformulacolumn(column.columnType,column.columnName,this.projectservice.selectedProjectCode,fml)
+
+
+
+      // this.formulaService.addColumn(column);
       }
     }
     this.uniqueArray = [...new Set(this.displayArray)];
     console.log(this.uniqueArray);
     this.formulaService.testMethod(this.uniqueArray);
-   
+    console.log(this.formulaService.testMethod2()+"aaaaaaaaaaaaaaaa")
     //window.location.replace('/search/formula');
   }
  

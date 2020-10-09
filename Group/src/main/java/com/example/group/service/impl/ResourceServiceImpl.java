@@ -55,6 +55,6 @@ public class ResourceServiceImpl implements ResourceService {
     private DatabaseUpdates databaseUpdates;
     public void updateResource(String tableName, String columnName,
                         String columnType, String afterColumnName) {
-        databaseUpdates.alterMyTableAddMyColumn(tableName,columnName,columnType, afterColumnName );
+        databaseUpdates.alterMyTableAddMyColumn(tableName,columnName,columnType);
     }
 }

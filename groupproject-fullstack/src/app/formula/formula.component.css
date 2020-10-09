@@ -23,17 +23,16 @@ h3 {
 
 }
 
-/*.fixedtable{
-	 border: 5px solid orange; 
+.fixedtable{
+	/* border: 5px solid orange; */
 
-}*/
+}
 
 
 mat-table {
 	/* border: 5px solid green; */
 
 	width: 125px;  
-	/* // 每个按钮的width=40px，所以列宽比按钮总和略宽即可 */
 }
 
 /* .example-container {
@@ -47,9 +46,9 @@ mat-table {
 	font-size: 11px;
 	font-family: Verdana, Sans-Serif;
 	color: #1a084c;
-	width: 600px ;
+	width: 800px ;
 	
-	height: 300px;
+	height: 500px;
 	overflow: auto;
 }
 mat-header-cell, mat-header-row, .mat-header-cell-def {
@@ -63,6 +62,7 @@ mat-header-cell, mat-header-row, .mat-header-cell-def {
 	position: sticky;
 	z-index: 1;
 	background-color: inherit;
+	width: 800px;
 }
 
 .tableHeader {
@@ -75,6 +75,7 @@ mat-row {
 	font-family: Verdana, sans-serif;
 	font-size: 11px;
 	color: #1a084c;
+	width: 800px;
 }
 mat-cell {
 	height: 25px;

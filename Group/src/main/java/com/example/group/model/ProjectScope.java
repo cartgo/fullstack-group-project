@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 @Table(name = "project_scope")
@@ -28,6 +29,9 @@ public class ProjectScope {
 
 	@Column(name = "project")
 	private int projectCode;
+
+	@Column
+	private String editable="false";
 
 //	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,
 //			CascadeType.PERSIST,CascadeType.REFRESH})
@@ -54,12 +58,13 @@ public class ProjectScope {
 
 
   public ProjectScope(){}
-	public ProjectScope( String name, int costCode, int projectCode ) {
+	public ProjectScope( String name, int costCode, int projectCode ,String editable) {
 //		this.itemId = itemId;
 
 		this.name = name;
 		this.projectCode = projectCode;
 		this.costCode = costCode;
+		this.editable=editable;
 	}
 
 //	public ProjectScope( ProjectResource projectResource ) {
@@ -84,8 +89,15 @@ public class ProjectScope {
 		this.name = name;
 	}
 
+	public String getEditable() {
+		return editable;
+	}
 
-//	public ProjectResource getProjectResource() {
+	public void setEditable(String editable) {
+		this.editable = editable;
+	}
+
+	//	public ProjectResource getProjectResource() {
 //		return projectResource;
 //	}
 //
@@ -118,4 +130,23 @@ public class ProjectScope {
 		return updateTime;
 	}*/
 
+
+
+
+	@ElementCollection(targetClass=ExtraColumn.class)
+	@CollectionTable(name="extra_column" )
+	@MapKeyColumn(name = "field")
+	private Map<String, ExtraColumn> stringExtraColumnMap ;
+
+	public Map<String, ExtraColumn> getStringExtraColumnMap() {
+
+		return stringExtraColumnMap;
+
+	}
+
+	public void setStringExtraColumnMap(Map<String, ExtraColumn> stringExtraColumnMap) {
+
+		this.stringExtraColumnMap = stringExtraColumnMap;
+
+	}
 }

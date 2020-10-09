@@ -3,18 +3,18 @@ package com.example.group.controller;
 import com.example.group.dao.DatabaseUpdates;
 import com.example.group.dao.ProjectResourceRepository;
 import com.example.group.dao.ProjectScopeRepository;
-import com.example.group.model.Project;
-import com.example.group.model.ProjectResource;
-import com.example.group.model.ProjectScope;
-import com.example.group.model.Resource;
+import com.example.group.model.*;
 import com.example.group.service.ProjectScopeService;
 import com.example.group.service.ProjectService;
 import com.example.group.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -78,7 +78,7 @@ public class ProjectScopeController {
                 ProjectScope ps = new ProjectScope(
                         resourceService.findByResourceCode(resourceCode).getResourceName(),
                         resourceCode,
-                        projectCode
+                        projectCode,"false"
                         );
                 return projectScopeService.saveProjectScope(ps);
       }
@@ -91,6 +91,17 @@ public class ProjectScopeController {
         Boolean has = false;
         List<ProjectScope> list = new ArrayList<>();
         for(ProjectScope pr: projectScopeService.findAll()){
+            for(ProjectResource prr: projectService.findByProjectCode(projectCode).getProjectResource()){
+                for(ProjectScope ps: projectScopeService.findAll()){
+                    if (prr.getResource().getResourceName() == ps.getName()){has = true;break;}
+                }
+                if(has == false){
+
+                }
+            }
+
+
+
             if (pr.getProjectCode() == projectCode){
                 has = true;
                 list.add(pr);
@@ -100,7 +111,7 @@ public class ProjectScopeController {
             for(ProjectResource pr:projectService.findByProjectCode(projectCode).getProjectResource()){
                     ProjectScope nps = new ProjectScope(pr.getResource().getResourceName(),
                             pr.getResource().getResourceCode(),
-                            projectCode);
+                            projectCode,"false");
                 projectScopeService.saveProjectScope(nps);
                 list.add(projectScopeService.saveProjectScope(nps));
             }
@@ -120,7 +131,51 @@ public class ProjectScopeController {
     }
 
 
+    @PutMapping("/update")
+    public ProjectScope update(@RequestBody ProjectScope projectScope
+                                   ) {
+        Integer itemId = projectScope.getItemId();
 
+        ProjectScope ps = projectScopeService.findByItemId(itemId);
+        ps.setStringExtraColumnMap(projectScope.getStringExtraColumnMap());
+        ps.setCostCode(projectScope.getCostCode());
+
+        return projectScopeService.saveProjectScope(ps);
+    }
+//
+//    {
+//        "itemId": 6,
+//            "name": "rssss44",
+//            "costCode": 11,
+//            "projectCode": 2,
+//            "stringExtraColumnMap": {
+//        "3ststring": {
+//            "itemId": 0,
+//                    "extraNum": 0,
+//                    "extraString": "",
+//                    "extraFormula": null
+//        },
+//        "4thstring": {
+//            "itemId": 0,
+//                    "extraNum": 0,
+//                    "extraString": "default",
+//                    "extraFormula": null
+//        },
+//        "2ststring": {
+//            "itemId": 0,
+//                    "extraNum": 0,
+//                    "extraString": "",
+//                    "extraFormula": null
+//        },
+//        "1ststring": {
+//            "itemId": 0,
+//                    "extraNum": 0,
+//                    "extraString": "",
+//                    "extraFormula": null
+//        }
+//    }
+//
+//
     @PutMapping("/updateName")
     public ProjectScope updateName(@RequestParam("itemId") int itemId
             , @RequestParam("name") String name) {
@@ -131,15 +186,10 @@ public class ProjectScopeController {
         return projectScopeService.saveProjectScope(ps);
     }
 
-    /*@Transactional
-    @DeleteMapping("/delete")
-    public void deleteByItemId(String itemId){
-        projectScopeService.deleteByItemId(itemId);
-    }*/
+    //////////////////////////////////////////////below to delete////////////////////////////////////////////////////////////////////////
 
     @Autowired
     private DatabaseUpdates databaseUpdates;
-
     @PutMapping("/addcolumn")
     private void addcolumn(
             @RequestParam("columnName") String columnName,
@@ -157,6 +207,85 @@ public class ProjectScopeController {
         databaseUpdates.alterMyTableAddMyColumn(tableName, columnName,
                  columnType);
     }
+/*
+    @PutMapping("/updateIntRecord")
+    private void updateIntRecord(
+            @RequestParam("value") int value,
+            @RequestParam("columnName") String columnName,
+            @RequestParam("item_id") int item_id) {
+        String tableName = "project_scope";
+        databaseUpdates.updateIntRecord(tableName,value,columnName,item_id);
+    }
+    @PutMapping("/updateStringRecord")
+    private void updateStringRecord(
+            @RequestParam("value") String value,
+            @RequestParam("columnName") String columnName,
+            @RequestParam("item_id") int item_id) {
+        String tableName = "project_scope";
+        databaseUpdates.updateStringRecord(tableName,value,columnName,item_id);
+    }
+*/
+/////////////////////////////////////////////above to delete/////////////////////////////////////////////////////////////////////////////
 
- 
-}
+
+
+    @PutMapping("addco")   //in project with projectCode "projectCode", add a column with column name "name", type is "type".
+    private void addco(
+            @RequestParam("type") String type,
+            @RequestParam("name") String name,
+            @RequestParam("formula") String formula,
+            @RequestParam("projectCode") int projectCode
+    ){
+        boolean has = false;
+        List<ProjectScope> list = new ArrayList<>();
+        for(ProjectScope pr: projectScopeService.findAll()){
+            if (pr.getProjectCode() == projectCode){
+                has = true;
+                list.add(pr);
+            }
+        }
+        if(!has){
+            for(ProjectResource pr:projectService.findByProjectCode(projectCode).getProjectResource()){
+                ProjectScope nps = new ProjectScope(pr.getResource().getResourceName(),
+                        pr.getResource().getResourceCode(),
+                        projectCode,"false");
+                projectScopeService.saveProjectScope(nps);
+                list.add(projectScopeService.saveProjectScope(nps));
+            }
+        }
+
+        if(type.equals("Text")){
+             for(ProjectScope ps: list){
+                ExtraColumn extraColumn = new ExtraColumn();
+                extraColumn.setExtraString("input text");
+                extraColumn.setType("Text");
+                Map<String, ExtraColumn> stringmap = ps.getStringExtraColumnMap();
+                stringmap.put(name, extraColumn);
+                 ps.setStringExtraColumnMap(stringmap);
+                 projectScopeService.saveProjectScope(ps);
+            }
+
+        }else if(type.equals("Number")){
+            for(ProjectScope ps: list){
+                ExtraColumn extraColumn = new ExtraColumn();
+//                extraColumn.setExtraNum(new Integer(233));
+                extraColumn.setType("Number");
+                Map<String, ExtraColumn> stringmap = ps.getStringExtraColumnMap();
+                stringmap.put(name, extraColumn);
+                ps.setStringExtraColumnMap(stringmap);
+                projectScopeService.saveProjectScope(ps);
+            }
+        }else{
+            for(ProjectScope ps: list){
+                ExtraColumn extraColumn = new ExtraColumn();
+                extraColumn.setExtraFormula(formula);
+                extraColumn.setType("Formula");
+                Map<String, ExtraColumn> stringmap = ps.getStringExtraColumnMap();
+                stringmap.put(name, extraColumn);
+                ps.setStringExtraColumnMap(stringmap);
+                projectScopeService.saveProjectScope(ps);
+        }
+    }
+
+
+}}
