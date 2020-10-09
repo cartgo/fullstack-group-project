@@ -57,7 +57,7 @@
 													{{((element.stringExtraColumnMap)[column]).extraString  }}  
 											</span>
 											<span *ngIf = "((element.stringExtraColumnMap)[column]).type == 'Number' ">
-												{{((element.stringExtraColumnMap)[column]).extraNum  }}  
+												number:{{((element.stringExtraColumnMap)[column]).extraNum  }}  
 											</span>
 										</span>
 										<mat-form-field *ngIf="selectedElement === element && selectedColumn === column && ((element.stringExtraColumnMap)[column]).type != 'Formula'">
@@ -81,6 +81,9 @@
 
 					</div>
 			</tr>
+			<button  style="background-color:orangered;float: right;"   (click) = "onsubmit()">
+				<font color="#FFFAFA" > √ Submit</font>
+			</button>
 		</table>
     </div>
 </div>
@@ -89,9 +92,7 @@
 	<span style="color:blue; font-size: medium; font-weight: bold;">Edit Quantity Survey Template</span>
 </a>
 
-<button  style="background-color:orangered;float: right;"   (click) = "onsubmit()">
-	<font color="#FFFAFA" > √ Submit</font>
-</button>
+ 
 
 <!-- <button (click) = test()>
 	test

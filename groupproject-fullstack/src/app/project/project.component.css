@@ -20,6 +20,7 @@ h3 {
 	/* width: 100%; */
 	/* justify-content: space-evenly; */
 	/* border: 5px solid red; */
+	float: right
 
 }
 
@@ -89,3 +90,15 @@ mat-grid-tile {
 	background: lightblue;
 	margin-left: -600px;
 }
+.tableHeader {
+	background-color: darkgray;
+  }
+
+.mat-header-cell{
+	background-color: rgb(241, 244, 245);
+  }
+
+.material-icons { float:right
+;
+background-color: orangered;
+ }
