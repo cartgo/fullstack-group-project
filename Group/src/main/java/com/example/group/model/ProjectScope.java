@@ -17,7 +17,8 @@ public class ProjectScope {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int itemId;
-    
+	@Column
+	private String editable="false";
 
 	@Column(name="name")
 	private String name;
@@ -55,12 +56,14 @@ public class ProjectScope {
 
 
   public ProjectScope(){}
-	public ProjectScope( String name, int costCode, int projectCode ) {
+	public ProjectScope( String name, int costCode, int projectCode ,String editable){
 //		this.itemId = itemId;
 
 		this.name = name;
 		this.projectCode = projectCode;
 		this.costCode = costCode;
+		this.editable=editable;
+
 	}
 
 //	public ProjectScope( ProjectResource projectResource ) {
@@ -68,7 +71,13 @@ public class ProjectScope {
 //		this.projectResource = projectResource;
 //
 //	}
+public String getEditable() {
+	return editable;
+}
 
+	public void setEditable(String editable) {
+		this.editable = editable;
+	}
 	public int getItemId() {
 		return itemId;
 	}

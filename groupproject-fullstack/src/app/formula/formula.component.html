@@ -36,8 +36,17 @@
 											>
 										</mat-form-field>
 									</div>
-
-									<div *ngIf="column!='costCode' && column!= 'name' " >
+									<div *ngIf="column=='itemId' ">
+										<span>
+											{{element[column]}}  
+										</span>
+									</div>
+									<div *ngIf="column=='editable' ">
+										<span>
+											{{element[column]}}  
+										</span>
+									</div>
+									<div *ngIf="column!='costCode' && column!= 'name' && column!='itemId' && column!='editable'" >
 										<span *ngIf = "((element.stringExtraColumnMap)[column]).type == 'Formula' ">
 											{{((element.stringExtraColumnMap)[column]).extraFormula  }}  
 										</span> 
