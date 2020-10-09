@@ -29,29 +29,16 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 export class ProjectComponent  implements OnInit {
 
   constructor(public projectservice: ProjectService, public http:HttpClient,public resourceservice:ResourceService ,
-    // public projectservice: ProjectService,
     public route: ActivatedRoute
-    // private authService: AuthService
   ) {
-	console.log(this.data);
-    // private projectservice
-    console.log(123)
   }
    
- 
- 
 
-//    allresourcedata: Resource[]; 
-//    resourcedata2:Resource[]; 
-
-
-//    resourcedata: Resource[];  
    projectResource; 
    projectdata 
    listResource:[]=[];
    discardList:[]=[];
    checkedData =[];
-	//   sth;
 	  
   private authStatusSub: Subscription;
   isLoading = false;
@@ -68,7 +55,7 @@ export class ProjectComponent  implements OnInit {
 		console.log(123)
 
 		this.projectservice.getResource2().subscribe(projectr=> {
-			console.log(projectr),
+			console.log("oninit get project resourceee:"+projectr),
 			this.projectResource = projectr;
 			this.checkedData = Object.assign(this.projectResource);
 			this.checkedDataSource = new MatTableDataSource<any>(Object.assign(this.projectResource));
@@ -115,8 +102,7 @@ export class ProjectComponent  implements OnInit {
 
 
   dataList = this.projectservice.projects;
-  foods: Project[] = this.projectservice.projects;
-  
+   
 
 	tab = 1;
 	keepSorted = true;
@@ -308,9 +294,12 @@ transferSelectedRows() {
 	
 	this.checkedData.push(this.uncheckedData[index]);
 	  console.log('AFTER PUSH ----'+ JSON.stringify(this.checkedData))
-	
+	  console.log("---------------------------297")
+
 	// this.checkedData.push(item);
 	this.uncheckedData.splice(index,1);
+	console.log("---------------------------301")
+
 	// for(let i of this.uncheckedData){
 	// 	if (i ===item){this.uncheckedData.splice(this.uncheckedData.indexOf(i),1)}
 	// }
@@ -338,6 +327,8 @@ removeSelectedRows() {
 	this.checkedData.splice(index,1);
 
   });
+  console.log('AFTER PUSH BBBBBACK ----'+ JSON.stringify(this.checkedData))
+
   this.checkedSelection = new SelectionModel<Resource>(true, []);
   this.dataSource = new MatTableDataSource<Resource>(this.uncheckedData);
   this.checkedDataSource = new MatTableDataSource<Resource>(Object.assign(this.checkedData));
@@ -361,32 +352,65 @@ masterCheckedToggle() {
 }
 
 
+
+
+// submit3(){
+// 	console.log("---------------------------364")
+// 	this.projectservice.http.delete("http://localhost:8080/project/deleteAllProjectResource?projectCode="+
+// 	this.projectservice.selectedProjectCode).subscribe();
+// 	console.log("cleared"+JSON.stringify(this.checkedData))
+// 	console.log("---------------------------368")
+// 	for (let i of this.getsubmit()){
+// 				this.http.put<Resource>("http://localhost:8080/project/addResource?resourceCode="+i+ "&projectCode="+this.projectservice.selectedProjectCode+
+// 				"&userId="+this.projectservice.uId,{}).subscribe();
+// 				console.log("---------------------------372")
+
+// 					// data => {this.projectservice.resources.push(data);
+// 					// console.log("added"+JSON.stringify(data))})
+// 				this.projectservice.getResource2().subscribe(projectr=> {
+// 						console.log("notlastttt"+projectr)})
+// 						console.log("---------------------------374")
+// 				this.projectservice.getResource2().subscribe(projectr=> {
+// 					console.log("lllllllllllast"+projectr)})
+// 					console.log("---------------------------379")
+// 				}
+				
+//  console.log(JSON.stringify(this.checkedData)+"_______________last")
+// } 
+
 getsubmit(){
 	let ids:string[]=[]
 	for (let i of this.checkedData){
 		ids.push(i.resourceCode)
-	}console.log("get id:"+ids)
+	}
+	console.log("get id:"+ids)
+	console.log("---------------------------355")
 	return ids;
 }
  
 
 submit(){
+	console.log("---------------------------1")
+
 	this.projectservice.http.delete("http://localhost:8080/project/deleteAllProjectResource?projectCode="+
-	this.projectservice.selectedProjectCode).subscribe();
-	console.log("cleared"+JSON.stringify(this.checkedData))
-
-	for (let i of this.getsubmit()){
-				this.http.put<Resource>("http://localhost:8080/project/addResource?resourceCode="+i+ "&projectCode="+this.projectservice.selectedProjectCode+
-				"&userId="+this.projectservice.uId,{}).subscribe();
-					// data => {this.projectservice.resources.push(data);
-					// console.log("added"+JSON.stringify(data))})
-				this.projectservice.getResource2().subscribe(projectr=> {
-						console.log(projectr)})
-
-				}
+	this.projectservice.selectedProjectCode).subscribe(data=>
+		{console.log(data);
 
 
-} 
 
+
+console.log(this.getsubmit());
+
+for (let i of this.getsubmit()){
+					this.http.put<Resource>("http://localhost:8080/project/addResource?resourceCode="+i+ "&projectCode="+this.projectservice.selectedProjectCode+
+					"&userId="+this.projectservice.uId,{}).subscribe( );}
+		
+		
+		
+		
+		
+})
+
+}
 
 }

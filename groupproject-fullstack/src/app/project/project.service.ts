@@ -121,10 +121,10 @@ updateFormula(formula:Formula){
   //http://localhost:8080/projectScope/updateCostCode?itemId=1&costCode=2333
 }
 
-addformulacolumn(type, name, projectCode){
-  let api = "http://localhost:8080/projectScope/addco?type="+type+"&name="+name+"b&projectCode="+this.selectedProjectCode
-  this.http.put(api,{}).subscribe();
-}
+// addformulacolumn(type, name, projectCode){
+//   let api = "http://localhost:8080/projectScope/addco?type="+type+"&name="+name+"&projectCode="+this.selectedProjectCode
+//   this.http.put(api,{}).subscribe();
+// }
 
 
 }

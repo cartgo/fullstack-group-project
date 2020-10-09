@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { prototype } from 'events';
@@ -11,7 +11,8 @@ import { FormulaService } from '../service/formula.service';
 import { ResourceService } from '../service/resource.service';
 import { Extra } from './extra.model';
 import { Formula } from './formula.model';
- 
+import {MatPaginator } from '@angular/material/paginator';
+
 @Component({
   selector: 'app-formula',
   templateUrl: './formula.component.html',
@@ -58,11 +59,18 @@ test = [];
               console.log(this.formulaservice.testMethod2()+"aaaaaaaaaaaaaaaa")
               console.log(this.testarray+"bbbbbbbbbbbbbbbbbbbbbbbbb")
               if(this.testarray.length >0 ){this.displayedColumns = this.testarray}
+              this.checkformulasource.paginator = this.checkedpaginator;
+
               })
     console.log(456)
    }
 
+   @ViewChild('checkedpaginator') checkedpaginator: MatPaginator;
+   ngAfterViewInit() {
+     this.checkformulasource.paginator = this.checkedpaginator;
+  }
 
+  
   focusout(x, element,column){
     
   element.costCode = x;
