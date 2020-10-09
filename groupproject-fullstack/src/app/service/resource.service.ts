@@ -5,6 +5,7 @@ import { Resource } from '../resource/resource.model';
 import { Subscription } from 'rxjs';
 
 const API_URL = 'http://localhost:8080/resource/';
+const API_URL1 = 'http://localhost:8080/projectScope/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -38,4 +39,10 @@ export class ResourceService {
   deleteAllResource(): Observable<any> {
     return this.http.get(API_URL + 'deleteAll');
   }
+
+  // http://localhost:8080/projectScope/resource/addcolumn?columnName=Hola1
+  addColumn(coulmnName : string) {
+    return this.http.put(API_URL1 + 'resource/addcolumn' +
+    '?columnName='+ coulmnName, httpOptions)
+  } 
 }

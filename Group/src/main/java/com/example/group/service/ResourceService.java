@@ -13,6 +13,7 @@ public interface ResourceService {
     List<Resource> findAll();
     void deleteByResourceCode(int resourceCode);
     void deleteAll();
-    void updateResource(String tableName, String columnName,
-                        String columnType, String afterColumnName);
+
+    boolean existsResourceByResourceCode(int resourceCode);
+
 }

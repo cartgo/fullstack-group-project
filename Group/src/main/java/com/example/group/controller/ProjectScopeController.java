@@ -52,8 +52,10 @@ public class ProjectScopeController {
 
     @Autowired
     ProjectResourceRepository projectResourceRepository;
+
     @Autowired
     ProjectScopeRepository projectScopeRepository;
+
     @Autowired
     ResourceService resourceService;
 //    @GetMapping("/findByProjectResource")
@@ -282,42 +284,42 @@ public class ProjectScopeController {
 
     //////////////////////////////////////////////below to delete////////////////////////////////////////////////////////////////////////
 
-    @Autowired
-    private DatabaseUpdates databaseUpdates;
-    @PutMapping("/addcolumn")
-    private void addcolumn(
-            @RequestParam("columnName") String columnName,
-            @RequestParam("columnType") String columnType
-            //@RequestParam("afterColumnName") String afterColumnName
-
-    ) {
-
-        // some logic that checks it the update needs to happen is here
-        String tableName = "project_scope";
-//        String columnName = "my_column";
-//        String columnType = "VARCHAR(100)";
-//        String afterColumnName = "after_column";//this is after which column you want to add new column --mingyan
-
-        databaseUpdates.alterMyTableAddMyColumn(tableName, columnName,
-                 columnType);
-    }
-
-    @PutMapping("/updateIntRecord")
-    private void updateIntRecord(
-            @RequestParam("value") int value,
-            @RequestParam("columnName") String columnName,
-            @RequestParam("item_id") int item_id) {
-        String tableName = "project_scope";
-        databaseUpdates.updateIntRecord(tableName,value,columnName,item_id);
-    }
-    @PutMapping("/updateStringRecord")
-    private void updateStringRecord(
-            @RequestParam("value") String value,
-            @RequestParam("columnName") String columnName,
-            @RequestParam("item_id") int item_id) {
-        String tableName = "project_scope";
-        databaseUpdates.updateStringRecord(tableName,value,columnName,item_id);
-    }
+//    @Autowired
+//    private DatabaseUpdates databaseUpdates;
+//    @PutMapping("/addcolumn")
+//    private void addcolumn(
+//            @RequestParam("columnName") String columnName,
+//            @RequestParam("columnType") String columnType
+//            //@RequestParam("afterColumnName") String afterColumnName
+//
+//    ) {
+//
+//        // some logic that checks it the update needs to happen is here
+//        String tableName = "project_scope";
+////        String columnName = "my_column";
+////        String columnType = "VARCHAR(100)";
+////        String afterColumnName = "after_column";//this is after which column you want to add new column --mingyan
+//
+//        databaseUpdates.alterMyTableAddMyColumn(tableName, columnName,
+//                 columnType);
+//    }
+//
+//    @PutMapping("/updateIntRecord")
+//    private void updateIntRecord(
+//            @RequestParam("value") int value,
+//            @RequestParam("columnName") String columnName,
+//            @RequestParam("item_id") int item_id) {
+//        String tableName = "project_scope";
+//        databaseUpdates.updateIntRecord(tableName,value,columnName,item_id);
+//    }
+//    @PutMapping("/updateStringRecord")
+//    private void updateStringRecord(
+//            @RequestParam("value") String value,
+//            @RequestParam("columnName") String columnName,
+//            @RequestParam("item_id") int item_id) {
+//        String tableName = "project_scope";
+//        databaseUpdates.updateStringRecord(tableName,value,columnName,item_id);
+//    }
 
 /////////////////////////////////////////////above to delete/////////////////////////////////////////////////////////////////////////////
 
@@ -382,4 +384,61 @@ public class ProjectScopeController {
     }
 
 
-}}
+}
+
+
+    @PutMapping("/resource/addco")
+    private void resourceaddco(
+            @RequestParam("columnName") String columnName,
+            @RequestParam("resourceCode") int resourceCode
+    ) {
+//the npe happened in the below
+        if (resourceService.existsResourceByResourceCode(resourceCode)) {
+            System.out.println("resource code exists!");
+            ExtraColumn extraColumn = new ExtraColumn();
+            extraColumn.setExtraString("input text");
+            Resource resource = resourceService.findByResourceCode(resourceCode);
+            Map<String, ExtraColumn> stringMap =  resource.getStringExtraColumnMap();
+            stringMap.put(columnName, extraColumn);
+            resource.setStringExtraColumnMap(stringMap);
+            resourceService.saveResource(resource);
+
+        }
+    }
+
+    @PutMapping("/resource/addco1")   //in project with projectCode "projectCode", add a column with column name "name", type is "type".
+    private void resourceaddco1(
+            @RequestParam("name") String name
+    ){
+        List<Resource> resourcelist =  resourceService.findAll();
+        for(Resource ps: resourcelist){
+            ExtraColumn extraColumn = new ExtraColumn();
+            extraColumn.setExtraString("input text");
+            Map<String, ExtraColumn> stringmap = ps.getStringExtraColumnMap();
+            stringmap.put(name, extraColumn);
+            ps.setStringExtraColumnMap(stringmap);
+            resourceService.saveResource(ps);
+        }
+    }
+
+    // method using jpa query yichun uses at resource page
+    @Autowired
+    private DatabaseUpdates databaseUpdates;
+    @PutMapping("/resource/addcolumn")
+    private void resourceaddcolumn(
+            @RequestParam("columnName") String columnName
+
+            //@RequestParam("afterColumnName") String afterColumnName
+
+    ) {
+
+        // some logic that checks it the update needs to happen is here
+        String tableName = "resource";
+//        String columnName = "my_column";
+//        String columnType = "VARCHAR(100)";
+//        String afterColumnName = "after_column";//this is after which column you want to add new column --mingyan
+
+        databaseUpdates.alterResourceAddMyColumn(tableName, columnName
+                 );
+    }
+}

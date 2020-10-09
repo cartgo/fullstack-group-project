@@ -51,10 +51,15 @@ public class ResourceServiceImpl implements ResourceService {
         return resourceRepository.findAll();
     }
 
-    @Autowired
-    private DatabaseUpdates databaseUpdates;
-    public void updateResource(String tableName, String columnName,
-                        String columnType, String afterColumnName) {
-        databaseUpdates.alterMyTableAddMyColumn(tableName,columnName,columnType, afterColumnName );
+//    @Autowired
+//    private DatabaseUpdates databaseUpdates;
+//    public void updateResource(String tableName, String columnName,
+//                        String columnType, String afterColumnName) {
+//        databaseUpdates.alterMyTableAddMyColumn(tableName,columnName,columnType, afterColumnName );
+//    }
+
+    @Override
+    public boolean existsResourceByResourceCode(int resourceCode) {
+        return resourceRepository.existsResourceByResourceCode(resourceCode);
     }
 }

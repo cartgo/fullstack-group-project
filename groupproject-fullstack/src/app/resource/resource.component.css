@@ -9,16 +9,18 @@ table {
   background-color: darkgray;
 }
 /* test */
-.filler {
+.filler1 {
   flex: 11 auto;
-  margin-right: 300px;
+  margin-right: 450px;
 }
-​
-.gap {
+.filler2 {
+  flex: 11 auto;
+  margin-right: 500px;
+}
+​ .gap {
   margin-right: 20px;
 }
-​
-.moregap {
+​ .moregap {
   margin-right: 150px;
 }
 #search {

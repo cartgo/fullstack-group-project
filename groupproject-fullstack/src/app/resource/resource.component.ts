@@ -1,10 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
 import { ResourceService } from '../service/resource.service';
 import { Resource } from './resource.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { NewResource } from './newResource.model';
 import * as XLSX from 'xlsx';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
+ import {MatPaginator } from '@angular/material/paginator';
 
 type AOA = any[][];
 
@@ -13,7 +16,7 @@ type AOA = any[][];
   templateUrl: './resource.component.html',
   styleUrls: ['./resource.component.css'],
 })
-export class ResourceComponent implements OnInit {
+export class ResourceComponent implements OnInit, AfterViewInit{
   listResource: Resource[];
   addColumnList: Resource[];
   dataSource;
@@ -47,9 +50,16 @@ export class ResourceComponent implements OnInit {
       console.log(this.listResource);
       this.addColumnList = resourceData;
       this.dataSource = new MatTableDataSource(this.listResource); // dataSource is not iterable
+      this.dataSource.paginator = this.paginator
     });
   }
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+   
+  }
   // change dom structure way: not used
   // addRow() {
   //   let row = document.createElement('div');
@@ -122,6 +132,13 @@ export class ResourceComponent implements OnInit {
 
   addColumn() {
     var coulmnName = prompt('Name of New Column');
+    console.log(typeof coulmnName);
+    this.resourceService.addColumn(coulmnName).subscribe(
+      (data) => console.log(data),
+      (error) => {
+        window.location.reload();
+      }
+    );
     console.log(coulmnName);
     //: string[] = ['resourceCode', 'resourceName', ' '];
 
@@ -151,7 +168,12 @@ export class ResourceComponent implements OnInit {
     console.log(replace);
     if (replace) {
       //overwrite all the existing records
-      this.resourceService.deleteAllResource();
+      this.resourceService.deleteAllResource().subscribe (
+        (data) => console.log(data),
+        (error) => {
+          window.location.reload();
+        }
+      );
       /* wire up file reader */
       console.log(' upload');
       const target: DataTransfer = <DataTransfer>evt.target; // target is a file list
