@@ -78,7 +78,7 @@ public class ProjectScopeController {
                 ProjectScope ps = new ProjectScope(
                         resourceService.findByResourceCode(resourceCode).getResourceName(),
                         resourceCode,
-                        projectCode
+                        projectCode,"false"
                         );
                 return projectScopeService.saveProjectScope(ps);
       }
@@ -111,13 +111,107 @@ public class ProjectScopeController {
             for(ProjectResource pr:projectService.findByProjectCode(projectCode).getProjectResource()){
                     ProjectScope nps = new ProjectScope(pr.getResource().getResourceName(),
                             pr.getResource().getResourceCode(),
-                            projectCode);
-                projectScopeService.saveProjectScope(nps);
+                            projectCode,"false");
+                    projectScopeService.saveProjectScope(nps);
                 list.add(projectScopeService.saveProjectScope(nps));
             }
         }
         return list;
     }
+
+
+
+
+
+//    @GetMapping("/findByProjectCode")
+//    public List<ProjectScope> findByProjectCode(
+//            @RequestParam("projectCode") int projectCode) {
+//
+//        List<ProjectResource> prList = projectService.findByProjectCode(projectCode).getProjectResource();
+//        List<ProjectScope> list = new ArrayList<>();
+//        for(ProjectScope ps: projectScopeService.findAll()){
+//            if (ps.getProjectCode() == projectCode) {
+//                list.add(ps);}
+//        };
+//        if(list.size() == 0){
+//            for(ProjectResource pr: prList){
+//                ProjectScope ps = new ProjectScope();
+//                ps.setProjectCode(projectCode);
+//                ps.setName(pr.getResource().getResourceName());
+//                ps.setCostCode(pr.getResource().getResourceCode());
+//                ExtraColumn es = new ExtraColumn();
+//                HashMap<String, ExtraColumn> mp= new HashMap<>();
+//                ps.setStringExtraColumnMap(mp);
+//
+//                projectScopeService.saveProjectScope(ps);
+//                list.add(ps);
+//            }return list;
+//        }
+//        ProjectScope samplePS = list.get(0);
+//
+////    samplePS.getStringExtraColumnMap().keySet();
+//        Map<String, ExtraColumn> sampleMap =null;
+//
+//        if (samplePS.getStringExtraColumnMap()!= null){
+//        if(        samplePS.getStringExtraColumnMap().keySet().size()>0){
+//        for(String s: samplePS.getStringExtraColumnMap().keySet()){
+//            ExtraColumn ec = new ExtraColumn();
+//            ec.setType(samplePS.getStringExtraColumnMap().get(s).getType());
+//            sampleMap.put(s, ec);
+//
+//        }}}
+//
+//        for(ProjectResource i: prList){
+//            boolean has = false;
+//            for(ProjectScope j: list){
+//                if(j.getName().equals(i.getResource().getResourceName())){
+//                    has = true;break;}
+//
+//            }
+//            if (!has){
+//                ProjectScope ps = new ProjectScope();
+//                ps.setProjectCode(projectCode);
+//                ps.setName(i.getResource().getResourceName());
+//                ps.setCostCode(i.getResource().getResourceCode());
+//                if(sampleMap != null){
+//                ps.setStringExtraColumnMap(sampleMap);}
+//                projectScopeService.saveProjectScope(ps);
+//                list.add(ps);
+//            }
+//
+//        }
+//        return list;
+//    }
+
+////        boolean has = false;
+//        List<ProjectScope> list = new ArrayList<>();
+//        for(ProjectScope ps: projectScopeService.findAll()){
+//            if (ps.getProjectCode() == projectCode) {list.add(ps);}
+//        };
+//        List<ProjectResource> prList = projectService.findByProjectCode(projectCode).getProjectResource();
+//        for(ProjectResource pr: prList){
+//            boolean has = false;
+//            for(ProjectScope ps: list ){
+//                if(ps.getName() == pr.getResource().getResourceName()){
+//                    has = true;}
+//
+//        }
+//
+//
+//            if (has == false){
+//                ProjectScope newps = new ProjectScope();
+//                newps.setCostCode(pr.getResource().getResourceCode());
+//                newps.setName(pr.getResource().getResourceName());
+//                newps.setProjectCode(projectCode);
+//                projectScopeService.saveProjectScope(newps);
+//                list.add(newps);
+//            }
+//
+//
+//    }
+//    return list;}
+//
+
 
 
     @PutMapping("/updateCostCode")
@@ -248,7 +342,7 @@ public class ProjectScopeController {
             for(ProjectResource pr:projectService.findByProjectCode(projectCode).getProjectResource()){
                 ProjectScope nps = new ProjectScope(pr.getResource().getResourceName(),
                         pr.getResource().getResourceCode(),
-                        projectCode);
+                        projectCode,"false");
                 projectScopeService.saveProjectScope(nps);
                 list.add(projectScopeService.saveProjectScope(nps));
             }

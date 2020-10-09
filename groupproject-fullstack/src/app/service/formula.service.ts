@@ -59,7 +59,7 @@ export class FormulaService {
 
   ​
     ​addformulacolumn(type, name, projectCode,formula){
-      let api = "http://localhost:8080/projectScope/addco?type="+type+"&name="+name+"b&projectCode="+this.selectedProjectCode+"&formula="+formula
+      let api = "http://localhost:8080/projectScope/addco?type="+type+"&name="+name+"&projectCode="+this.selectedProjectCode+"&formula="+formula
       this.http.put(api,{}).subscribe();
     }
 

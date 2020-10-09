@@ -82,7 +82,7 @@ test = [];
       break;
     }
   }
-  if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode,
+  if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode,element.editable,
     element.stringExtraColumnMap));}
 
 
@@ -107,8 +107,8 @@ keydown(event, element,column){
       break;
     }
   }
-  if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode,
-  element.stringExtraColumnMap));}
+  if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode,element.editable,
+    element.stringExtraColumnMap));}
 
 
   // this.updatedformula.push(new Formula(element.name, element.costCode));
@@ -148,7 +148,7 @@ keydown(event, element,column){
     }
 
 
-    if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode,map));}
+    if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode,element.editable,map));}
   
   
     // this.updatedformula.push(new Formula(element.name, element.costCode));
@@ -176,7 +176,7 @@ keydown(event, element,column){
         }
       }
   
-    if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode,map));}
+      if(has == false){this.updatedformula.push(new Formula(element.itemId, element.name, element.costCode,element.editable,map));}
   
   
     console.log(this.updatedformula);

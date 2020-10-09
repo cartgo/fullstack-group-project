@@ -32,10 +32,13 @@ export class TemplateComponent implements OnInit {
       // var testformula =Object.assign(data)[0].stringExtraColumnMap;
       this.columnnames = this.basicColumns.concat(Object.keys(Object.assign(data)[0].stringExtraColumnMap))
       this.getColumnData =this.columnnames
+      console.log(this.getColumnData);
+      this.getColumnData.push("itemId")
+      this.getColumnData.push("editable")
     })
   
 
-
+ 
 
 
     this.colForm = this.fb.group({
@@ -111,6 +114,7 @@ export class TemplateComponent implements OnInit {
     }
     this.uniqueArray = [...new Set(this.displayArray)];
     console.log(this.uniqueArray);
+    // this.projectservice.http.put("http://localhost:8080/project/savecolumninfo?projectCode="+this.formulaService.selectedProjectCode, JSON.stringify(this.uniqueArray)).subscribe();
     this.formulaService.testMethod(this.uniqueArray);
     console.log(this.formulaService.testMethod2()+"aaaaaaaaaaaaaaaa")
     //window.location.replace('/search/formula');
