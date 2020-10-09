@@ -2,23 +2,31 @@ package com.example.group.controller;
 
 
 import com.example.group.dao.DatabaseUpdates;
+import com.example.group.dao.ResourceRepository;
+import com.example.group.model.ExtraColumn;
 import com.example.group.model.Resource;
 import com.example.group.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@CrossOrigin 
+@CrossOrigin
+
 @RequestMapping("/resource")
 public class ResourceController {
 
 
     @Autowired
     private ResourceService resourceService;
+
+    @Autowired
+    private ResourceRepository resourceRepository;
     
     @GetMapping("/getAll")
     public List<Resource> getAllResources() {
@@ -88,18 +96,51 @@ public class ResourceController {
 
 //    @Autowired
 //    private DatabaseUpdates databaseUpdates;
-    @PostMapping("/addcolumn")
-    private void addcolumn(
- 
+//    @PostMapping("/addcolumn")
+//    private void addcolumn(
+//
+//
+//    ) {
+//        String tableName = "resource";
+////        String columnType = "VARCHAR(100)";
+////        String afterColumnName = "resource_name"; //this is after which column you want to add new column --mingyan
+//
+//
+////        resourceService.updateResource("resource", "newColumn",
+////                "varchar(100)", "resource_name");
 
+    @PutMapping("/addco")
+    private void addco(
+            @RequestParam("columnName") String columnName,
+            @RequestParam("resourceCode") int resourceCode
     ) {
-        String tableName = "resource";
-//        String columnType = "VARCHAR(100)";
-//        String afterColumnName = "resource_name"; //this is after which column you want to add new column --mingyan
+//the npe happened in the below if statement
+        if (resourceRepository.existsResourceByResourceCode(resourceCode)) {
+            System.out.println("resource code exists!");
+            ExtraColumn extraColumn = new ExtraColumn();
+            extraColumn.setExtraString("input text");
+            Resource resource = resourceRepository.findByResourceCode(resourceCode);
+            Map<String, ExtraColumn> stringMap =  resource.getStringExtraColumnMap();
+            stringMap.put(columnName, extraColumn);
+            resource.setStringExtraColumnMap(stringMap);
+            resourceService.saveResource(resource);
 
- 
-        resourceService.updateResource("resource", "newColumn",
-                "varchar(100)", "resource_name");
- 
+        }
     }
+
+    @PutMapping("/addco1")   //in project with projectCode "projectCode", add a column with column name "name", type is "type".
+    private void addco1(
+            @RequestParam("name") String name
+    ){
+        List<Resource> resourcelist =  resourceService.findAll();
+        for(Resource ps: resourcelist){
+            ExtraColumn extraColumn = new ExtraColumn();
+            extraColumn.setExtraString("input text");
+            Map<String, ExtraColumn> stringmap = ps.getStringExtraColumnMap();
+            stringmap.put(name, extraColumn);
+            ps.setStringExtraColumnMap(stringmap);
+            resourceService.saveResource(ps);
+        }
+    }
+
 }

@@ -70,14 +70,14 @@
 </table> -->
 <div class="container">
   <div class="tableHeader" layout="row" layout-xs="column">
-    <input matInput (keyup)="applyFilter($event)" placeholder="Keyword" />
+    <input style="background-color: white; size: 10;" matInput (keyup)="applyFilter($event)" placeholder="Keyword" />
 
     <span class="material-icons" id="search"> search </span>
 
-    <span class="filler"> </span>
+    <span class="filler1"> </span>
 
     <span>Resource Catalog</span>
-    <span class="filler"> </span>
+    <span class="filler2"> </span>
     <span class="gap"> </span>
     <span class="moregap"> </span>
     <span class="material-icons" id="add_box"> add_box </span>
@@ -147,7 +147,12 @@
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+
+    
   </table>
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+  
 
   <div class="example-button-row">
     <button mat-raised-button color="primary" (click)="addNewResource1()">

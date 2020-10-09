@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "resource",uniqueConstraints = {
@@ -82,5 +83,23 @@ public class Resource {
 
 	public void setProjectResource(List<ProjectResource> projectResource) {
 		this.projectResource = projectResource;
+	}
+
+
+	@ElementCollection(targetClass=ExtraColumn.class)
+	@CollectionTable(name="extra_column" )
+	@MapKeyColumn(name = "field")
+	private Map<String, ExtraColumn> stringExtraColumnMap ;
+
+	public Map<String, ExtraColumn> getStringExtraColumnMap() {
+
+		return stringExtraColumnMap;
+
+	}
+
+	public void setStringExtraColumnMap(Map<String, ExtraColumn> stringExtraColumnMap) {
+
+		this.stringExtraColumnMap = stringExtraColumnMap;
+
 	}
 }

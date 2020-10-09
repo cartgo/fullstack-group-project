@@ -20,4 +20,15 @@ public class DatabaseUpdates{
 
         entityManager.createNativeQuery(query).executeUpdate();
     }
+
+    @Transactional
+    public void alterResourceAddMyColumn(String tableName, String columnName
+
+                                        ) {
+
+        String query = "ALTER TABLE `" + tableName + "` ADD COLUMN `" + columnName + "` " +
+                "varchar(100)";
+
+        entityManager.createNativeQuery(query).executeUpdate();
+    }
 }
