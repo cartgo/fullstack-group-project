@@ -52,7 +52,8 @@
 											</span>
 										</span>
 										<mat-form-field *ngIf="selectedElement === element && selectedColumn === column && ((element.stringExtraColumnMap)[column]).type != 'Formula'">
-											<input matInput [value]="((element.stringExtraColumnMap)[column]).extraString" 
+											<input 
+											matInput [value]="((element.stringExtraColumnMap)[column]).extraString" 
 											placeholder= "{{ column }}"
 											(focusout)="focusout2($event.target.value,element,column,(element.stringExtraColumnMap))"
 											
@@ -66,6 +67,9 @@
 							<mat-row *matRowDef="let row; columns: displayedColumns;">
 							</mat-row> 
 						</mat-table>
+						<mat-paginator #checkedpaginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">        </mat-paginator>
+
+
 					</div>
 			</tr>
 		</table>
